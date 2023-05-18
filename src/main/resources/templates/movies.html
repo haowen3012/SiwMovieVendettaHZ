@@ -3,7 +3,7 @@
 
 <head>
 	<title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" th:href="@{/css/movie.css}" />
 </head>
 
 <body>
@@ -11,7 +11,11 @@
 	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 	<h1>Film</h1>
 	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
-	<div id="post" >
+	<div id="wrapper">
+		<div id="luce"></div>
+		<div id="light"></div>
+	</div>
+	<div id="post" th:each="movie: ${movies}" >
 		<div class="tape-left">
 
 			<div></div>
@@ -28,7 +32,7 @@
 			<div class="top-padding"></div>
 			<div class="upper-bound"></div>
 			<div class="movie">
-				<img  class="movie-image" th:src="${movie.urlImage}">
+				<img  class="movie-image" th:src=${movie.urlImage} >
 				<h1 class="title" th:text="${movie.title}">Iron Man</h1>
 				<h2 class="release-date" th:text="${movie.year}">20 December 2019</h2>
 				<div class="director-section">

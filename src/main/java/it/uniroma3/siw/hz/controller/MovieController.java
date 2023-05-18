@@ -101,11 +101,11 @@ public class MovieController {
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
 		
-    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+    /*	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());*/
 
 		model.addAttribute("movies", this.movieService.getAllMovies());
-		model.addAttribute("user", credentials.getUser());
+		/*model.addAttribute("user", credentials.getUser());*/
 		return "movies.html";
 	}
 	
