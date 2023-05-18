@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Film</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Film</h1>
+	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
+	<div id="post" >
+		<div class="tape-left">
+
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+
+		</div>
+
+		<div class="center">
+			<div class="top-padding"></div>
+			<div class="upper-bound"></div>
+			<div class="movie">
+				<img  class="movie-image" th:src="${movie.urlImage}">
+				<h1 class="title" th:text="${movie.title}">Iron Man</h1>
+				<h2 class="release-date" th:text="${movie.year}">20 December 2019</h2>
+				<div class="director-section">
+					<h3 class="director">Directed By</h3>
+					<div></div>
+				</div>
+				<div class="actors">
+					<div class="actor"></div>
+					<div class="actor"></div>
+					<div class="actor"></div>
+					<div class="actor"></div>
+					<div class="actor"></div>
+					<div class="actor"></div>
+					<div class="actor"></div>
+					<div class="actor"></div>
+				</div>
+			</div>
+
+			<div class="lower-bound">
+			</div>
+			<div class="lower-padding"></div>
+		</div>
+		<div class="tape-right">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>

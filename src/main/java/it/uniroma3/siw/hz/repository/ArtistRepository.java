@@ -21,4 +21,6 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 	public Iterable<Artist> findActorsNotInMovie(@Param("movieId") Long id);
 
 
+
+
 }

@@ -20,6 +20,8 @@ public class Artist {
 
 	private String name;
 	private String surname;
+
+	private String photo;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
@@ -30,6 +32,7 @@ public class Artist {
 	
 	@OneToMany(mappedBy="director")
 	private List<Movie> directedMovies;
+
 	
 	public Artist(){
 		this.starredMovies = new HashSet<>();
@@ -59,7 +62,31 @@ public class Artist {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public Set<Movie> getStarredMovies() {
+		return starredMovies;
+	}
+
+	public void setStarredMovies(Set<Movie> starredMovies) {
+		this.starredMovies = starredMovies;
+	}
+
+	public List<Movie> getDirectedMovies() {
+		return directedMovies;
+	}
+
+	public void setDirectedMovies(List<Movie> directedMovies) {
+		this.directedMovies = directedMovies;
+	}
+
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -107,6 +134,15 @@ public class Artist {
 			return false;
 		Artist other = (Artist) obj;
 		return Objects.equals(name, other.name) && Objects.equals(surname, other.surname);
+	}
+
+
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (this.photo == null || id == null) return null;
+
+		return "/files/" + id + "/" + photo;
 	}
 
 }

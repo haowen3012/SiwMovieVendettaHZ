@@ -35,4 +35,10 @@ public class ArtistService {
 
         return (Collection<Artist>) this.artistRepository.findActorsNotInMovie(movieId);
     }
+
+
+    @Transactional
+    public Artist saveArtist(Artist artist){
+        return this.artistRepository.save(artist);
+    }
 }

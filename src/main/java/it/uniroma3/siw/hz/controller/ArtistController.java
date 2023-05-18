@@ -1,21 +1,27 @@
 package it.uniroma3.siw.hz.controller;
 
+import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.model.Artist;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
+import it.uniroma3.siw.hz.service.ArtistService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 
 
 @Controller
 public class ArtistController {
 	
 	@Autowired 
+	private ArtistService artistService;
+
+	@Autowired
 	private ArtistRepository artistRepository;
 
 	@GetMapping(value="/admin/formNewArtist")
@@ -51,5 +57,26 @@ public class ArtistController {
 	public String getArtists(Model model) {
 		model.addAttribute("artists", this.artistRepository.findAll());
 		return "artists.html";
+	}
+
+
+	@Transactional
+	@PostMapping("/users/save")
+	public String saveUser(Artist artist,
+								 @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+		artist.setPhoto(fileName);
+
+		Artist savedArtist = artist;
+
+		this.artistService.saveArtist(savedArtist);
+
+		String uploadDir = "files/" + savedArtist.getId();
+
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+		return "index.html";
 	}
 }

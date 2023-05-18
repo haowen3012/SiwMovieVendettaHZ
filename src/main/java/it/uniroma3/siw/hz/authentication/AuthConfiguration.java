@@ -91,10 +91,7 @@ public  class AuthConfiguration {
 				.failureUrl("/login?error=true")
 				.and().logout()
 				.invalidateHttpSession(true)
-				.clearAuthentication(true).permitAll()
-				.and()
-				.oauth2Login()
-				.loginPage("/login");
+				.clearAuthentication(true).permitAll();
 
 
 

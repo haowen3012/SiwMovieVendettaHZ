@@ -1,0 +1,339 @@
+@import url('https://fonts.cdnfonts.com/css/cera-round-pro');
+
+*{
+
+    box-sizing: border-box;
+}
+
+
+
+body{
+
+    display:flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+    background-color: #ccc;
+    /*  background-size: 400% 400%;*/
+    font-family: 'Cera Round Pro', sans-serif;
+    font-size: 13px;
+    min-height: 100%;
+    margin-top: 0;
+
+
+
+
+    /*  animation: gradient 10s ease infinite;*/
+}
+
+
+#post{
+    margin-top: 10%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width:668px;
+    max-width: 100%;
+    height:880px;
+
+
+    top: 10%;
+
+    margin-bottom : 10%;
+
+}
+
+
+.tape-left, .tape-right{
+
+
+    left: 0;
+    height: 100%;
+    width: 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    background: #152A43;
+
+
+
+
+
+}
+
+.tape-left *, .tape-right * {
+    background: #ccc;
+    border-radius: 10px;
+    height: 8%;
+    width: 80%;
+
+
+}
+
+
+.center{
+
+    width: 80%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    background: #152A43;
+
+
+
+
+
+
+}
+
+.top-padding{
+    height: 3%;
+    width: 100%;
+
+
+    background: #ccc;
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.upper-bound{
+
+    width: 100%;
+    height: 1%;
+    background: #152A43;
+
+
+
+}
+
+.lower-bound{
+
+    width: 100%;
+    height: 1%;
+    background: #152A43;
+}
+
+
+
+.lower-padding{
+    width: 100%;
+    height:5%;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: #ccc;
+
+
+
+
+}
+
+
+/**********movie****************/
+
+
+.movie{
+    width: 100%;
+    height: 90%;
+    border: solid #152A43;
+    border-radius:10px;
+    background:#eee;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+
+
+
+}
+
+.movie-image{
+    margin-top:2%;
+    width: 95%;
+    height: 70%;
+    aspect-ratio: 1;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+}
+
+
+.title{
+    margin-top: 0;
+    width: 95%;
+
+    text-align: center;
+
+    color: white;
+    font-size : 2.5em;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 2%;
+    margin-bottom:0;
+
+    /* From https://css.glass */
+    background: rgba(9, 20, 77, 0.2);
+
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.9px);
+    -webkit-backdrop-filter: blur(4.9px);
+    border: 1px solid rgba(9, 20, 77, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+
+}
+
+
+.release-date{
+    margin-top:0;
+    padding-top: 1%;
+    width: 40%;
+    height: 6%;
+    border-bottom: solid;
+
+    text-align: center;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size : 1.5em;
+    border-bottom: 3px solid rgba(9, 20, 77, 0.6);
+}
+
+/***********************/
+.director-section{
+    width: 100%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.director{
+    font-size: 1.5em;
+    margin-left: 4%;
+    text-align: left;
+    padding: 2%;
+    border: solid;
+    border-radius: 20px;
+
+
+    background: rgba(9, 20, 77, 0.2);
+    box-shadow: 0 4px 30px rgba(0,   0, 0, 0.1);
+    backdrop-filter: blur(4.9px);
+    -webkit-backdrop-filter: blur(4.9px);
+    border: 1px solid rgba(9, 20, 77, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    color: #fff;
+
+}
+
+.director-section div{
+
+    margin-left: 30%;
+    width: 30%;
+    height: 80%;
+
+    background: rgba(9, 20, 77, 0.2);
+    box-shadow: 0 4px 30px rgba(0,   0, 0, 0.1);
+    backdrop-filter: blur(4.9px);
+    -webkit-backdrop-filter: blur(4.9px);
+    border: 1px solid rgba(9, 20, 77, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+
+}
+
+
+/*****************************/
+
+.actors{
+    margin-top: 8%;
+    width: 100%;
+    height: 15%;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+
+
+
+}
+
+.actor{
+
+    width: 30%;
+    height: 100%;
+    border: solid;
+    margin-left: 5%;
+    display: inline-block;
+
+    background: rgba(9, 20, 77, 0.2);
+    box-shadow: 0 4px 30px rgba(0,   0, 0, 0.1);
+    backdrop-filter: blur(4.9px);
+    -webkit-backdrop-filter: blur(4.9px);
+    border: 1px solid rgba(9, 20, 77, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+
+}
+
+
+
+#wrapper {
+
+
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+#light{
+
+    height: 50%;
+    width: 100%;
+
+    background: conic-gradient(at 50% 120%, rgba(255, 255, 90, 0.2) 0deg, rgba(0,0,0,0.80) 45deg 315deg, rgba(255, 255, 90, 0.2) 360deg);
+
+}
+
+#luce{
+    width: 100%;
+    height: 50%;
+
+
+
+    background: conic-gradient(
+            at 50% 120%,
+            rgba(255, 255, 90, 0.2) 0deg,
+            rgba(0,0,0,0.80)  45deg  315deg,
+            rgba(255, 255, 90, 0.2) 360deg
+    );
+
+    transform: rotate(180deg);
+}
+
+
+
+
+

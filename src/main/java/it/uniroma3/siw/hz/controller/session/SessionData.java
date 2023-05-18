@@ -1,4 +1,4 @@
-package it.uniroma3.siw.hz.session;
+package it.uniroma3.siw.hz.controller.session;
 
 
 import it.uniroma3.siw.hz.model.Credentials;
