@@ -1,35 +1,318 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>
-		SiwMovie - Homepage
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+<meta name="viewport" content="width=device-width">
+<title>JS Bin</title>
+<link rel="stylesheet" th:href="@{/css/login.css}" />
+<link rel="stylesheet" th:href="@{/css/animation.css}"/>
+<link rel="stylesheet" th:href="@{/css/stile.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
+<div class="nav-container">
 
-	<div><img src="/images/logo-siw.png" width="50%" /></div>
-	<h1>Consulta l'archivio</h1>
-	<div>
-		<a href="/movie">Elenco Film</a>
+	<div class="nav">
+		<div class="logo"></div>
+		<a><h1>HOME</h1></a>
+		<a><h1>MOVIES</h1></a>
+		<a id="login"  ><h1>LOGIN</h1></a>
 	</div>
-	<div>
-		<a href="/artist">Elenco Artisti</a>
+
+	<div id="cover">
+		<div></div>
+		<div></div>
+		<div></div>
+
+	</div>
+</div>
+
+
+<div class="new-releases">
+
+	<h1>New Release Movies </h1>
+	<div class="content">
+
+		<image src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
+		<image src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
+		<image src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
+		<image src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
+		<image src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
+
+		<image src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
+		<image src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
+		<image src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
+		<image src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
+		<image src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
+
+
 	</div>
 
 
-	<form th:action="@{/users/save}" th:object="${artist}" method="post"
-		  enctype="multipart/form-data">
-		<div>
+</div>
 
-			<label>Photos: </label>
-			<input type="file" name="image" accept="image/png, image/jpeg" />
+<!----LOGIN AND REGISTRATION--->
+
+<div id="sign-in">
+	<div class="close" >&times;</div>
+	<form  th:action="@{/login}" method='post'>
+		<h1>Sign In</h1>
+		<div class="social-container">
+			<a href="/oauth2/authorization/facebook" class="social" id="facebook"><i class="fa fa-facebook"></i></a>
+			<a href="/oauth2/authorization/google" class="social" id="google"><i class="fa fa-google"></i></a>
+			<a href="/oauth2/authorization/github" class="social" id="github" ><i class="fa fa-github"></i></a>
+			<a href="https://www.linkedin.com/developers/tools/oauth/redirect" class="social" id="linkedin"><i class="fa fa-linkedin"></i></a>
+		</div>
+		<div class="input-container">
+			<i class="fa fa-user icon"></i>
+			<input type="text" name="username" placeholder="username" required="">
 
 		</div>
-	   <button type="submit">submit</button>
-	</form>
-</body>
 
+		<div class="input-container">
+			<i class="fa fa-key icon"></i>
+			<input type="password" name="password" placeholder="password" required="">
+		</div>
+
+		<button>Sign In</button>
+
+		<div class="register-now">
+			<span>Not a memeber?</span>
+			<a onclick="register()">Register now</a>
+		</div>
+
+	</form>
+
+</div>
+
+<div id="sign-up">
+	<div class="close-2" >&times;</div>
+	<form  id="form" method="POST" th:action="@{/user/register}" >
+		<h1>Sign Up</h1>
+		<div class="social-container">
+			<a href="/oauth2/authorization/facebook" class="social" id="faceb"><i class="fa fa-facebook"></i></a>
+			<a href="/oauth2/authorization/google" class="social" id="goog"><i class="fa fa-google"></i></a>
+			<a href="/oauth2/authorization/github" class="social"  id="github"><i class="fa fa-github"></i></a>
+			<a href="https://www.linkedin.com/uas/oauth2/authorization?" class="social" id="link"><i class="fa fa-linkedin"></i></a>
+		</div>
+
+		<div class="input-container" id="id-username">
+			<i class="fa fa-user icon"></i>
+			<input type="text" name="username" id="username" placeholder="username" onkeydown="validation('username')" required th:field="${credentials.username}"/>
+			<div class="check" id="check-username"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-username"><i class="fa fa-times"></i></div>
+		</div>
+
+		<span id="username-valid"></span>
+
+		<div class="input-container" id="id-password">
+			<i class="fa fa-key icon"></i>
+			<input type="password" name="password" id="password" placeholder="password" required onkeydown="validation('password')"   th:field="${credentials.password}"/>
+			<div class="check" id="check-password"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-password"><i class="fa fa-times"></i></div>
+		</div>
+		<span id="password-valid"></span>
+
+
+		<div class="input-container"  id="id-firstname">
+			<i class="fa fa-user icon"></i>
+			<input type="text" name="firstName"  id="firstname" placeholder="first name" required  onkeydown="validation('firstname')" th:field="${user.name}"/>
+			<div class="check" id="check-firstname"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-firstname"><i class="fa fa-times"></i></div>
+		</div>
+		<span id="firstname-valid"></span>
+
+
+		<div class="input-container"   id="id-lastname">
+
+			<i class="fa fa-user icon"></i>
+			<input type="text" name="lastName" id="lastname" placeholder="last name" required  onkeydown="validation('lastname')" th:field="${user.surname}"/>
+			<div class="check" id="check-lastname"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-lastname"><i class="fa fa-times"></i></div>
+		</div>
+		<span id="lastname-valid"></span>
+
+
+		<div class="bottom">
+			<span>Already have an account?</span>
+			<a onclick="log_in()">Sign in</a>
+			<button>Sign Up</button>
+		</div>
+	</form>
+</div>
+
+<script>
+
+
+	var login = document.getElementById('login');
+	var sign_in = document.getElementById('sign-in');
+
+	var sign_up = document.getElementById('sign-up');
+
+	var close = document.querySelector('.close');
+	var close_2 = document.querySelector('.close-2');
+
+	login.addEventListener('click',()=>{
+		sign_in.style.display = " flex";
+		sign_in.style.animation ="none";
+		sign_up.style.animation ="none";
+		login.style.pointerEvents="none";
+
+
+
+	});
+
+
+	function register(){
+
+		sign_in.style.animation = " shrink 0.5s ease-out";
+
+		setTimeout( function(){
+			sign_in.style.display= "none";}, 400);
+
+
+
+		sign_up.style.display= "flex";
+		sign_up.style.animation = " big_up 0.5s ease-out";
+
+	}
+
+	function log_in(){
+
+		sign_up.style.animation = " shrink 0.5s ease-out";
+
+		setTimeout( function(){
+			sign_up.style.display= "none";}, 400);
+
+
+
+		sign_in.style.display= "flex";
+		sign_in.style.animation = " big_up 0.5s ease-out";
+
+	}
+
+	close.addEventListener('click',()=>{
+
+		sign_in.style.display= "none";
+		login.style.pointerEvents="auto";
+
+
+	});
+
+	close_2.addEventListener('click',()=>{
+
+
+		sign_up.style.display= "none";
+		login.style.pointerEvents="auto";
+
+	});
+
+</script>
+
+<!-------------->
+<script>
+
+	function validation(stringa){
+		var form = document.getElementById('form');
+		var variable = document.getElementById(stringa);
+		var variable_valid = document.getElementById(stringa + '-valid');
+
+		var check = document.getElementById('check-'+ stringa);
+		var times = document.getElementById('times-' + stringa);
+
+		var container = document.getElementById('id-' + stringa);
+
+
+
+
+		variable_valid.style.fontSize ="9px";
+		variable_valid.style.fontStyle ="italic";
+		variable_valid.style.fontWeight ="300";
+
+
+		var pattern;
+
+		switch(stringa){
+
+			case 'username': pattern = /.{4,20}/; break;
+			case 'password': pattern = /.{6,20}/; break;
+			case 'firstname': pattern = /.{1,100}/; break;
+			case 'lastname': pattern = /.{1,100}/; break;
+
+		}
+
+
+		if(variable.value.match(pattern)){
+			form.classList.add("valid");
+			form.classList.remove("invalid");
+
+			check.style.display = "block";
+			times.style.display ="none";
+			container.style.boxShadow="0 1px 7px 0 rgba(124, 252, 0)";
+
+			switch(stringa){
+				case 'username':variable_valid.innerHTML = "Your username is valid!"; break;
+				case 'password': variable_valid.innerHTML = "Your password is valid!";break;
+				case 'firstname':variable_valid.innerHTML = "Your firstname is valid!"; break;
+				case 'lastname':variable_valid.innerHTML = "Your lastname is valid!";break;
+			}
+			variable_valid.style.color= "#00ff00";
+
+
+
+		}else{
+			form.classList.add("invalid");
+			form.classList.remove("valid");
+
+			check.style.display = "none";
+			times.style.display ="block";
+
+			container.style.boxShadow="0 1px 7px 0 red";
+
+
+			switch(stringa){
+				case 'username':variable_valid.innerHTML = "Your username must be between 4 and 20 characters long!"; break;
+
+				case 'password': variable_valid.innerHTML = "Your password must be between 6 and 20 characters long!"; break;
+				case 'firstname':variable_valid.innerHTML = "Your firstname must be between 2 and 100 characters long!"; break;
+				case 'lastname':variable_valid.innerHTML = "Your lastname must be between 2 and 100 characters long!"; break;
+			}
+			variable_valid.style.color = "#ff0000";
+
+			setTimeout( function(){
+				variable_valid.innerHTML = "";},3000);
+
+
+		}
+
+
+	}
+
+</script>
+<script>
+	const slider = document.querySelector('.content');
+	let isDown = false;
+	let startX;
+	let scrollLeft;
+
+	slider.addEventListener('mousedown', (e) => {
+		isDown = true;
+		slider.classList.add('active');
+		startX = e.pageX - slider.offsetLeft;
+		scrollLeft = slider.scrollLeft;
+	});
+	slider.addEventListener('mouseleave', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mouseup', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mousemove', (e) => {
+		if(!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - slider.offsetLeft;
+		const walk = (x - startX) * 3; //scroll-fast
+		slider.scrollLeft = scrollLeft - walk;
+		console.log(walk);
+	});
+</script>
+</body>
 </html>

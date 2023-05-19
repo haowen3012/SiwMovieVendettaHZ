@@ -41,6 +41,8 @@ public class AuthenticationController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
+			model.addAttribute("user", new User());
+			model.addAttribute("credentials", new Credentials());
 	        return "index.html";
 		}
 		else {		

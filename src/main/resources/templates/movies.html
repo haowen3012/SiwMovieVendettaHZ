@@ -8,14 +8,14 @@
 
 <body>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Film</h1>
 	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
+
 	<div id="wrapper">
 		<div id="luce"></div>
 		<div id="light"></div>
 	</div>
-	<div id="post" th:each="movie: ${movies}" >
+
+	<div id="post"  th:each="movie : ${movies}">
 		<div class="tape-left">
 
 			<div></div>
@@ -32,25 +32,8 @@
 			<div class="top-padding"></div>
 			<div class="upper-bound"></div>
 			<div class="movie">
-				<img  class="movie-image" th:src=${movie.urlImage} >
-				<h1 class="title" th:text="${movie.title}">Iron Man</h1>
-				<h2 class="release-date" th:text="${movie.year}">20 December 2019</h2>
-				<div class="director-section">
-					<h3 class="director">Directed By</h3>
-					<div></div>
-				</div>
-				<div class="actors">
-					<div class="actor"></div>
-					<div class="actor"></div>
-					<div class="actor"></div>
-					<div class="actor"></div>
-					<div class="actor"></div>
-					<div class="actor"></div>
-					<div class="actor"></div>
-					<div class="actor"></div>
-				</div>
+				<img  class="movie-image" th:src=${movie.urlImage}>
 			</div>
-
 			<div class="lower-bound">
 			</div>
 			<div class="lower-padding"></div>
@@ -66,6 +49,34 @@
 		</div>
 	</div>
 	</div>
-</body>
+	<script>
+		const slider = document.querySelector('.actors');
+		let isDown = false;
+		let startX;
+		let scrollLeft;
 
+		slider.addEventListener('mousedown', (e) => {
+			isDown = true;
+			slider.classList.add('active');
+			startX = e.pageX - slider.offsetLeft;
+			scrollLeft = slider.scrollLeft;
+		});
+		slider.addEventListener('mouseleave', () => {
+			isDown = false;
+			slider.classList.remove('active');
+		});
+		slider.addEventListener('mouseup', () => {
+			isDown = false;
+			slider.classList.remove('active');
+		});
+		slider.addEventListener('mousemove', (e) => {
+			if(!isDown) return;
+			e.preventDefault();
+			const x = e.pageX - slider.offsetLeft;
+			const walk = (x - startX) * 3; //scroll-fast
+			slider.scrollLeft = scrollLeft - walk;
+			console.log(walk);
+		});
+	</script>
+</body>
 </html>

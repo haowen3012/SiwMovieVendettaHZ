@@ -85,7 +85,7 @@ public  class AuthConfiguration {
 				.requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 				.anyRequest().authenticated()
 				.and().formLogin()
-				.loginPage("/login")
+				.loginPage("/")
 				.permitAll()
 				.defaultSuccessUrl("/successful")
 				.failureUrl("/login?error=true")
