@@ -84,6 +84,10 @@ body{
 
 }
 
+.nav a h1{
+    font-size : 0.75em;
+}
+
 .nav a:after {
     background: none repeat scroll 0 0 transparent;
     bottom: 0;
