@@ -38,8 +38,7 @@ public class SessionData {
 
     public User getLoggedUser(){
 
-            this.update();
-
+        this.update();
 
 
         return this.user;
@@ -52,7 +51,6 @@ public class SessionData {
         UserDetails loggedUserDetails = (UserDetails) object;
 
         this.credentials = this.credentialsRepository.findByUsername(loggedUserDetails.getUsername()).get();
-        this.credentials.setPassword("[PROTECTED]");
         this.user = this.credentials.getUser();
 
 

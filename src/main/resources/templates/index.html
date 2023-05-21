@@ -2,17 +2,26 @@
 <title>JS Bin</title>
 <link rel="stylesheet" th:href="@{/css/login.css}" />
 <link rel="stylesheet" th:href="@{/css/animation.css}"/>
-<link rel="stylesheet" th:href="@{/css/stile.css}" />
+<link rel="stylesheet" th:href="@{/css/index.css}" />
+<link rel="stylesheet" th:href="@{/css/button.css}" />
+<link rel="stylesheet" th:href="@{/css/sideNav.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="nav-container">
 
 	<div class="nav">
-		<div class="logo"></div>
+
+		<img th:if="${user}" onclick="openSideNav()" id="image-user" src="https://i.postimg.cc/8zjqHY9N/eren-profile.jpg"/>
 		<a><h1>HOME</h1></a>
 		<a><h1>MOVIES</h1></a>
-		<a id="login"  ><h1>LOGIN</h1></a>
+
+
+
+		<a th:if="${user}" id="log-out"><h1>LOG OUT</h1></a>
+		<a id="login" th:unless="${user}" ><h1>LOGIN</h1></a>
+
+
 	</div>
 
 	<div id="cover">
@@ -81,9 +90,9 @@
 
 </div>
 
-<div id="sign-up">
+<div id="sign-up"   th:if="${userForm != null and credentialsForm !=null}">
 	<div class="close-2" >&times;</div>
-	<form  id="form" method="POST" th:action="@{/user/register}" >
+	<form  id="form" method="POST"  th:action="@{/register}" >
 		<h1>Sign Up</h1>
 		<div class="social-container">
 			<a href="/oauth2/authorization/facebook" class="social" id="faceb"><i class="fa fa-facebook"></i></a>
@@ -94,7 +103,7 @@
 
 		<div class="input-container" id="id-username">
 			<i class="fa fa-user icon"></i>
-			<input type="text" name="username" id="username" placeholder="username" onkeydown="validation('username')" required th:field="${credentials.username}"/>
+			<input type="text" id="username" placeholder="username" onkeydown="validation('username')" required th:field="${credentialsForm.username}"/>
 			<div class="check" id="check-username"><i class="fa fa-check"></i></div>
 			<div class="times" id="times-username"><i class="fa fa-times"></i></div>
 		</div>
@@ -103,7 +112,7 @@
 
 		<div class="input-container" id="id-password">
 			<i class="fa fa-key icon"></i>
-			<input type="password" name="password" id="password" placeholder="password" required onkeydown="validation('password')"   th:field="${credentials.password}"/>
+			<input type="password" id="password" placeholder="password" required onkeydown="validation('password')"   th:field="${credentialsForm.password}"/>
 			<div class="check" id="check-password"><i class="fa fa-check"></i></div>
 			<div class="times" id="times-password"><i class="fa fa-times"></i></div>
 		</div>
@@ -112,7 +121,7 @@
 
 		<div class="input-container"  id="id-firstname">
 			<i class="fa fa-user icon"></i>
-			<input type="text" name="firstName"  id="firstname" placeholder="first name" required  onkeydown="validation('firstname')" th:field="${user.name}"/>
+			<input type="text"  id="firstname" placeholder="first name" required  onkeydown="validation('firstname')" th:field="${userForm.name}"/>
 			<div class="check" id="check-firstname"><i class="fa fa-check"></i></div>
 			<div class="times" id="times-firstname"><i class="fa fa-times"></i></div>
 		</div>
@@ -122,7 +131,7 @@
 		<div class="input-container"   id="id-lastname">
 
 			<i class="fa fa-user icon"></i>
-			<input type="text" name="lastName" id="lastname" placeholder="last name" required  onkeydown="validation('lastname')" th:field="${user.surname}"/>
+			<input type="text" id="lastname" placeholder="last name" required  onkeydown="validation('lastname')" th:field="${userForm.surname}"/>
 			<div class="check" id="check-lastname"><i class="fa fa-check"></i></div>
 			<div class="times" id="times-lastname"><i class="fa fa-times"></i></div>
 		</div>
@@ -137,6 +146,16 @@
 	</form>
 </div>
 
+
+<!---------SIDE NAV------>
+<div  id="side_nav" class="side-nav">
+	<div onclick="closeSideNav()">&times;</div>
+	<img th:if="${user}" src="https://i.postimg.cc/8zjqHY9N/eren-profile.jpg"/>
+	<a href="#">Favourites</a>
+	<a href="#">Reviews</a>
+	<a href="#"> Log out</a>
+</div>
+<!----->
 <script>
 
 
@@ -313,6 +332,30 @@
 		slider.scrollLeft = scrollLeft - walk;
 		console.log(walk);
 	});
+</script>
+<script>
+
+	var side_nav = document.getElementById('side_nav');
+	var image_user = document.getElementById('image-user');
+	function openSideNav(){
+
+
+
+		side_nav.style.width="14%";
+		side_nav.style.height="100%";
+		image_user.style.visibility = "hidden";
+
+	}
+
+	function closeSideNav(){
+
+
+		side_nav.style.width="0";
+		side_nav.style.height="0";
+		image_user.style.visibility = "visible";
+
+
+	}
 </script>
 </body>
 </html>

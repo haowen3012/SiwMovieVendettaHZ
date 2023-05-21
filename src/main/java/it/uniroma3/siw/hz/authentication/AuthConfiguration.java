@@ -33,8 +33,6 @@ public  class AuthConfiguration {
 
 
 
-	@Autowired
-	private CredentialsRepository credentialsRepository;  // questo lo toglieremo alla fine
 
 
 
@@ -47,8 +45,8 @@ public  class AuthConfiguration {
 			throws Exception {
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
-				.authoritiesByUsernameQuery("SELECT user_name, role from credentials WHERE user_name=?")
-				.usersByUsernameQuery("SELECT user_name, password, 1 as enabled FROM credentials WHERE user_name=?");
+				.authoritiesByUsernameQuery("SELECT username, role from credentials WHERE username=?")
+				.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
 	}
 
 /*
@@ -85,9 +83,9 @@ public  class AuthConfiguration {
 				.requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 				.anyRequest().authenticated()
 				.and().formLogin()
-				.loginPage("/")
+				.loginPage("/login")
 				.permitAll()
-				.defaultSuccessUrl("/successful")
+				.defaultSuccessUrl("/success")
 				.failureUrl("/login?error=true")
 				.and().logout()
 				.invalidateHttpSession(true)

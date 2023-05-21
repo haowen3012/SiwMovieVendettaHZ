@@ -198,42 +198,6 @@ a{
 
 }
 
-
-
-button{
-    color: #fff;
-    background: linear-gradient(-45deg, #3CF0C5,#338AFF, #338AFF, #3CF0C5);
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 55px;
-    margin: 20px;
-    border-radius: 10px;
-    border: 1px solid #fff;
-    outline: none;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    cursor: pointer;
-
-    background-size: 300% 200%;
-
-
-    transition: all .4s ease-in-out;
-    box-shadow: 0 1px 7px 0 #3CF0C5;
-}
-
-button:active{
-    transform: scale(0.90);
-}
-
-button:hover{
-    background-position: 100% 0;
-    transition: all .4s ease-in-out;
-    box-shadow: 0 4px 15px 0 #3CF0C5;
-}
-
-
-
 /*******************************/
 #sign-up{
     z-index: 3;

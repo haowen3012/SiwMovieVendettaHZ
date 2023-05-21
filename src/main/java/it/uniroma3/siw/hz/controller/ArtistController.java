@@ -60,23 +60,5 @@ public class ArtistController {
 	}
 
 
-	@Transactional
-	@PostMapping("/users/save")
-	public String saveUser(Artist artist,
-								 @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-		artist.setPhoto(fileName);
-
-		Artist savedArtist = artist;
-
-		this.artistService.saveArtist(savedArtist);
-
-		String uploadDir = "files/" + savedArtist.getId();
-
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
-		return "index.html";
-	}
 }

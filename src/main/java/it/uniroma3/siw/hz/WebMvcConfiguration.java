@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 public class WebMvcConfiguration implements WebMvcConfigurer{
 
 
+
    @Override
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
        exposeDirectory("files", registry);

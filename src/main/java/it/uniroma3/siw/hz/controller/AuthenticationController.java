@@ -31,18 +31,18 @@ public class AuthenticationController {
 		model.addAttribute("credentials", new Credentials());
 		return "formRegisterUser";
 	}
-	
-	@GetMapping(value = "/login") 
+/*
+	@GetMapping(value = "/login")
 	public String showLoginForm (Model model) {
-		return "formLogin";
-	}
+		return "index.html";
+	}*/
 
-	@GetMapping(value = "/") 
+	@GetMapping(value = "/")
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
-			model.addAttribute("user", new User());
-			model.addAttribute("credentials", new Credentials());
+			model.addAttribute("userForm", new User());
+			model.addAttribute("credentialsForm", new Credentials());
 	        return "index.html";
 		}
 		else {		
@@ -67,9 +67,9 @@ public class AuthenticationController {
     }
 
 	@PostMapping(value = { "/register" })
-    public String registerUser(@Valid @ModelAttribute("user") User user,
+    public String registerUser(@Valid @ModelAttribute("userForm") User user,
                  BindingResult userBindingResult, @Valid
-                 @ModelAttribute("credentials") Credentials credentials,
+                 @ModelAttribute("credentialsForm") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
 
@@ -77,9 +77,9 @@ public class AuthenticationController {
         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
-            model.addAttribute("user", user);
+			model.addAttribute("user" ,user);
             return "registrationSuccessful";
         }
-        return "registerUser";
+        return "index.html";
     }
 }

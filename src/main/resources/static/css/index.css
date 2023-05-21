@@ -28,7 +28,9 @@ body{
 
 }
 
-
+a{
+    cursor: pointer;
+}
 
 
 .nav-container{
@@ -76,17 +78,47 @@ body{
 }
 
 
+
 .nav a{
     position: relative;
 
     padding: 1%;
 
 
+
 }
 
 .nav a h1{
     font-size : 0.75em;
+
 }
+
+.nav #log-out{
+    width: 5em;
+}
+/*************************/
+
+.nav img{
+    margin-top: 4%;
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    border: 1px solid;
+    object-fit : cover;
+    background-size: cover;
+
+    cursor: pointer;
+
+}
+
+
+
+.nav img:active{
+
+    transform: scale(0.9);
+}
+
+/******************************/
 
 .nav a:after {
     background: none repeat scroll 0 0 transparent;
@@ -262,3 +294,5 @@ body{
     align-items : flex-start;
 
 }
+
+

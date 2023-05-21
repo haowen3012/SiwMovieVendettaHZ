@@ -1,29 +1,70 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>SiwMovie - Registrazione conclusa</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>JS Bin</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/registrationSuccessful.css}" />
+	<link rel="stylesheet" th:href="@{/css/button.css}" />
 </head>
-
 <body>
+<i class="fa fa-check" id="check"></i>
+<form id="successful"  th:action="@{'addUserPhoto' + '/' + ${user.id}}"
+	    method="post"
+	  enctype="multipart/form-data">
+	<h1>Add a picture to your account</h1>
+	<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
+	<label>
+		<i class="fa fa-plus" id="plus"></i>
+		<i class="fa fa-user" id="user"></i>
+	</label>
+	<img id="thumbnail" alt="preview"/>
+
+	<button id="continue">continue</button>
+</form>
+<script>
+	document.getElementById('plus').addEventListener('click', function() {
+		document.getElementById('file').click();
+	});
+</script>
+<script>
+
+	var userIcon = document.getElementById('user');
+	var plusIcon = document.getElementById('plus');
+	var thumbnail = document.getElementById('thumbnail');
+
+	$(document).ready(function(){
+		$('#file').change(function(){
+			showImageThumbnail(this);
+		});
+
+	});
+
+	function  showImageThumbnail(fileInput){
+
+		thumbnail.style.display = "block";
 
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
-	</div>
-	<h1>Congratulazioni ti sei registrato!</h1>
-	<div>
-		<span>Nome: </span>
-		<span th:text="${user.name}"></span>
-	</div>
-	<div>
-		<span>Cognome: </span>
-		<span th:text="${user.surname}"></span>
-	</div>
-	<div>
-		<span>Email: </span>
-		<span th:text="${user.email}"></span>
-	</div>
+		plusIcon.style.right = "36%";
+
+
+
+		file = fileInput.files[0];
+		reader = new FileReader();
+
+		reader.onload = function(e){
+			$('#thumbnail').attr('src', e.target.result);
+		};
+
+		reader.readAsDataURL(file);
+
+		userIcon.style.display = "none";
+
+	}
+
+
+</script>
 </body>
 </html>
