@@ -3,6 +3,7 @@ package it.uniroma3.siw.hz.controller.session;
 
 import it.uniroma3.siw.hz.model.Credentials;
 import it.uniroma3.siw.hz.model.User;
+import it.uniroma3.siw.hz.oauth.CustomOAuth2User;
 import it.uniroma3.siw.hz.repository.CredentialsRepository;
 import it.uniroma3.siw.hz.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,19 @@ public class SessionData {
 
     public User getLoggedUser(){
 
-        this.update();
+
+        try {
+            this.update();
+        }
+        catch(ClassCastException e){
+            this.oauth2Update();
+        }
 
 
         return this.user;
     }
 
-/*throe class casta exception tolta, forse è da rimettere*/
+    /*throe class casta exception tolta, forse è da rimettere*/
 
     private void update() {
         Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -52,6 +59,19 @@ public class SessionData {
 
         this.credentials = this.credentialsRepository.findByUsername(loggedUserDetails.getUsername()).get();
         this.user = this.credentials.getUser();
+
+
     }
 
+    private void   oauth2Update() {
+        Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomOAuth2User loggedOAuth2User = (CustomOAuth2User) object;
+
+        try {
+            this.user = userRepository.findByUserName(loggedOAuth2User.getLogin()).get();
+        }
+        catch( NoSuchElementException e ){
+            this.user = userRepository.findByUserName(loggedOAuth2User.getFullName()).get();
+        }
+    }
 }

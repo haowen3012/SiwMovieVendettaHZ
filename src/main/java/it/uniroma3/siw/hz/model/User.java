@@ -1,6 +1,11 @@
 package it.uniroma3.siw.hz.model;
 
+import it.uniroma3.siw.hz.oauth.AuthenticationProvider;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -10,11 +15,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
+	private String userName;
 	private String name;
 	private String surname;
 	private String email;
 
 	private String picture;
+
+	@CreationTimestamp
+	private LocalDateTime creationTimestamp;
+
+	@UpdateTimestamp
+	private LocalDateTime lastUpdateTimestamp;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "auth_provider")
+	private AuthenticationProvider oAuthProvider;
 
     public Long getId() {
 		return id;
@@ -23,6 +40,15 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -53,6 +79,31 @@ public class User {
 
 	public void setPicture(String photo) {
 		this.picture = photo;
+	}
+
+
+	public LocalDateTime getCreationTimestamp() {
+		return creationTimestamp;
+	}
+
+	public void setCreationTimestamp(LocalDateTime creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
+	}
+
+	public LocalDateTime getLastUpdateTimestamp() {
+		return lastUpdateTimestamp;
+	}
+
+	public void setLastUpdateTimestamp(LocalDateTime lastUpdateTimestamp) {
+		this.lastUpdateTimestamp = lastUpdateTimestamp;
+	}
+
+	public AuthenticationProvider getoAuthProvider() {
+		return oAuthProvider;
+	}
+
+	public void setoAuthProvider(AuthenticationProvider oAuthProvider) {
+		this.oAuthProvider = oAuthProvider;
 	}
 
 	@Transient

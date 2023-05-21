@@ -1,7 +1,9 @@
 package it.uniroma3.siw.hz.authentication;
 
 
+import it.uniroma3.siw.hz.oauth.OAuth2LoginSuccessHandler;
 import it.uniroma3.siw.hz.repository.CredentialsRepository;
+import it.uniroma3.siw.hz.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,14 +31,13 @@ public  class AuthConfiguration {
 
 
 	@Autowired
-	DataSource dataSource;
+	private DataSource dataSource;
 
+	@Autowired
+	private CustomOAuth2UserService customOAuth2UserService;
 
-
-
-
-
-
+	@Autowired
+	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
 
 
@@ -89,7 +90,14 @@ public  class AuthConfiguration {
 				.failureUrl("/login?error=true")
 				.and().logout()
 				.invalidateHttpSession(true)
-				.clearAuthentication(true).permitAll();
+				.clearAuthentication(true).permitAll()
+				.and()
+				.oauth2Login()
+				.loginPage("/login")
+				.userInfoEndpoint()
+				.userService( customOAuth2UserService)
+				.and()
+				.successHandler(oAuth2LoginSuccessHandler);
 
 
 

@@ -1,6 +1,7 @@
 package it.uniroma3.siw.hz.service;
 
 import it.uniroma3.siw.hz.model.User;
+import it.uniroma3.siw.hz.oauth.AuthenticationProvider;
 import it.uniroma3.siw.hz.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,13 @@ public class UserService {
     @Transactional
     public User getUser(Long id) {
         Optional<User> result = this.userRepository.findById(id);
+        return result.orElse(null);
+    }
+
+
+    @jakarta.transaction.Transactional
+    public User getUser(String username){
+        Optional<User> result = this.userRepository.findByUserName(username);
         return result.orElse(null);
     }
 
@@ -56,5 +64,36 @@ public class UserService {
         for(User user : iterable)
             result.add(user);
         return result;
+    }
+
+    /*******************OAuth2********************************************+*/
+    /**
+     *
+     * @param loginName
+     * @param fullName
+     * @param provider
+     */
+    public void registerNewCustomerAfterOAuthLoginSuccess(String loginName, String fullName, AuthenticationProvider provider) {
+        User user = new User();
+        if(loginName != null) {
+            user.setUserName(loginName);
+            user.setName(fullName);
+        }
+        else{
+            user.setUserName(fullName);
+        }
+
+        user.setCreationTimestamp(LocalDateTime.now());
+        user.setoAuthProvider(provider);
+
+
+        userRepository.save(user);
+    }
+
+    public void updateExistingUser(User user, String fullName, AuthenticationProvider provider){
+        user.setName(fullName);
+        user.setoAuthProvider(provider);   // probabilmente da modificare
+
+        userRepository.save(user);
     }
 }

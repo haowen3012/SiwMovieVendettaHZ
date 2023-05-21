@@ -1,6 +1,7 @@
 package it.uniroma3.siw.hz.controller;
 
 
+import it.uniroma3.siw.hz.controller.session.SessionData;
 import it.uniroma3.siw.hz.model.Credentials;
 import it.uniroma3.siw.hz.model.User;
 import it.uniroma3.siw.hz.service.CredentialsService;
@@ -13,10 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -24,6 +22,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	private CredentialsService credentialsService;
+
+	@Autowired
+	private SessionData sessionData;
 	
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
@@ -82,4 +83,20 @@ public class AuthenticationController {
         }
         return "index.html";
     }
+
+
+	@RequestMapping(value={"login/oauth2/user"}, method = RequestMethod.GET)
+	public String oAuth2Successful(){
+
+
+		User loggedUser = this.sessionData.getLoggedUser();
+
+		if(loggedUser.getPicture()!=null ){
+
+			return "index.html";
+		}
+
+
+		return "registrationSuccessful.html";
+	}
 }
