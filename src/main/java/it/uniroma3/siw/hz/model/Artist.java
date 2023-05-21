@@ -21,7 +21,7 @@ public class Artist {
 	private String name;
 	private String surname;
 
-	private String photo;
+
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
@@ -63,13 +63,6 @@ public class Artist {
 		this.surname = surname;
 	}
 
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
 
 	public Set<Movie> getStarredMovies() {
 		return starredMovies;
@@ -138,11 +131,5 @@ public class Artist {
 
 
 
-	@Transient
-	public String getPhotosImagePath() {
-		if (this.photo == null || id == null) return null;
-
-		return "/files/" + id + "/" + photo;
-	}
 
 }

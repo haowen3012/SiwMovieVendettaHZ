@@ -3,7 +3,6 @@ package it.uniroma3.siw.hz.controller;
 
 import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.controller.session.SessionData;
-import it.uniroma3.siw.hz.model.Artist;
 import it.uniroma3.siw.hz.model.User;
 import it.uniroma3.siw.hz.service.UserService;
 import jakarta.transaction.Transactional;
@@ -16,13 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 @Controller
 public class UserController {
@@ -43,7 +36,7 @@ public class UserController {
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-        user.setPhoto(fileName);
+        user.setPicture(fileName);
 
         this.userService.saveUser(user);
 

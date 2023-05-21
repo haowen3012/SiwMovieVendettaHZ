@@ -52,8 +52,6 @@ public class SessionData {
 
         this.credentials = this.credentialsRepository.findByUsername(loggedUserDetails.getUsername()).get();
         this.user = this.credentials.getUser();
-
-
     }
 
 }

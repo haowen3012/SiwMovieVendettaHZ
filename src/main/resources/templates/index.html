@@ -12,7 +12,7 @@
 
 	<div class="nav">
 
-		<img th:if="${user}" onclick="openSideNav()" id="image-user" src="https://i.postimg.cc/8zjqHY9N/eren-profile.jpg"/>
+		<img th:if="${user}" onclick="openSideNav()" id="image-user"  th:src="@{${user.pictureImagePath}}" />
 		<a><h1>HOME</h1></a>
 		<a><h1>MOVIES</h1></a>
 
@@ -150,7 +150,7 @@
 <!---------SIDE NAV------>
 <div  id="side_nav" class="side-nav">
 	<div onclick="closeSideNav()">&times;</div>
-	<img th:if="${user}" src="https://i.postimg.cc/8zjqHY9N/eren-profile.jpg"/>
+	<img th:if="${user}"  th:src="@{${user.pictureImagePath}}" />
 	<a href="#">Favourites</a>
 	<a href="#">Reviews</a>
 	<a href="#"> Log out</a>
@@ -343,6 +343,7 @@
 
 		side_nav.style.width="14%";
 		side_nav.style.height="100%";
+		side_nav.style.top="0";
 		image_user.style.visibility = "hidden";
 
 	}
@@ -352,6 +353,7 @@
 
 		side_nav.style.width="0";
 		side_nav.style.height="0";
+		side_nav.style.top="-10%";
 		image_user.style.visibility = "visible";
 
 

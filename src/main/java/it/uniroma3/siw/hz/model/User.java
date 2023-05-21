@@ -14,7 +14,7 @@ public class User {
 	private String surname;
 	private String email;
 
-	private String photo;
+	private String picture;
 
     public Long getId() {
 		return id;
@@ -47,11 +47,18 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPhoto() {
-		return photo;
+	public String getPicture() {
+		return picture;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setPicture(String photo) {
+		this.picture = photo;
+	}
+
+	@Transient
+	public String getPictureImagePath() {
+		if (this.picture == null || id == null) return null;
+
+		return "/files/" + id + "/" + this.picture;
 	}
 }
