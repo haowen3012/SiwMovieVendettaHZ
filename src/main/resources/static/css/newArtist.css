@@ -1,0 +1,235 @@
+@import url('https://fonts.cdnfonts.com/css/cera-round-pro');
+
+*{
+
+    box-sizing: border-box;
+}
+
+
+
+body{
+
+    display:flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+
+    font-family: 'Cera Round Pro', sans-serif;
+    font-size: 15px;
+    min-height: 100%;
+    margin-top: 0;
+
+    background-image: url("https://i.postimg.cc/XqCWKWrp/cleanbackground.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    /*  animation: gradient 10s ease infinite;*/
+
+    word-spacing : 0.5em;
+
+
+
+}
+
+
+#artist{
+    width: 100%;
+
+    display:flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+
+}
+
+
+
+
+#artist input {
+    width: 40%;
+    margin: 2%;
+
+    outline: none;
+    padding: 2%;
+
+
+    /* From https://css.glass */
+    background: rgba(153, 145, 145, 0.2);
+
+    border: none;
+    border-bottom: solid  rgba(153, 145, 145, 0.7) ;
+    color: #fff;
+
+
+}
+
+h1{
+    width: 20%;
+}
+
+
+.artist-name{
+    width: 100%;
+    height: 20%;
+
+    display:inline-flex;
+    justify-content: flex-start;
+    align-items : center;
+
+
+}
+
+.artist-name h1{
+    margin-left: 5%;
+    color: #fff;
+
+}
+
+
+.artist-date{
+    width: 100%;
+    height: 20%;
+
+    display:inline-flex;
+    justify-content: flex-start;
+    align-items : center;
+}
+
+
+.artist-date h1{
+
+    margin-left: 5%;
+    color: #fff;
+}
+
+
+
+
+
+/**********************/
+
+#artist-picture{
+    margin-top: 2%;
+
+    width: 100%;
+    height: 20%;
+
+    display:inline-flex;
+    justify-content: flex-start;
+    align-items : center;
+}
+#artist-picture h1{
+
+
+    margin-left: 5%;
+    color: #fff;
+}
+
+
+#picture{
+    margin-left: 5%;
+    width: 20%;
+    height: 20%;
+
+
+    display:flex;
+    justify-content: flex-start;
+    align-items : center;
+
+
+
+    color: rgba(153, 145, 145, 1);
+
+}
+
+#picture input[type="file"] {
+    display: none;
+}
+
+
+#picture #plus{
+
+    margin-top: -30%;
+    margin-left: 6%;
+    font-size : 1.2em;
+    cursor: pointer;
+
+    z-index: 2;
+
+}
+
+#picture #plus:active{
+    transform: scale(0.9);
+
+}
+
+#picture img{
+
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+
+    background-size: cover;
+    object-fit : cover;
+
+    border: solid;
+
+}
+
+
+/***************************/
+
+#create{
+
+    margin-top: 14%;
+    margin-left: 80%;
+
+}
+
+#select-director button,#select-actors button, #create{
+
+    background-image: linear-gradient(to right, #1F1C2C 0%, #928DAB  51%, #1F1C2C  100%);
+}
+
+/*********************/
+button{
+
+    color: #fff;
+    background: linear-gradient(to right,orange,gold, yellow, orange);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 55px;
+    margin: 20px;
+    border-radius: 20px;
+    border: 2px solid white;
+    outline: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+
+    background-size: 300% 200%;
+
+
+    transition: all .4s ease-in-out;
+    box-shadow: 0 1px 7px 0 rgba(233, 191, 34, 0.75);
+
+    animation: slide-in-anim 1.2s ease-out forwards;
+}
+
+button:active{
+    transform: scale(0.90);
+}
+
+button:hover{
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
+    box-shadow: 0 4px 15px 0 rgba(0,0,0,0.25);
+}
+
+
+
+

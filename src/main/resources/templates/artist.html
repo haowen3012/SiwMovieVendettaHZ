@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Artista</title>
-	<link rel="stylesheet" href="/css/index.css" />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" th:href="@{/css/artist.css}" />
+    <title>JS Bin</title>
 </head>
-
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<div id="artist">
+    <img th:src="@{${artist.pictureImagePath}}"/>
+    <h1 th:text=" ${artist.name} + ' ' + ${artist.surname}"> Robery Downey Jr</h1>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-    <h1>Dettagli Artista</h1>
-    <div th:if="${artist}">
-        <span th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</span>
-        <span th:text="'(' + ${artist.dateOfBirth} + ')'">20/20/2000</span>
-        <span><img width="5%" th:src=${artist.urlOfPicture} /></span>
+    <div id="date">
+        <div th:text="'Birth: ' + ${artist.dateOfBirth}">Birth: 10/12/1967</div>
+        <div th:if="${artist.dateOfDeath}" th:text="'Death: ' +  ${artist.dateOfDeath}">Death: still alive </div>
+        <div th:unless="${artist.dateOfDeath}"  >Death: still alive </div>
     </div>
-    <div th:unless="${artist}">Non esiste</div>
-  </body>
+
+    <div  th:if="${!artist.starredMovies.isEmpty()}" id="starred-movie">
+        <h1>Movies</h1>
+        <div th:each="sarredMovie : ${artist.starredMovies}">
+            <img th:src="${starredMovie.image}"/>
+        </div>
+    </div>
+
+    <div th:if="${!artist.directedMovies.isEmpty()}" id="directed-movie">
+        <h1> Directed Movies </h1>
+        <div th:each="directedMovie: ${artist.directedMovies}">
+            <img  th:src="${directedMovie.image}" />
+            <img/>
+            <img/>
+        </div>
+    </div>
+</div>
+</body>
 </html>

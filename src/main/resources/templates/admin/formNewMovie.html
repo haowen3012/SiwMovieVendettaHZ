@@ -1,51 +1,45 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>
-		New Movie
-	</title>
-	<link rel="stylesheet" href="/css/index.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>JS Bin</title>
+	<link rel="stylesheet" th:href="@{/css/newMovie.css}" />
 </head>
-
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Aggiungi un film</h1>
-	<form th:action="@{/admin/movie}" method="POST" th:object="${movie}">
-  		<div th:if="${#fields.hasGlobalErrors()}">
-  			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 
-  		</div>
-		
-		<div>
-			<label>Titolo:</label> 
-			<span><input type="text" th:field="${movie.title}" /></span>
-		    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-		    </span>
+<form id="movie">
+	<div id="movie-name">
+		<h1>Movie Name</h1>
+		<input></input>
+	</div>
+
+	<div id="movie-releasedate">
+		<h1>Release Date </h1>
+		<input  class="special-input" type="datetime-local" required  name="deadline"/>
+	</div>
+	<div id="select-director">
+		<h1>Choose the director </h1>
+		<div id="directors">
+			<div id="director">
+				<input  class="checkbox" type="checkbox"/>
+			</div>
 		</div>
 
-		<div>
-			<label>Anno:</label> <span><input type="text" th:field="${movie.year}" /></span>
-		    <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}">
-		    </span>
-		</div>
+	</div>
+	<div id="select-actors">
+		<h1>Choose the actors</h1>
 
-		<div>
-			<label>URL immagine:</label> <span><input type="text" th:field="${movie.urlImage}" /></span>
+		<div id="actors">
+			<div id="actor">
+				<input  class="checkbox" type="checkbox"/>
+			</div>
 		</div>
-		
-		<div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-	</form>
+	</div>
+
+
+	<button id="create">create</button>
+</form>
+
 </body>
-
 </html>
+

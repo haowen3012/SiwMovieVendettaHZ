@@ -25,7 +25,14 @@ public class Artist {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
-	private String urlOfPicture;
+
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfDeath;
+
+
+	private String picture;
+
 	
 	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
@@ -64,6 +71,30 @@ public class Artist {
 	}
 
 
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public LocalDate getDateOfDeath() {
+		return dateOfDeath;
+	}
+
+	public void setDateOfDeath(LocalDate dateOfDeath) {
+		this.dateOfDeath = dateOfDeath;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public Set<Movie> getStarredMovies() {
 		return starredMovies;
 	}
@@ -77,38 +108,6 @@ public class Artist {
 	}
 
 	public void setDirectedMovies(List<Movie> directedMovies) {
-		this.directedMovies = directedMovies;
-	}
-
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
-	
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-	
-	public String getUrlOfPicture() {
-		return urlOfPicture;
-	}
-	
-	public void setUrlOfPicture(String urlOfPicture) {
-		this.urlOfPicture = urlOfPicture;
-	}
-	
-	public Set<Movie> getActorOf() {
-		return starredMovies;
-	}
-
-	public void setActorOf(Set<Movie> starredMovies) {
-		this.starredMovies = starredMovies;
-	}
-
-	public List<Movie> getDirectorOf() {
-		return directedMovies;
-	}
-
-	public void setDirectorOf(List<Movie> directedMovies) {
 		this.directedMovies = directedMovies;
 	}
 
@@ -131,5 +130,11 @@ public class Artist {
 
 
 
+	@Transient
+	public String getPictureImagePath() {
+		if (this.picture == null || id == null) return null;
+
+		return "/files/artistFiles/" + id + "/" + this.picture;
+	}
 
 }

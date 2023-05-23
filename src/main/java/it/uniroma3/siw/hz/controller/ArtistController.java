@@ -2,6 +2,7 @@ package it.uniroma3.siw.hz.controller;
 
 import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.model.Artist;
+import it.uniroma3.siw.hz.model.User;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
 import it.uniroma3.siw.hz.service.ArtistService;
 import jakarta.transaction.Transactional;
@@ -36,11 +37,18 @@ public class ArtistController {
 	}
 	
 	@PostMapping("/admin/artist")
-	public String newArtist(@ModelAttribute("artist") Artist artist, Model model) {
+	public String newArtist(@ModelAttribute("artist") Artist artist,@RequestParam(value = "image", required = false) MultipartFile multipartFile ,Model model) {
 		if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
-			this.artistRepository.save(artist); 
+
+			try {
+				this.artistService.addArtistPhoto(multipartFile, artist);
+			}catch (IOException e) {
+				this.artistRepository.save(artist);
+			}
+
 			model.addAttribute("artist", artist);
 			return "artist.html";
+
 		} else {
 			model.addAttribute("messaggioErrore", "Questo artista esiste già");
 			return "admin/formNewArtist.html"; 
@@ -60,5 +68,17 @@ public class ArtistController {
 	}
 
 
+
+	@Transactional
+	@RequestMapping(value={"/addArtistPhoto/{id}"}, method = RequestMethod.POST)
+	public String addArtistPhoto(@RequestParam("image")  MultipartFile multipartFile,@PathVariable("id")
+	Long id) throws IOException {
+
+		Artist artist = this.artistService.getArtist(id);
+
+		this.artistService.addArtistPhoto(multipartFile,artist);
+
+		return "admin/indexAdmin.html";
+	}
 
 }

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,8 +27,10 @@ public class Movie {
     @Min(1900)
     @Max(2023)
 	private Integer year;
+
+	private LocalDateTime releaseDate;
     
-	private String urlImage;
+	private String Image;
 	
 	@ManyToOne
 	private Artist director;
@@ -55,13 +60,21 @@ public class Movie {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-	
-	public String getUrlImage() {
-		return urlImage;
+
+	public LocalDateTime getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setReleaseDate(LocalDateTime releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
 	}
 
 	public Artist getDirector() {

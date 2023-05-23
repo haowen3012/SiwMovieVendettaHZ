@@ -1,0 +1,143 @@
+@import url('https://fonts.cdnfonts.com/css/cera-round-pro');
+
+*{
+
+    box-sizing: border-box;
+}
+
+
+
+body{
+
+    display:flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+
+    font-family: 'Cera Round Pro', sans-serif;
+    font-size: 13px;
+    min-height: 100%;
+    margin-top: 0;
+
+    background-image: url("https://i.postimg.cc/XqCWKWrp/cleanbackground.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    /*  animation: gradient 10s ease infinite;*/
+
+    word-spacing : 0.5em;
+
+
+
+
+
+}
+
+
+#greeting{
+    margin-top: 4%;
+    font-size : 5em;
+    color: #fff;
+    z-index: 5;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 2px 2px 4px rgba(0, 0, 0, 1);
+
+}
+
+
+#operations{
+    margin-top: 3%;
+    position: relative;
+    width: 70%;
+
+
+    display: inline-flex;
+    justify-content: space-between;
+    align-items : center;
+
+
+}
+
+.operation{
+    width: 500px;
+    height: 300px;
+    margin: 5%;
+
+
+    /* From https://css.glass */
+    background: rgba(153, 145, 145, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(153, 145, 145, 0.71);
+
+
+
+    display:flex;
+    justify-content: flex-start;
+    align-items : center;
+    flex-direction: column;
+
+}
+
+.operation:active{
+    transform : scale(0.9);
+}
+
+.operation:hover{
+
+    transform : scale(1.1);
+
+}
+
+.operation h1{
+    color: #fff;
+    font-size: 2em;
+    text-align : center;
+    text-transform: uppercase;
+}
+
+.operation #star-icon {
+    margin-top: 5%;
+    font-size : 10em;
+    text-shadow: none;
+    color: gold;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+
+.operation #movie-icon{
+    margin-top: 5%;
+    font-size : 8em;
+    color: #F0F8FF;
+    text-shadow: none;
+}
+
+
+#operations-2{
+
+    margin-top: 5%;
+    position: relative;
+    width: 70%;
+
+
+    display: inline-flex;
+    justify-content: space-between;
+    align-items : center;
+}
+
+
+#operations-2   #edit-icon{
+    margin-top: 5%;
+    font-size:10em;
+
+    color: gold;
+
+}
+
+
+
+

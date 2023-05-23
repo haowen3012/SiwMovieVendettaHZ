@@ -1,0 +1,126 @@
+@import url('https://fonts.cdnfonts.com/css/cera-round-pro');
+
+*{
+
+    box-sizing: border-box;
+}
+
+
+
+body{
+
+
+
+    font-family: 'Cera Round Pro', sans-serif;
+    font-size: 13px;
+    min-height: 100%;
+    margin-top: 0;
+
+    background-image: url("https://i.postimg.cc/XqCWKWrp/cleanbackground.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    /*  animation: gradient 10s ease infinite;*/
+
+    word-spacing : 0.5em;
+
+
+
+}
+
+
+#artist{
+
+    width: 100%;
+
+    margin-top: 5%;
+
+
+    display:flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+}
+
+
+img{
+
+
+    width: 10em;
+    height: 10em;
+    background-size: cover;
+    object-fit: cover;
+    border-radius: 50%;
+
+
+}
+
+h1{
+
+    color: #fff;
+    font-size: 3em;
+}
+
+#date{
+
+    display: flex;
+    justify-content: center;
+    align-items : flex-start;
+    flex-direction: column;
+    font-style: italic;
+
+}
+
+#date div{
+
+    color: gold;
+    font-weight: 505;
+    font-size: 2em;
+    margin-top: 5%;
+    letter-spacing: 0.05em;
+}
+
+
+#starred-movie{
+
+    margin-top:  2%;
+    display: flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+
+}
+
+
+#directed-movie{
+
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+
+    margin-bottom: 2%;
+}
+
+
+#starred-movie img,  #directed-movie img{
+
+    height: 15em;
+    border-radius: 10px;
+
+
+}
+
+#empty-list{
+
+    color: #fff;
+    font-size: 2em;
+
+}
+
+
+

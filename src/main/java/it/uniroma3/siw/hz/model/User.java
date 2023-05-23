@@ -110,6 +110,6 @@ public class User {
 	public String getPictureImagePath() {
 		if (this.picture == null || id == null) return null;
 
-		return "/files/" + id + "/" + this.picture;
+		return "/files/userFiles/" + id + "/" + this.picture;
 	}
 }

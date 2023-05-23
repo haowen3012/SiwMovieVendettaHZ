@@ -40,7 +40,7 @@ public class UserController {
 
         this.userService.saveUser(user);
 
-        String uploadDir = "files/" + user.getId();
+        String uploadDir = "files/userFiles/" + user.getId();
 
 
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);

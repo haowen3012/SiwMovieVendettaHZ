@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>
-		SiwMovie - Homepage
-	</title>
-	<link rel="stylesheet" href="/css/index.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<title>SiwMovieVendettaHZ</title>
+	<link rel="stylesheet" th:href="@{/css/indexAdmin.css}" />
 </head>
-
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<h1 id="greeting">Welcome back Boss !</h1>
 
-	<div><img src="/images/logo-siw.png" width="50%" /></div>
-	<h1>Consulta l'archivio</h1>
-	<div>
-		<a href="/movie">Elenco Film</a>
-	</div>
-	<div>
-		<a href="/artist">Elenco Artisti</a>
-	</div>
-	<h1>Operazioni per amministratore</h1>
-	<div>
-		<a href="/admin/indexMovie">Operazioni sui film</a>
-	</div>
-	<div>
-		<a href="/admin/indexArtist">Operazioni sugli artisti</a>
-	</div>
+<div id="operations">
+
+	<a class="operation" href="/admin/formNewArtist">
+		<h1>Insert new Artist</h1>
+		<div id="star-icon"class="fa fa-star" aria-hidden="true"></div>
+	</a>
+	<a class="operation" href="/admin/movie">
+		<h1>Insert new movie</h1>
+		<i id="movie-icon" class="fa fa-film" aria-hidden="true"></i>
+	</a>
+
+</div>
+
+
+<div id="operations-2">
+
+	<a class="operation">
+		<h1>Update  an artist</h1>
+		<i id="edit-icon" class="fa">&#xf044;</i>
+
+	</a>
+	<a class="operation">
+		<h1>Update a movie</h1>
+		<i style="color: #F0F8FF" id="edit-icon" class="fa">&#xf044;</i>
+
+	</a>
+
+</div>
+
 </body>
-
 </html>

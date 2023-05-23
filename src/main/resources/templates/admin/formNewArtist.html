@@ -1,51 +1,78 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>
-		New Artist
-	</title>
-	<link rel="stylesheet" href="/css/index.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/newArtist.css}" />
+	<title>JS Bin</title>
 </head>
-
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<form id="artist" th:action="@{/admin/artist}" method="post" enctype="multipart/form-data">
+	<div class="artist-name" th:field="${artist.name}">
+		<h1>Artist Name</h1>
+		<input th:field="${artist.name}" ></input>
+	</div>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Aggiungi un artista</h1>
-	<form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
-		<div>
-			<span th:text="${messaggioErrore}">Errore</span>
-		</div>
-		
-		<div>
-			<label>Nome:</label> <span><input required type="text" th:field="${artist.name}" /></span>
-		</div>
+	<div class="artist-name">
+		<h1>Artist Surname</h1>
+		<input th:field="${artist.surname}" required></input>
+	</div>
 
-		<div>
-			<label>Cognome:</label> <span><input required type="text" th:field="${artist.surname}" /></span>
-		</div>
+	<div class="artist-date">
+		<h1> Date of Birth</h1>
+		<input   type="date"   th:field="${artist.dateOfBirth}" required  />
+	</div>
+	<div class="artist-date">
+		<h1> Date of Death</h1>
+		<input   type="date"    th:field="${artist.dateOfDeath}"  />
+	</div>
 
-		<div>
-			<label>Data di nascita:</label> <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
+	<div id="artist-picture">
+		<h1>Artist pircture</h1>
+		<div id="picture" >
+			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
+			<img id="thumbnail"  />
+			<i class="fa fa-plus" id="plus"></i>
 		</div>
+	</div>
+	<button id="create">create</button>
+</form>
+<script>
+	document.getElementById('plus').addEventListener('click', function() {
+		document.getElementById('file').click();
+	});
+</script>
+<script>
 
-		<div>
-			<label>Fotografia (url):</label> <span><input type="text" th:field="${artist.urlOfPicture}" /></span>
-		</div>
-		
-		<div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-	</form>
+	var plusIcon = document.getElementById('plus');
+	var thumbnail = document.getElementById('thumbnail');
+
+	$(document).ready(function(){
+		$('#file').change(function(){
+			showImageThumbnail(this);
+		});
+
+	});
+
+	function  showImageThumbnail(fileInput){
+
+
+		file = fileInput.files[0];
+		reader = new FileReader();
+
+		reader.onload = function(e){
+			$('#thumbnail').attr('src', e.target.result);
+		};
+
+		reader.readAsDataURL(file);
+
+		thumbnail.style.border ="none";
+	}
+
+
+</script>
 </body>
-
 </html>
+
