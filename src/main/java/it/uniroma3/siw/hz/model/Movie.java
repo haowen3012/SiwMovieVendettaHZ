@@ -68,7 +68,7 @@ public class Movie {
 	}
 
 	public void setImage(String image) {
-		image = image;
+		this.image = image;
 	}
 
 	public Artist getDirector() {

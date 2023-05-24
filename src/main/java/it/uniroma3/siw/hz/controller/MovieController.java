@@ -82,9 +82,9 @@ public class MovieController {
 
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult,
+						   @RequestParam( value = "movieImage",required = false) MultipartFile multipartFile,
 						   @RequestParam(value = "directorsToAdd",required = false) Long directorToAddId,
-						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId,
-						   @RequestParam(value = "image",required = false)MultipartFile multipartFile
+						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId
 
 			, Model model) {
 		

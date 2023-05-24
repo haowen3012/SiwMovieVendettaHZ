@@ -10,6 +10,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<a href="/" id="home-icon">
+	<i id="home" class="fa fa-home"></i>
+</a>
 <form id="movie" th:action="@{/admin/movie}" method="post" enctype="multipart/form-data">
 	<div id="movie-name">
 		<h1>Movie Title</h1>
@@ -25,7 +28,7 @@
 	<div id="movie-image">
 		<h1>Movie Image</h1>
 		<div id="picture" >
-			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
+			<input id="file" type="file" name="movieImage" accept="image/png, image/jpeg" />
 			<img id="thumbnail" />
 			<i class="fa fa-plus" id="plus"></i>
 		</div>
