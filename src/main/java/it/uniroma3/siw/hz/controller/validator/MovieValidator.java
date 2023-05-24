@@ -16,8 +16,8 @@ public class MovieValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors errors) {
 		Movie movie = (Movie)o;
-		if (movie.getTitle()!=null && movie.getYear()!=null 
-				&& movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear())) {
+		if (movie.getTitle()==null || movie.getReleaseDate()==null
+				|| movieRepository.existsByTitleAndReleaseDate(movie.getTitle(), movie.getReleaseDate())) {
 			errors.reject("movie.duplicate");
 		}
 	}

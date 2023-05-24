@@ -3,35 +3,53 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>JS Bin</title>
+	<title>SiwMovieVendettaHZ</title>
 	<link rel="stylesheet" th:href="@{/css/newMovie.css}" />
+	<link rel="stylesheet" th:href="@{/css/button.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="/javascript/imagePreview.js"></script>
 </head>
 <body>
-<form id="movie">
+<form id="movie" th:action="@{/admin/movie}" method="post" enctype="multipart/form-data">
 	<div id="movie-name">
-		<h1>Movie Name</h1>
-		<input></input>
+		<h1>Movie Title</h1>
+		<input th:field="${movie.title}"></input>
 	</div>
+
 
 	<div id="movie-releasedate">
 		<h1>Release Date </h1>
-		<input  class="special-input" type="datetime-local" required  name="deadline"/>
+		<input   type="date" required  th:field="${movie.releaseDate}"/>
 	</div>
-	<div id="select-director">
+
+	<div id="movie-image">
+		<h1>Movie Image</h1>
+		<div id="picture" >
+			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
+			<img id="thumbnail" />
+			<i class="fa fa-plus" id="plus"></i>
+		</div>
+	</div>
+
+
+	<div id="select-director" th:if="${artists}">
 		<h1>Choose the director </h1>
 		<div id="directors">
-			<div id="director">
-				<input  class="checkbox" type="checkbox"/>
+			<div id="director" th:each="director: ${artists}">
+				<img  th:src="@{${director.pictureImagePath}}"/>
+				<input  name="directorsToAdd" th:value="${director.id}" class="checkbox" type="checkbox"/>
 			</div>
 		</div>
 
 	</div>
-	<div id="select-actors">
+	<div id="select-actors" th:if="${artists}">
 		<h1>Choose the actors</h1>
 
 		<div id="actors">
-			<div id="actor">
-				<input  class="checkbox" type="checkbox"/>
+			<div id="actor" th:each="actor: ${artists}" >
+				<img  th:src="@{${actor.pictureImagePath}}"/>
+				<input  class="checkbox" type="checkbox"  name="actorsToAdd" th:value="${actor.id}" />
 			</div>
 		</div>
 	</div>
@@ -40,6 +58,7 @@
 	<button id="create">create</button>
 </form>
 
+<script src="/javascript/imagePreview.js"></script>
 </body>
 </html>
 

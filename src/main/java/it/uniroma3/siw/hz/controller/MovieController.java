@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -44,6 +44,7 @@ public class MovieController {
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
 		model.addAttribute("movie", new Movie());
+		model.addAttribute("artists",this.artistService.getAllArtists());
 		return "admin/formNewMovie.html";
 	}
 
@@ -80,15 +81,25 @@ public class MovieController {
 	}
 
 	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult,
+						   @RequestParam("directorsToAdd") Long directorToAddId,
+						   @RequestParam("actorsToAdd") Collection<Long> actorsToaddId,
+						   @RequestParam("image")MultipartFile multipartFile
+
+			, Model model) {
 		
 		this.movieValidator.validate(movie, bindingResult);
 		if (!bindingResult.hasErrors()) {
-			this.movieService.saveMovie(movie);
+
+
+			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,multipartFile);
+
 			model.addAttribute("movie", movie);
 			return "movie.html";
 		} else {
-			return "admin/formNewMovie.html"; 
+
+			return "admin/formNewMovie.html";
+
 		}
 	}
 
@@ -113,12 +124,12 @@ public class MovieController {
 	public String formSearchMovies() {
 		return "formSearchMovies.html";
 	}
-
+/*
 	@PostMapping("/searchMovies")
 	public String searchMovies(Model model, @RequestParam int year) {
 		model.addAttribute("movies", this.movieService.getMoviesByYear(year));
 		return "foundMovies.html";
-	}
+	}*/
 	
 	@GetMapping("/admin/updateActors/{id}")
 	public String updateActors(@PathVariable("id") Long id, Model model) {

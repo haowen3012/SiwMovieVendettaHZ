@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -22,21 +24,20 @@ public class Movie {
 
     @NotBlank
 	private String title;
-    
-    @NotNull
-    @Min(1900)
-    @Max(2023)
-	private Integer year;
 
-	private LocalDateTime releaseDate;
+
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate releaseDate;
     
-	private String Image;
+	private String image;
 	
 	@ManyToOne
 	private Artist director;
-	
+
 	@ManyToMany
 	private Set<Artist> actors;
+
 
 	public Long getId() {
 		return id;
@@ -53,28 +54,21 @@ public class Movie {
 		this.title = title;
 	}
 
-	public Integer getYear() {
-		return year;
-	}
 
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-
-	public LocalDateTime getReleaseDate() {
+	public LocalDate getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(LocalDateTime releaseDate) {
+	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
 	public String getImage() {
-		return Image;
+		return image;
 	}
 
 	public void setImage(String image) {
-		Image = image;
+		image = image;
 	}
 
 	public Artist getDirector() {
@@ -93,9 +87,11 @@ public class Movie {
 		this.actors = actors;
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, year);
+		return Objects.hash(title, releaseDate);
 	}
 
 	@Override
@@ -107,6 +103,15 @@ public class Movie {
 		if (getClass() != obj.getClass())
 			return false;
 		Movie other = (Movie) obj;
-		return Objects.equals(title, other.title) && year.equals(other.year);
+		return Objects.equals(title, other.title) && releaseDate.equals(other.releaseDate);
+	}
+
+
+	@Transient
+	public String getImagePath() {
+		if (this.image == null || id == null) return null;
+
+		return "/files/movieFiles/" + id + "/" + this.image;
 	}
 }
+

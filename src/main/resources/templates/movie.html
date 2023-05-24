@@ -1,19 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Film</title>
-	<link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" th:href="@{/css/movie.css}" />
 </head>
 
 <body>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-    <h1>Dettagli Film</h1>
-    <div th:if="${movie}">
-        <span th:text="${movie.title}">Up!</span>
-        <span th:text="'(' + ${movie.year} + ')'">2000</span>
-        <span><img width="5%" th:src=${movie.urlImage} /></span>
+<div id="wrapper">
+    <div id="luce"></div>
+    <div id="light"></div>
+</div>
+
+<div id="movie" >
+    <div class="tape-left">
+
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+
     </div>
-    <div th:unless="${movie}">Non esiste</div>
-  </body>
+
+    <div class="center">
+        <div class="top-padding"></div>
+        <div class="upper-bound"></div>
+        <div class="movie">
+            <img  class="movie-image" th:src="@{${movie.getImagePath}}">
+        </div>
+        <div class="lower-bound">
+        </div>
+        <div class="lower-padding"></div>
+    </div>
+    <div class="tape-right">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+</div>
+</body>
 </html>
