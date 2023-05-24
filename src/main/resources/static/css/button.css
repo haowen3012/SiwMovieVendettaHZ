@@ -29,3 +29,19 @@ button:hover{
     transition: all .4s ease-in-out;
     box-shadow: 0 4px 15px 0 #3CF0C5;
 }
+
+
+
+#create {
+
+    margin-top: 5%;
+    margin-left: 80%;
+
+    background-image: linear-gradient(to right, #1F1C2C 0%, #928DAB 51%, #1F1C2C 100%);
+}
+
+
+#select-director button,#select-actors button, #create{
+
+    background-image: linear-gradient(to right, #1F1C2C 0%, #928DAB  51%, #1F1C2C  100%);
+}

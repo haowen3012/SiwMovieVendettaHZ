@@ -82,21 +82,22 @@ public class MovieController {
 
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult,
-						   @RequestParam("directorsToAdd") Long directorToAddId,
-						   @RequestParam("actorsToAdd") Collection<Long> actorsToaddId,
-						   @RequestParam("image")MultipartFile multipartFile
+						   @RequestParam(value = "directorsToAdd",required = false) Long directorToAddId,
+						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId,
+						   @RequestParam(value = "image",required = false)MultipartFile multipartFile
 
 			, Model model) {
 		
 		this.movieValidator.validate(movie, bindingResult);
-		if (!bindingResult.hasErrors()) {
-
+		  if (!bindingResult.hasErrors()) {
 
 			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,multipartFile);
 
 			model.addAttribute("movie", movie);
+
 			return "movie.html";
 		} else {
+
 
 			return "admin/formNewMovie.html";
 

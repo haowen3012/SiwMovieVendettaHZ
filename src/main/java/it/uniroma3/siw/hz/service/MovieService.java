@@ -114,7 +114,6 @@ public class MovieService {
 
         }
 
-
         Set<Artist> actors = new HashSet<>();
 
         for(Long actorId : actorsToaddId){
