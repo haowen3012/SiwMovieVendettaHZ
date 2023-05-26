@@ -25,9 +25,9 @@
 	</div>
 
 	<div id="cover">
-		<div></div>
-		<div></div>
-		<div></div>
+		<div class="parall"></div>
+		<div class="parall"></div>
+		<div class="parall"></div>
 
 	</div>
 </div>
@@ -38,17 +38,18 @@
 	<h1>New Release Movies </h1>
 	<div class="content">
 
-		<image src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
-		<image src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
-		<image src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
-		<image src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
-		<image src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
+		<image  class="release" src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
 
-		<image src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
-		<image src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
-		<image src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
-		<image src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
-		<image src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
+
+		<image class="release"  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
+		<image  class="release" src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
+		<image class="release"  src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
 
 
 	</div>
@@ -358,6 +359,34 @@
 
 
 	}
+</script>
+
+<script>
+    var index = 0;
+
+	var cover = document.getElementById('cover');
+
+	var nav = document.getElementsByClassName('nav');
+
+	var releases = document.getElementsByClassName('release');
+
+
+	cover.style.animation = "slide-in-anim " + (1) + "s ease-out forwards";
+
+
+	for(i=0; i<nav.length;i++) {
+		nav[i].style.animation = "slide-in-down " + (0.8) + "s ease-out forwards";
+	}
+
+	for(i=0; i<releases.length;i++) {
+		releases[i].style.animation = "slide-in-anim " + (0.7 + index) + "s ease-out forwards";
+
+		index = index + 0.3;
+	}
+
+
+
+
 </script>
 </body>
 </html>
