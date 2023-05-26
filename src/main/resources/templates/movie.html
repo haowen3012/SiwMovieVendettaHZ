@@ -62,9 +62,9 @@
 
 
 
-        <div class="director" th:if="${movie.director}">
+        <div class="director" >
             <img  th:src="@{${movie.director.getPictureImagePath}}"/>
-            <a id="remove">remove</a>
+            <a id="remove" th:href="'/removeDirector' + '/' + ${movie.id}" >remove</a>
         </div>
 
     </div>

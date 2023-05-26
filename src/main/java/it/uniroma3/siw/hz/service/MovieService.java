@@ -189,4 +189,14 @@ public class MovieService {
         return movie;
     }
 
+    public Movie removeDirectorFromMovie(Long idMovie) {
+
+        Movie movie = this.getMovie(idMovie);
+
+        movie.setDirector(null);
+
+        this.movieRepository.save(movie);
+
+        return movie;
+    }
 }
