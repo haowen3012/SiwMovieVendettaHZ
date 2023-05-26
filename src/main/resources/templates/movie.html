@@ -1,51 +1,244 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Film</title>
-    <link rel="stylesheet" th:href="@{/css/movie.css}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
-
 <body>
 
-<div id="wrapper">
-    <div id="luce"></div>
-    <div id="light"></div>
-</div>
 
-<div id="movie" >
-    <div class="tape-left">
 
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+<div class="slideshow-container">
 
-    </div>
+    <div class="overlay" ></div>
 
-    <div class="center">
-        <div class="top-padding"></div>
-        <div class="upper-bound"></div>
-        <div class="movie">
-            <img  class="movie-image" th:src="@{${movie.getImagePath}}">
+    <div id="movie-details">
+        <h1>Iron Man</h1>
+        <div id="plot">
+
+            Dopo essere sopravvissuto ad un attacco inaspettato in territorio nemico, l'industriale Tony Stark costruisce un'armatura ad alta tecnologia e giura di proteggere il mondo nei panni di Iron Man.
+
         </div>
-        <div class="lower-bound">
-        </div>
-        <div class="lower-padding"></div>
     </div>
-    <div class="tape-right">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="prova">
     </div>
+
+    <div class="mySlides fade">
+        <img src="https://i.postimg.cc/g0PXq2PV/iron-Man-Scen1.jpg"/ >
+
+
+    </div>
+
+
+    <div class="mySlides fade">
+        <img src="https://i.postimg.cc/52zQCFD9/iron-Man-Scen2.jpg" />
+
+    </div>
+
+    <div class="mySlides fade">
+
+        <img src="https://i.postimg.cc/B6pKv9kx/iron-Man-Scen3.png"/>
+    </div>
+
 </div>
+<div id="mid-nav">
+
+    <div id="act">cast</div>
+    <div id="dir">Director</div>
+    <div id="rev">Reviews</div>
+
 </div>
+
+
+<div id="content">
+
+    <button id="update">update</button>
+
+    <div class="cast">
+
+
+        <a class="actor">
+            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
+            <button>remove</button>
+        </a>
+
+
+        <a class="actor">
+            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
+            <button>remove</button>
+        </a>
+
+
+        <a class="actor">
+            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
+            <button>remove</button>
+        </a>
+
+        <a class="director">
+            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
+            <button>remove</button>
+        </a>
+
+    </div>
+
+
+
+
+</div>
+
+<script>
+    const slider = document.querySelector('.cast');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        console.log(walk);
+    });
+</script>
+<script>
+
+
+    setInterval(function () { plusSlides(1)}, 5000);
+
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+</script>
+
+<script>
+
+    var  dir =  document.getElementById('dir');
+    var director = document.querySelector('.director');
+    let actors = document.getElementsByClassName("actor");
+    var cast = document.querySelector('.cast');
+
+    var act = document.getElementById('act');
+
+    var rev = document.getElementById('rev');
+
+
+
+
+    dir.addEventListener('click', () => {
+
+
+
+        director.style.display = "flex";
+        director.style.animation = "slide-in-anim 0.7s ease-out forwards";
+        cast.style.justifyContent = "center";
+        dir.style.borderBottom =" 5px solid green";
+
+
+        act.style.borderBottom =" none";
+        rev.style.borderBottom =" none";
+
+
+        for (i = 0; i < actors.length; i++) {
+            actors[i].style.display = "none";
+
+
+        }
+
+    });
+
+    act.addEventListener('click', () => {
+
+        index = 0;
+
+        director.style.display = "none";
+        rev.style.borderBottom =" none";
+
+
+
+        act.style.borderBottom =" 5px solid green";
+        dir.style.borderBottom =" none";
+
+        for (i = 0; i < actors.length; i++) {
+            actors[i].style.display = "flex";
+
+            actors[i].style.animation = "slide-in-anim " + (0.5 +index) + "s ease-out forwards";
+
+            cast.style.justifyContent = "flex-start";
+
+            index = index + 0.3;
+
+
+
+        }
+    });
+
+
+    rev.addEventListener('click', () => {
+
+
+
+        rev.style.borderBottom =" 5px solid green";
+        dir.style.borderBottom =" none";
+        act.style.borderBottom =" none";
+
+
+
+        director.style.display = "none";
+
+        for (i = 0; i < actors.length; i++) {
+            actors[i].style.display = "none";
+
+
+        }
+    });
+
+
+
+
+</script>
+
+
 </body>
 </html>
