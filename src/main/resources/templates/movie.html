@@ -26,22 +26,11 @@
     <div class="prova">
     </div>
 
-    <div class="mySlides fade">
-        <img src="https://i.postimg.cc/g0PXq2PV/iron-Man-Scen1.jpg"/ >
-
-
-    </div>
-
-
-    <div class="mySlides fade">
-        <img src="https://i.postimg.cc/52zQCFD9/iron-Man-Scen2.jpg" />
+    <div class="mySlides fade" th:each="scene : ${movie.scenes}">
+        <img th:src="@{${movie.getScenePath(scene.id)}}"/>
 
     </div>
 
-    <div class="mySlides fade">
-
-        <img src="https://i.postimg.cc/B6pKv9kx/iron-Man-Scen3.png"/>
-    </div>
 
 </div>
 <div id="mid-nav">
@@ -60,25 +49,15 @@
     <div class="cast">
 
 
-        <a class="actor">
-            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
+        <a class="actor" th:each=" actor : ${movie.actors}">
+            <img  th:src="@{${actor.getImagePath}}"/>
             <button>remove</button>
         </a>
 
 
-        <a class="actor">
-            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
-            <button>remove</button>
-        </a>
 
-
-        <a class="actor">
-            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
-            <button>remove</button>
-        </a>
-
-        <a class="director">
-            <img  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"/>
+        <a class="director" th:if="${movie.director}">
+            <img  th:src="@{${movie.director.getImagePath}}"/>
             <button>remove</button>
         </a>
 

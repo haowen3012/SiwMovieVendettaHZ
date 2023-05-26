@@ -8,12 +8,12 @@ var thumbnail = document.getElementById('thumbnail');
 
 $(document).ready(function(){
     $('#file').change(function(){
-        showImageThumbnail(this);
+        showThumbnail(this);
     });
 
 });
 
-function  showImageThumbnail(fileInput){
+function  showThumbnail(fileInput){
 
 
     file = fileInput.files[0];

@@ -2,7 +2,9 @@ package it.uniroma3.siw.hz.service;
 
 import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.model.Artist;
+import it.uniroma3.siw.hz.model.Image;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
+import it.uniroma3.siw.hz.repository.ImageRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class ArtistService {
 
     @Autowired
     private ArtistRepository artistRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
 
 
@@ -53,7 +58,7 @@ public class ArtistService {
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-        artist.setPicture(fileName);
+        artist.setPicture(imageRepository.save(new Image(fileName)));
 
         this.saveArtist(artist);
 

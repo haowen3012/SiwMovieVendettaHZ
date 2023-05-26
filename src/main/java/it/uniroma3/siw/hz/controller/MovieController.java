@@ -84,14 +84,15 @@ public class MovieController {
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult,
 						   @RequestParam( value = "movieImage",required = false) MultipartFile multipartFile,
 						   @RequestParam(value = "directorsToAdd",required = false) Long directorToAddId,
-						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId
+						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId,
+						   @RequestParam(value = "movieScenes",required = false) Collection<MultipartFile> scenes
 
 			, Model model) {
 		
 		this.movieValidator.validate(movie, bindingResult);
 		  if (!bindingResult.hasErrors()) {
 
-			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,multipartFile);
+			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,multipartFile,scenes);
 
 			model.addAttribute("movie", movie);
 

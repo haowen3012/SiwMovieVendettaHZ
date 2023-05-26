@@ -5,14 +5,16 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CollectionIdJavaType;
+import org.hibernate.annotations.CollectionType;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.SqlTypes;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -29,8 +31,18 @@ public class Movie {
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate releaseDate;
-    
-	private String image;
+
+
+
+	@OneToOne
+	private Image image;
+
+
+
+
+
+	@OneToMany(mappedBy = "movie")
+	private Set<Image> scenes;
 	
 	@ManyToOne
 	private Artist director;
@@ -63,12 +75,20 @@ public class Movie {
 		this.releaseDate = releaseDate;
 	}
 
-	public String getImage() {
+	public Image getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Set<Image> getScenes() {
+		return scenes;
+	}
+
+	public void setScenes(Set<Image> scenes) {
+		this.scenes = scenes;
 	}
 
 	public Artist getDirector() {
@@ -111,7 +131,15 @@ public class Movie {
 	public String getImagePath() {
 		if (this.image == null || id == null) return null;
 
-		return "/files/movieFiles/" + id + "/" + this.image;
+		return "/files/movieFiles/image" + id + "/" + this.image.getName();
+	}
+
+
+	@Transient
+	public String getScenePath(Long id) {
+		if (this.image == null || id == null) return null;
+
+		return "/files/movieFiles/scenes" + id + "/" + this.scenes;
 	}
 }
 

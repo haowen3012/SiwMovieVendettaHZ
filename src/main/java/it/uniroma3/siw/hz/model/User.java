@@ -1,6 +1,7 @@
 package it.uniroma3.siw.hz.model;
 
 import it.uniroma3.siw.hz.oauth.AuthenticationProvider;
+import it.uniroma3.siw.hz.repository.ImageRepository;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -21,7 +22,7 @@ public class User {
 	private String surname;
 	private String email;
 
-	private String picture;
+	private Image picture;
 
 	@CreationTimestamp
 	private LocalDateTime creationTimestamp;
@@ -73,11 +74,11 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPicture() {
+	public Image getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String photo) {
+	public void setPicture(Image photo) {
 		this.picture = photo;
 	}
 
@@ -110,6 +111,6 @@ public class User {
 	public String getPictureImagePath() {
 		if (this.picture == null || id == null) return null;
 
-		return "/files/userFiles/" + id + "/" + this.picture;
+		return "/files/userFiles/" + id + "/" + this.picture.getName();
 	}
 }

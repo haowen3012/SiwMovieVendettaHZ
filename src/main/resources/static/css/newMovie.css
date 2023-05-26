@@ -32,6 +32,8 @@ body{
 
 
 
+
+    color: #fff;
 }
 
 
@@ -41,13 +43,31 @@ h1{
 }
 
 
-#home{
+
+
+#go-back{
+
     color: #fff;
-    font-size: 2em;
-    margin-top: 100%;
-    margin-bottom: 200%;
+    font-size: 1.5em;
+    margin-top: 2%;
+    margin-right: 92%;
+    margin-bottom: 2%;
+    text-shadow:  none;
+    padding: 1.2%;
+    border: solid;
+    border-radius: 50%;
+    transition: 0.3s;
 }
 
+#go-back:hover{
+    transform: scale(1.1);
+    color:#000;
+    background: #fff;
+}
+
+#go-back:active{
+    transform: scale(0.9);
+}
 
 
 #movie{
@@ -120,7 +140,84 @@ h1{
     margin-left: 5%;
     color: #fff;
 }
+/*********************************/
+#movie-scenes{
 
+    margin-top: 5%;
+
+    width: 100%;
+    height: 20%;
+
+    display:inline-flex;
+    justify-content: flex-start;
+    align-items : center;
+}
+
+
+#movie-scenes h1{
+
+    margin-left: 5%;
+}
+
+#movie-scenes .scene{
+
+    margin-left: 5%;
+    width: 20%;
+    height: 20%;
+
+
+    display:flex;
+    justify-content: flex-start;
+    align-items : center;
+
+
+
+    color: rgba(153, 145, 145, 1);
+
+
+}
+
+
+
+.scene input[type="file"] {
+    display: none;
+}
+
+
+.scene .fa{
+
+    margin-top: -30%;
+    margin-left: 6%;
+    font-size : 1.5em;
+    cursor: pointer;
+
+    z-index: 2;
+
+    color: #fff;
+
+
+}
+
+.scene .fa:active{
+    transform: scale(0.9);
+
+}
+
+.scene img{
+
+    width: 15em;
+    height: 9em;
+    border-radius: 15px;
+
+
+    background-size: cover;
+    object-fit : cover;
+
+    border: solid #fff;
+
+}
+
+/*****************************/
 
 #select-director{
     margin-top: 2%;

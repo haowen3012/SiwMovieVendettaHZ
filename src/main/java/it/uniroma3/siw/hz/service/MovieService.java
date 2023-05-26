@@ -3,7 +3,9 @@ package it.uniroma3.siw.hz.service;
 import com.nimbusds.oauth2.sdk.id.Actor;
 import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.model.Artist;
+import it.uniroma3.siw.hz.model.Image;
 import it.uniroma3.siw.hz.model.Movie;
+import it.uniroma3.siw.hz.repository.ImageRepository;
 import it.uniroma3.siw.hz.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 import org.hibernate.internal.util.MutableLong;
@@ -26,6 +28,9 @@ public class MovieService {
     @Autowired
     private ArtistService artistService;
 
+
+    @Autowired
+    private ImageRepository imageRepository;
 
 
     @Transactional
@@ -104,12 +109,14 @@ public class MovieService {
     }
 
     @Transactional
-    public void createMovie(Movie movie, Long directorToAddId, Collection<Long> actorsToaddId, MultipartFile multipartFile) {
+    public void createMovie(Movie movie, Long directorToAddId, Collection<Long> actorsToaddId,
+                            MultipartFile multipartFile,  Collection<MultipartFile> scenes) {
 
         movie.setDirector(this.artistService.getArtist(directorToAddId));
 
         try {
             this.addMoviePhoto(multipartFile, movie);
+            this.addMovieScenes(scenes, movie);
         }catch(IOException e){
 
         }
@@ -125,6 +132,45 @@ public class MovieService {
         this.movieRepository.save(movie);
     }
 
+    @Transactional
+    private Movie addMovieScenes(Collection<MultipartFile> scenes, Movie movie) throws IOException {
+
+     Collection<String> movieScenes = new ArrayList<>();
+     Map<Long,Image>  result  = new HashMap<>();
+
+     for(MultipartFile scene : scenes){
+
+        String sceneName =  StringUtils.cleanPath(scene.getOriginalFilename());
+
+
+         movieScenes.add(sceneName);
+
+
+
+
+         String uploadDir = "files/movieFiles/scenes" + movie.getId();
+
+         FileUploadUtil.saveFile(uploadDir,sceneName, scene);
+     }
+
+     for(String scene : movieScenes){
+
+         Image imageScene = imageRepository.save(new Image(scene));
+         result.put(imageScene.getId(),imageScene);
+        }
+
+
+
+
+
+
+
+        this.saveMovie(movie);
+
+
+        return movie;
+    }
+
 
     @Transactional
     public Movie addMoviePhoto(MultipartFile multipartFile, Movie movie) throws IOException {
@@ -132,7 +178,9 @@ public class MovieService {
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-        movie.setImage(fileName);
+        movie.setImage(imageRepository.save(new Image(fileName)));
+
+
 
         this.saveMovie(movie);
 

@@ -10,13 +10,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<a href="/" id="home-icon">
-	<i id="home" class="fa fa-home"></i>
+<a href="/" id="go-back">
+	<i class="fa fa-arrow-left"></i>
 </a>
 <form id="movie" th:action="@{/admin/movie}" method="post" enctype="multipart/form-data">
 	<div id="movie-name">
 		<h1>Movie Title</h1>
-		<input th:field="${movie.title}"/> >
+		<input th:field="${movie.title}"/>
 	</div>
 
 
@@ -31,6 +31,28 @@
 			<input id="file" type="file" name="movieImage" accept="image/png, image/jpeg" />
 			<img id="thumbnail" />
 			<i class="fa fa-plus" id="plus"></i>
+		</div>
+	</div>
+
+
+	<div id="movie-scenes">
+		<h1>Movie Scenes</h1>
+		<div class="scene" >
+			<input class="sceneFile" type="file" id="scene1" name="movieScenes" accept="image/png, image/jpeg" />
+			<img id="thumbnail-scene1" />
+			<i class="fa fa-plus" id="plus-1" ></i>
+		</div>
+		<div class="scene">
+			<input class="sceneFile" type="file" id="scene2" name="movieScenes" accept="image/png, image/jpeg" />
+			<img id="thumbnail-scene2" />
+			<i class="fa fa-plus" id="plus-2" ></i>
+
+		</div>
+
+		<div class="scene">
+			<input class="sceneFile" type="file" id="scene3" name="movieScenes" accept="image/png, image/jpeg" />
+			<img id="thumbnail-scene3" />
+			<i class="fa fa-plus" id="plus-3" ></i>
 		</div>
 	</div>
 
@@ -61,7 +83,82 @@
 
 </form>
 
+
 <script src="/javascript/imagePreview.js"></script>
+<script>
+
+	document.getElementById('plus-1').addEventListener('click', function() {
+
+
+		document.getElementById('scene1').click();
+
+
+
+	});
+
+
+	document.getElementById('plus-2').addEventListener('click', function() {
+
+		document.getElementById('scene2').click();
+
+
+
+	});
+
+
+	document.getElementById('plus-3') .addEventListener('click', function() {
+
+		document.getElementById('scene3').click();
+
+
+
+	});
+
+
+
+
+
+
+
+
+	$(document).ready(function(){
+
+
+		$('#scene1').change(function(){
+			showImageThumbnail(this,1);
+		});
+
+
+		$("#scene2").change(function(){
+			showImageThumbnail(this,2);
+		});
+
+		$("#scene3").change(function(){
+			showImageThumbnail(this,3);
+		});
+
+	});
+
+	function  showImageThumbnail(fileInput, n){
+
+		var thumbnail = document.getElementById('thumbnail-scene'+ n);
+
+		file = fileInput.files[0];
+		reader = new FileReader();
+
+		console.log(n);
+		reader.onload = function(e){
+			$('#thumbnail-scene' + n).attr('src', e.target.result);
+		};
+
+		reader.readAsDataURL(file);
+
+		thumbnail.style.border ="none";
+	}
+
+
+
+</script>
 </body>
 </html>
 

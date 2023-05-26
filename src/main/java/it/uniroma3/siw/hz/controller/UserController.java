@@ -3,7 +3,9 @@ package it.uniroma3.siw.hz.controller;
 
 import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.controller.session.SessionData;
+import it.uniroma3.siw.hz.model.Image;
 import it.uniroma3.siw.hz.model.User;
+import it.uniroma3.siw.hz.repository.ImageRepository;
 import it.uniroma3.siw.hz.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     @Transactional
     @RequestMapping(value={"/addUserPhoto/{id}"}, method = RequestMethod.POST)
     public String addUserPhoto(@RequestParam("image")  MultipartFile multipartFile,@PathVariable("id")
@@ -36,7 +41,7 @@ public class UserController {
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-        user.setPicture(fileName);
+        user.setPicture(imageRepository.save(new Image(fileName)));
 
         this.userService.saveUser(user);
 

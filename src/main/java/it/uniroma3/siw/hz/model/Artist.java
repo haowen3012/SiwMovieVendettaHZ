@@ -31,7 +31,8 @@ public class Artist {
 	private LocalDate dateOfDeath;
 
 
-	private String picture;
+	@OneToOne
+	private Image picture;
 
 	
 	@ManyToMany(mappedBy="actors")
@@ -87,11 +88,11 @@ public class Artist {
 		this.dateOfDeath = dateOfDeath;
 	}
 
-	public String getPicture() {
+	public Image getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(Image picture) {
 		this.picture = picture;
 	}
 
@@ -134,7 +135,7 @@ public class Artist {
 	public String getPictureImagePath() {
 		if (this.picture == null || id == null) return null;
 
-		return "/files/artistFiles/" + id + "/" + this.picture;
+		return "/files/artistFiles/" + id + "/" + this.picture.getName();
 	}
 
 }
