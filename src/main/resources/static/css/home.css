@@ -1,0 +1,33 @@
+
+#go-back {
+    border: none;
+    background: none;
+    box-shadow: none;
+
+    color: #fff;
+    font-size: 2em;
+    margin-top: 2%;
+    margin-right: 92%;
+    margin-bottom: 2%;
+    text-shadow:  none;
+    padding: 0.7%;
+
+    border-radius: 20%;
+    transition: 0.3s;
+
+    text-shadow : 1px 2px 23px #fff;
+
+    z-index: 3;
+}
+
+#go-back:hover{
+    transform: scale(1.1);
+    color:#000;
+    background: #fff;
+
+    box-shadow : 1px 2px 23px #fff;
+}
+
+#go-back:active{
+    transform: scale(0.9);
+}

@@ -2,10 +2,12 @@ package it.uniroma3.siw.hz.repository;
 
 
 import it.uniroma3.siw.hz.model.Artist;
+import it.uniroma3.siw.hz.model.Movie;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 
 
 public interface ArtistRepository extends CrudRepository<Artist, Long> {
@@ -21,6 +23,7 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 	public Iterable<Artist> findActorsNotInMovie(@Param("movieId") Long id);
 
 
+	Collection<Artist> findArtistByDirectedMoviesNotContaining(Movie movie);
 
 
 }

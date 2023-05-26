@@ -69,14 +69,17 @@ public class MovieController {
 	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId, Model model) {
 
 		model.addAttribute("movie", this.movieService.setDirectorToMovie(directorId, movieId));
-		return "admin/formUpdateMovie.html";
+		return "movie.html";
 	}
 	
 	
 	@GetMapping(value="/admin/addDirector/{id}")
 	public String addDirector(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("artists", this.artistService.getAllArtists());
-		model.addAttribute("movie",  this.movieService.getMovie(id));
+
+		Movie movie = this.movieService.getMovie(id);
+		model.addAttribute("notMovieDirectors", this.artistService.getArtistsNotDirectingMovie(movie));
+		model.addAttribute("movie",  movie);
+
 		return "admin/directorsToAdd.html";
 	}
 

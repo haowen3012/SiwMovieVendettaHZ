@@ -10,6 +10,9 @@
 	<title>JS Bin</title>
 </head>
 <body>
+<a href="/" id="go-back">
+	<i id="home" class="fa fa-home"></i>
+</a>
 
 <form id="artist" th:action="@{/admin/artist}" method="post" enctype="multipart/form-data">
 	<div class="artist-name" th:field="${artist.name}">

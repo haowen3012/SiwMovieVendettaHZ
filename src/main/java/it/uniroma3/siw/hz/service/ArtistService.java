@@ -3,6 +3,7 @@ package it.uniroma3.siw.hz.service;
 import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.model.Artist;
 import it.uniroma3.siw.hz.model.Image;
+import it.uniroma3.siw.hz.model.Movie;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
 import it.uniroma3.siw.hz.repository.ImageRepository;
 import jakarta.transaction.Transactional;
@@ -37,6 +38,12 @@ public class ArtistService {
         return (Collection<Artist>) this.artistRepository.findAll();
 
 
+    }
+
+    @Transactional
+    public Collection<Artist> getArtistsNotDirectingMovie(Movie movie){
+
+        return this.artistRepository.findArtistByDirectedMoviesNotContaining(movie);
     }
 
     @Transactional

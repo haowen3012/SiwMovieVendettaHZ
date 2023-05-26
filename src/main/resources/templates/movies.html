@@ -4,9 +4,15 @@
 <head>
 	<title>Film</title>
 	<link rel="stylesheet" th:href="@{/css/movie.css}" />
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+<a href="/" id="go-back">
+	<i id="home" class="fa fa-home"></i>
+</a>
 
 	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
 
@@ -31,9 +37,9 @@
 		<div class="center">
 			<div class="top-padding"></div>
 			<div class="upper-bound"></div>
-			<div class="movie">
-				<img  class="movie-image" th:src=${movie.urlImage}>
-			</div>
+			<a  th:href="'/movie' + '/' + ${movie.id}" class="movie">
+				<img  class="movie-image" th:src="@{${movie.getImagePath}}">
+			</a>
 			<div class="lower-bound">
 			</div>
 			<div class="lower-padding"></div>

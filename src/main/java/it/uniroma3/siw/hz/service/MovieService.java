@@ -136,7 +136,7 @@ public class MovieService {
     private Movie addMovieScenes(Collection<MultipartFile> scenes, Movie movie) throws IOException {
 
      Collection<String> movieScenes = new ArrayList<>();
-     Map<Long,Image>  result  = new HashMap<>();
+     Set<Image>  result  = new HashSet<>();
 
      for(MultipartFile scene : scenes){
 
@@ -155,14 +155,12 @@ public class MovieService {
 
      for(String scene : movieScenes){
 
-         Image imageScene = imageRepository.save(new Image(scene));
-         result.put(imageScene.getId(),imageScene);
+         result.add(imageRepository.save(new Image(scene)));
+
         }
 
 
-
-
-
+        movie.setScenes(result);
 
 
         this.saveMovie(movie);
@@ -190,4 +188,5 @@ public class MovieService {
 
         return movie;
     }
+
 }

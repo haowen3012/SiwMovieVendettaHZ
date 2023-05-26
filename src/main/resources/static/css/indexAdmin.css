@@ -7,6 +7,7 @@
 
 
 
+
 body{
 
     display:flex;
@@ -15,11 +16,11 @@ body{
     flex-direction: column;
 
     font-family: 'Cera Round Pro', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     min-height: 100%;
     margin-top: 0;
 
-    background-image: url("https://i.postimg.cc/XqCWKWrp/cleanbackground.jpg");
+    background-image: url("https://i.postimg.cc/mDYsHkJN/dark-background-abstract-background-network-3d-background-1920x1080-8324.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -30,10 +31,12 @@ body{
 
     word-spacing : 0.5em;
 
+    text-shadow : 1px 2px 23px #fff;
 
 
 
 
+    color: #fff;
 }
 
 
@@ -42,7 +45,8 @@ body{
     font-size : 5em;
     color: #fff;
     z-index: 5;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 2px 2px 4px rgba(0, 0, 0, 1);
+    text-shadow : 1px 2px 23px #fff;
+
 
 }
 

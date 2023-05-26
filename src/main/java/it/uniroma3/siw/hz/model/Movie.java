@@ -1,5 +1,6 @@
 package it.uniroma3.siw.hz.model;
 
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -9,6 +10,9 @@ import org.hibernate.annotations.CollectionIdJavaType;
 import org.hibernate.annotations.CollectionType;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.type.SqlTypes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.lang.reflect.Array;
@@ -38,17 +42,17 @@ public class Movie {
 	private Image image;
 
 
-
-
-
-	@OneToMany(mappedBy = "movie")
+	@OneToMany
 	private Set<Image> scenes;
+
+
 	
 	@ManyToOne
 	private Artist director;
 
 	@ManyToMany
 	private Set<Artist> actors;
+
 
 
 	public Long getId() {
@@ -82,6 +86,7 @@ public class Movie {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+
 
 	public Set<Image> getScenes() {
 		return scenes;
@@ -131,15 +136,23 @@ public class Movie {
 	public String getImagePath() {
 		if (this.image == null || id == null) return null;
 
-		return "/files/movieFiles/image" + id + "/" + this.image.getName();
+		return "/files/movieFiles/" + id + "/" + this.image.getName();
 	}
 
 
 	@Transient
 	public String getScenePath(Long id) {
+
 		if (this.image == null || id == null) return null;
 
-		return "/files/movieFiles/scenes" + id + "/" + this.scenes;
+		for (Image scene : this.scenes) {
+
+			if (scene.getId() == id) {
+				return "/files/movieFiles/scenes" + this.id + "/" + scene.getName();
+			}
+		}
+
+		return "";
 	}
 }
 

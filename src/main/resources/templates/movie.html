@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>JS Bin</title>
+    <link rel="stylesheet" th:href="@{/css/movies.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
@@ -16,7 +17,12 @@
     <div class="overlay" ></div>
 
     <div id="movie-details">
-        <h1>Iron Man</h1>
+
+        <a href="/" id="go-back">
+            <i id="home" class="fa fa-home"></i>
+        </a>
+
+        <h1 th:text="${movie.title}">Iron Man</h1>
         <div id="plot">
 
             Dopo essere sopravvissuto ad un attacco inaspettato in territorio nemico, l'industriale Tony Stark costruisce un'armatura ad alta tecnologia e giura di proteggere il mondo nei panni di Iron Man.
@@ -44,22 +50,22 @@
 
 <div id="content">
 
-    <button id="update">update</button>
+    <a th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update" >update </a>
 
     <div class="cast">
 
 
-        <a class="actor" th:each=" actor : ${movie.actors}">
-            <img  th:src="@{${actor.getImagePath}}"/>
-            <button>remove</button>
-        </a>
+        <div class="actor" th:each=" actor : ${movie.actors}">
+            <img  th:src="@{${actor.getPictureImagePath}}"/>
+            <button id="remove">remove</button>
+        </div>
 
 
 
-        <a class="director" th:if="${movie.director}">
-            <img  th:src="@{${movie.director.getImagePath}}"/>
-            <button>remove</button>
-        </a>
+        <div class="director" th:if="${movie.director}">
+            <img  th:src="@{${movie.director.getPictureImagePath}}"/>
+            <a id="remove">remove</a>
+        </div>
 
     </div>
 
@@ -142,7 +148,16 @@
 
     var rev = document.getElementById('rev');
 
+    index = 0;
 
+    for (i = 0; i < actors.length; i++) {
+
+        actors[i].style.display = "flex";
+
+        actors[i].style.animation = "slide-in-anim " + (0.5 + index) + "s ease-out forwards";
+
+        index = index + 0.3;
+    }
 
 
     dir.addEventListener('click', () => {
@@ -179,11 +194,11 @@
         act.style.borderBottom =" 5px solid green";
         dir.style.borderBottom =" none";
 
+
         for (i = 0; i < actors.length; i++) {
             actors[i].style.display = "flex";
 
             actors[i].style.animation = "slide-in-anim " + (0.5 +index) + "s ease-out forwards";
-
             cast.style.justifyContent = "flex-start";
 
             index = index + 0.3;

@@ -22,6 +22,7 @@ public class User {
 	private String surname;
 	private String email;
 
+	@OneToOne
 	private Image picture;
 
 	@CreationTimestamp
