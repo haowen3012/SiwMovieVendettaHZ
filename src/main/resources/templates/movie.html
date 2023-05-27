@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <title>JS Bin</title>
     <link rel="stylesheet" th:href="@{/css/movies.css}" />
+    <link rel="stylesheet" th:href="@{/css/animation.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
@@ -50,14 +51,16 @@
 
 <div id="content">
 
-    <a th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update" >update </a>
+    <a th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update-director" >update </a>
+    <a th:href="'/admin' + '/' + 'updateActors' + '/' + ${movie.id}" id="update-actor" >update </a>
 
     <div class="cast">
 
 
         <div class="actor" th:each=" actor : ${movie.actors}">
             <img  th:src="@{${actor.getPictureImagePath}}"/>
-            <button id="remove">remove</button>
+            <a id="remove" th:href="'/admin' + '/' + 'removeActorFromMovie'+ '/' + ${actor.id}  +'/' + ${movie.id}"
+            >remove</a>
         </div>
 
 
@@ -147,6 +150,8 @@
     var act = document.getElementById('act');
 
     var rev = document.getElementById('rev');
+    var update_actor = document.getElementById('update-actor');
+    var update_director = document.getElementById('update-director');
 
     index = 0;
 
@@ -168,6 +173,11 @@
         director.style.animation = "slide-in-anim 0.7s ease-out forwards";
         cast.style.justifyContent = "center";
         dir.style.borderBottom =" 5px solid green";
+        update_director.style.display="block";
+
+
+
+        update_actor.style.display="none";
 
 
         act.style.borderBottom =" none";
@@ -188,11 +198,13 @@
 
         director.style.display = "none";
         rev.style.borderBottom =" none";
-
+        update_director.style.display="none";
+        dir.style.borderBottom =" none";
 
 
         act.style.borderBottom =" 5px solid green";
-        dir.style.borderBottom =" none";
+
+        update_actor.style.display="block";
 
 
         for (i = 0; i < actors.length; i++) {

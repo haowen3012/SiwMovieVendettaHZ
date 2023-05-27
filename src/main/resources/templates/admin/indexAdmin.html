@@ -7,6 +7,7 @@
 
 	<title>SiwMovieVendettaHZ</title>
 	<link rel="stylesheet" th:href="@{/css/indexAdmin.css}" />
+	<link rel="stylesheet" th:href="@{/css/animation.css}" />
 </head>
 <body>
 <h1 id="greeting">Welcome back Boss !</h1>
@@ -38,6 +39,13 @@
 	</a>
 
 </div>
+<script>
 
+	 document.getElementById('operations').style.animation= "slide-in-from-left  1s ease-out forwards";
+	 document.getElementById('operations-2').style.animation = "slide-in-anim  1s ease-out forwards";
+	 document.getElementById('greeting').style.animation = "slide-in-down  0.5s ease forwards";
+
+</script>
 </body>
+
 </html>

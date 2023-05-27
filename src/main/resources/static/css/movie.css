@@ -31,7 +31,7 @@ body{
 }
 
 
-#post{
+#movies{
     margin-top: 10%;
 
     display: inline-flex;
@@ -46,6 +46,7 @@ body{
     top: 10%;
 
     margin-bottom : 10%;
+
 
 }
 
@@ -219,87 +220,6 @@ body{
 }
 
 /***********************/
-.director-section{
-    width: 100%;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-
-}
-
-.director{
-    font-size: 1.5em;
-    margin-left: 4%;
-    text-align: left;
-    padding: 2%;
-    border: solid;
-    border-radius: 20px;
-
-
-    background: rgba(9, 20, 77, 0.2);
-    box-shadow: 0 4px 30px rgba(0,   0, 0, 0.1);
-    backdrop-filter: blur(4.9px);
-    -webkit-backdrop-filter: blur(4.9px);
-    border: 1px solid rgba(9, 20, 77, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-    color: #fff;
-
-}
-
-.director-section div{
-
-    margin-left: 30%;
-    width: 30%;
-    height: 80%;
-
-    background: rgba(9, 20, 77, 0.2);
-    box-shadow: 0 4px 30px rgba(0,   0, 0, 0.1);
-    backdrop-filter: blur(4.9px);
-    -webkit-backdrop-filter: blur(4.9px);
-    border: 1px solid rgba(9, 20, 77, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
-
-}
-
-
-/*****************************/
-
-.actors{
-    margin-top: 8%;
-    width: 100%;
-    height: 15%;
-
-    overflow-x: hidden;
-    overflow-y: hidden;
-    white-space: nowrap;
-
-
-
-
-
-
-}
-
-.actor{
-
-    width: 30%;
-    height: 100%;
-    border: solid;
-    margin-left: 5%;
-    display: inline-block;
-
-    background: rgba(9, 20, 77, 0.2);
-    box-shadow: 0 4px 30px rgba(0,   0, 0, 0.1);
-    backdrop-filter: blur(4.9px);
-    -webkit-backdrop-filter: blur(4.9px);
-    border: 1px solid rgba(9, 20, 77, 1);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
-
-}
 
 
 

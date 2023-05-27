@@ -5,6 +5,7 @@
 	<title>Film</title>
 	<link rel="stylesheet" th:href="@{/css/movie.css}" />
 	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/animation.css}" />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -21,7 +22,7 @@
 		<div id="light"></div>
 	</div>
 
-	<div id="post"  th:each="movie : ${movies}">
+	<div id="movies"  th:each="movie : ${movies}">
 		<div class="tape-left">
 
 			<div></div>
@@ -55,34 +56,9 @@
 		</div>
 	</div>
 	</div>
-	<script>
-		const slider = document.querySelector('.actors');
-		let isDown = false;
-		let startX;
-		let scrollLeft;
 
-		slider.addEventListener('mousedown', (e) => {
-			isDown = true;
-			slider.classList.add('active');
-			startX = e.pageX - slider.offsetLeft;
-			scrollLeft = slider.scrollLeft;
-		});
-		slider.addEventListener('mouseleave', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
-		slider.addEventListener('mouseup', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
-		slider.addEventListener('mousemove', (e) => {
-			if(!isDown) return;
-			e.preventDefault();
-			const x = e.pageX - slider.offsetLeft;
-			const walk = (x - startX) * 3; //scroll-fast
-			slider.scrollLeft = scrollLeft - walk;
-			console.log(walk);
-		});
-	</script>
+<script>
+
+</script>
 </body>
 </html>

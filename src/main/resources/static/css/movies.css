@@ -379,20 +379,22 @@ a{
 
 
 
-#update{
+#update-actor, #update-director{
     margin-left: 70%;
-}
-
-#update  {
 
     background-image: linear-gradient(to right, #F09819 0%, #EDDE5D  51%, #F09819  100%);
     box-shadow: 0 1px 7px 0 #EDDE5D;
 }
 
-#update:hover{
+#update-actor,#update-director:hover{
 
     box-shadow: 0 4px 15px 0 #EDDE5D;
 
+}
+
+
+#update-director{
+    display: none;
 }
 /**********************/
 
@@ -446,22 +448,6 @@ a:hover{
 }
 
 
-@keyframes slide-in-anim {
-    0%{
-        opacity: 0;
-        transform: translateX(1000%);
-    }
-    70%{
-        transform: translateX(-2%);
-    }
-    80%{
-        transform: translateX(3%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0%);
-    }
-}
 
 /********************************/
 

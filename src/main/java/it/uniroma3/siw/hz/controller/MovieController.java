@@ -135,9 +135,12 @@ public class MovieController {
 	@GetMapping("/admin/updateActors/{id}")
 	public String updateActors(@PathVariable("id") Long id, Model model) {
 
+
+		Movie movie = this.movieService.getMovie(id);
 		Collection<Artist> actorsToAdd = this.actorsToAdd(id);
 		model.addAttribute("actorsToAdd", actorsToAdd);
-		model.addAttribute("movie", this.movieService.getMovie(id));
+		model.addAttribute("movieActors",movie.getActors());
+		model.addAttribute("movie",movie );
 
 		return "admin/actorsToAdd.html";
 	}
@@ -152,9 +155,10 @@ public class MovieController {
 		Collection<Artist> actorsToAdd = 	this.movieService.addActorToMovie(movie,actor);
 		
 		model.addAttribute("movie", movie);
+		model.addAttribute("movieActors", movie.getActors());
 		model.addAttribute("actorsToAdd",actorsToAdd );
 
-		return "admin/actorsToAdd.html";
+		return "movie.html";
 	}
 	
 	@GetMapping(value="/admin/removeActorFromMovie/{actorId}/{movieId}")
@@ -165,9 +169,8 @@ public class MovieController {
 		Collection<Artist> actorsToAdd = 	this.movieService.removeActorFromMovie(movie,actor);
 
 		model.addAttribute("movie", movie);
-		model.addAttribute("actorsToAdd", actorsToAdd);
 
-		return "admin/actorsToAdd.html";
+		return "movie.html";
 	}
 
 	private Collection<Artist> actorsToAdd(Long movieId) {
