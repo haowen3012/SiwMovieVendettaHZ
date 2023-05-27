@@ -53,6 +53,7 @@
 
     <a th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update-director" >update </a>
     <a th:href="'/admin' + '/' + 'updateActors' + '/' + ${movie.id}" id="update-actor" >update </a>
+    <a th:href="'/addReview' + '/' + ${movie.id}" id="add-review" >add review </a>
 
     <div class="cast">
 
@@ -78,24 +79,33 @@
 
         <div id="reviews">
 
-            <div class="rating">
+            <div class="rating" th:each="review: ${movie.reviews}">
 
                 <div class="top-section">
-                    <img/>
-                    <h1 class="author">Haowen Zheng</h1>
-                    <div class="stars">
-                        <div class="star"></div>
-                        <div class="star"></div>
-                        <div class="star"></div>
-                        <div class="star"></div>
-                        <div class="star"></div>
+                    <img th:src="@{${review.author.getPictureImagePath}}"/>
+                    <h1 class="author" th:text="${review.author.userName}">Haowen Zheng</h1>
+                    <div class="stars" th:value="${review.rating}">
+                        <div th:if="${review.rating >= 1}" style="color: gold" class="star"></div>
+                        <div th:if="${review.rating < 1}"   class="star"></div>
+
+                        <div th:if="${review.rating >= 2}" style="color: gold" class="star"></div>
+                        <div th:if="${review.rating < 2}"   class="star"></div>
+
+                        <div th:if="${review.rating >= 3}" style="color: gold" class="star"></div>
+                        <div th:if="${review.rating < 3}"   class="star"></div>
+
+                        <div th:if="${review.rating >= 4}" style="color: gold" class="star"></div>
+                        <div th:if="${review.rating < 4}"   class="star"></div>
+
+                        <div th:if="${review.rating >= 5}" style="color: gold" class="star"></div>
+                        <div th:if="${review.rating < 5}"   class="star"></div>
 
                     </div>
 
 
                 </div>
 
-                <div class="comment">
+                <div class="comment" th:text="${review.comment}">
                     Il film è bellissimo!
                 </div>
             </div>
@@ -179,8 +189,15 @@
     var act = document.getElementById('act');
 
     var rev = document.getElementById('rev');
+
+
     var update_actor = document.getElementById('update-actor');
     var update_director = document.getElementById('update-director');
+    var add_review = document.getElementById('add-review');
+
+
+    var reviews = document.getElementById('reviews');
+
 
     index = 0;
 
@@ -204,9 +221,12 @@
         dir.style.borderBottom =" 5px solid green";
         update_director.style.display="block";
 
+        reviews.style.display = "none";
+
 
 
         update_actor.style.display="none";
+        add_review.style.display="none";
 
 
         act.style.borderBottom =" none";
@@ -227,8 +247,10 @@
 
         director.style.display = "none";
         rev.style.borderBottom =" none";
-        update_director.style.display="none";
         dir.style.borderBottom =" none";
+        reviews.style.display = "none";
+        update_director.style.display="none";
+        add_review.style.display="none";
 
 
         act.style.borderBottom =" 5px solid green";
@@ -253,10 +275,14 @@
     rev.addEventListener('click', () => {
 
 
-
+        add_review.style.display="block";
         rev.style.borderBottom =" 5px solid green";
         dir.style.borderBottom =" none";
         act.style.borderBottom =" none";
+        update_director.style.display="none";
+        update_actor.style.display="none";
+
+        reviews.style.display = "flex";
 
 
 
@@ -270,10 +296,12 @@
     });
 
 
+</script>
+<script>
 
+    // script for the rating stars
 
 </script>
-
 
 </body>
 </html>

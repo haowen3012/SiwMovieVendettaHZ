@@ -377,21 +377,21 @@ a{
 
 
 
-#update-actor, #update-director{
+#update-actor, #update-director,#add-review{
     margin-left: 70%;
 
     background-image: linear-gradient(to right, #F09819 0%, #EDDE5D  51%, #F09819  100%);
     box-shadow: 0 1px 7px 0 #EDDE5D;
 }
 
-#update-actor,#update-director:hover{
+#update-actor,#update-director:hover,#add-review{
 
     box-shadow: 0 4px 15px 0 #EDDE5D;
 
 }
 
 
-#update-director{
+#update-director,#add-review{
     display: none;
 }
 /**********************/
@@ -488,7 +488,7 @@ a:hover{
     width:100%;
     min-height:60%;
 
-    display:flex;
+    display:none;
     justify-content:flex-start;
     align-items: flex-start;
     flex-direction: column;
@@ -550,6 +550,7 @@ a:hover{
     justify-content: center;
     align-items: center;
 
+
 }
 
 .star{
@@ -559,7 +560,7 @@ a:hover{
 
 .star:before{
 
-    content: '★';
+    content:'\2605';
 
 }
 
