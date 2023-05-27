@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 
 @Entity
@@ -34,6 +35,10 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "auth_provider")
 	private AuthenticationProvider oAuthProvider;
+
+
+	@OneToMany(mappedBy = "author")
+	private Set<Review> reviewSet;
 
     public Long getId() {
 		return id;
@@ -106,6 +111,15 @@ public class User {
 
 	public void setoAuthProvider(AuthenticationProvider oAuthProvider) {
 		this.oAuthProvider = oAuthProvider;
+	}
+
+
+	public Set<Review> getReviewSet() {
+		return reviewSet;
+	}
+
+	public void setReviewSet(Set<Review> reviewSet) {
+		this.reviewSet = reviewSet;
 	}
 
 	@Transient

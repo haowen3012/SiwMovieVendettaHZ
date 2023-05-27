@@ -3,15 +3,15 @@ package it.uniroma3.siw.hz.controller;
 import java.util.*;
 
 
+import it.uniroma3.siw.hz.controller.session.SessionData;
 import it.uniroma3.siw.hz.controller.validator.MovieValidator;
-import it.uniroma3.siw.hz.model.Artist;
-import it.uniroma3.siw.hz.model.Credentials;
-import it.uniroma3.siw.hz.model.Movie;
+import it.uniroma3.siw.hz.model.*;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
 import it.uniroma3.siw.hz.repository.MovieRepository;
 import it.uniroma3.siw.hz.service.ArtistService;
 import it.uniroma3.siw.hz.service.CredentialsService;
 import it.uniroma3.siw.hz.service.MovieService;
+import jakarta.persistence.PreUpdate;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,9 +33,8 @@ public class MovieController {
 
 	@Autowired 
 	private MovieValidator movieValidator;
-	
-	@Autowired 
-	private CredentialsService credentialsService;
+
+
 
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
@@ -186,4 +185,22 @@ public class MovieController {
 		return "movie.html";
 
 	 }
+
+	 @RequestMapping(value={"/addReview/{idM}"}, method = RequestMethod.GET)
+	 public String addReviewToMovie(@PathVariable("idM") Long idMovie,Model model){
+
+		model.addAttribute("movie", this.movieService.getMovie(idMovie));
+		return "addReview.html";
+	 }
+
+	 @RequestMapping(value={"/addReview/{idM}"}, method = RequestMethod.POST)
+	public String addReviewToMovie(@ModelAttribute Review review,@PathVariable("idM") Long idMovie,Model model){
+
+
+		model.addAttribute("movie",this.movieService.addReviewToMovie(review,idMovie));
+
+		return "movie.html";
+	 }
+
+
 }

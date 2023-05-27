@@ -137,9 +137,25 @@ body{
     background: #ccc;
 
 
+    text-align: center;
+    padding-top:1%;
+
+    color: #fff;
+
+    font-size : 1.7em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+
+    text-shadow : 1px 4px 3px #000;
+
+    color: #eee;
 
 
 }
+
 
 
 /**********movie****************/

@@ -54,6 +54,10 @@ public class Movie {
 	private Set<Artist> actors;
 
 
+	@OneToMany(mappedBy = "reviewedMovie")
+	private Set<Review> reviews;
+
+
 
 	public Long getId() {
 		return id;
@@ -113,6 +117,13 @@ public class Movie {
 	}
 
 
+	public Set<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Set<Review> reviews) {
+		this.reviews = reviews;
+	}
 
 	@Override
 	public int hashCode() {

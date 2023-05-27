@@ -2,12 +2,13 @@ package it.uniroma3.siw.hz.service;
 
 import com.nimbusds.oauth2.sdk.id.Actor;
 import it.uniroma3.siw.hz.FileUploadUtil;
-import it.uniroma3.siw.hz.model.Artist;
-import it.uniroma3.siw.hz.model.Image;
-import it.uniroma3.siw.hz.model.Movie;
+import it.uniroma3.siw.hz.controller.session.SessionData;
+import it.uniroma3.siw.hz.model.*;
 import it.uniroma3.siw.hz.repository.ImageRepository;
 import it.uniroma3.siw.hz.repository.MovieRepository;
+import it.uniroma3.siw.hz.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
+import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 import org.hibernate.internal.util.MutableLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,7 @@ import java.util.*;
 @Service
 public class MovieService {
 
+
     @Autowired
     private MovieRepository movieRepository;
 
@@ -31,6 +33,13 @@ public class MovieService {
 
     @Autowired
     private ImageRepository imageRepository;
+
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private SessionData sessionData;
 
 
     @Transactional
@@ -196,6 +205,22 @@ public class MovieService {
         movie.setDirector(null);
 
         this.movieRepository.save(movie);
+
+        return movie;
+    }
+
+
+    public Movie addReviewToMovie(Review review, Long idMovie){
+
+        Movie movie = this.getMovie(idMovie);
+        User loggedUser = this.sessionData.getLoggedUser();
+
+        review.setAuthor(loggedUser);
+        review.setReviewedMovie(movie);
+
+        this.reviewRepository.save(review);
+        this.movieRepository.save(movie);
+
 
         return movie;
     }

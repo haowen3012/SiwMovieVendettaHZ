@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/review.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/button.css}" />
+  <title>SivMovieVendettaHZ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<a href="/" id="go-back">
+  <i id="home" class="fa fa-home"></i>
+</a>
+
+<form id="rating-container">
+  <h1>How is the movie?</h1>
+  <div class="rate">
+    <input type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text"></label>
+    <input type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text"></label>
+    <input type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text"></label>
+    <input type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text"></label>
+    <input type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text"></label>
+  </div>
+
+  <textarea>
+   Leave a review!
+    </textarea>
+  <button id="rate-button">publish</button>
+</form>
+</body>
+
+</html>
