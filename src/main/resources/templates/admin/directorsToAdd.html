@@ -21,19 +21,19 @@
 	<i id="home" class="fa fa-home"></i>
 </a>
 
-<div class="select-director" >
+<div class="select-artist" >
 	<h1> SELECTED DIRECTOR </h1>
-	<div class="directors">
-		<a class="director" >
+	<div class="artists">
+		<a class="artist" th:if="${movie.director}" >
 			<img  th:src="@{${movie.director.pictureImagePath}}"/>
 		</a>
 	</div>
 </div>
 
-<div class="select-director" >
+<div class="select-artist" >
 	<h1>  SELECT A DIRECTOR </h1>
-	<div class="directors">
-		<a   class="director" th:each="director: ${notMovieDirectors}" th:href=" '/admin' + '/' + 'setDirectorToMovie' +'/' + ${director.id} + '/' + ${movie.id}">
+	<div class="artists">
+		<a   class="artist" th:each="director: ${notMovieDirectors}" th:href=" '/admin' + '/' + 'setDirectorToMovie' +'/' + ${director.id} + '/' + ${movie.id}">
 			<img  th:src="@{${director.pictureImagePath}}"/>
 		</a>
 	</div>

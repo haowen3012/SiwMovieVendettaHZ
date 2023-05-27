@@ -70,6 +70,9 @@
             <a id="remove" th:href="'/removeDirector' + '/' + ${movie.id}" >remove</a>
         </div>
 
+        <div class="director" th:unless="${movie.director}">
+        </div>
+
     </div>
 
 
