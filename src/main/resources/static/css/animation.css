@@ -88,3 +88,20 @@
     }
 }
 
+
+
+@keyframes spread{
+
+
+    0%{
+        transform: scale(4);
+    }
+    70%{
+        transform: scale(0.8);
+    }
+    100%{
+
+        transform: scale(1);
+    }
+}
+

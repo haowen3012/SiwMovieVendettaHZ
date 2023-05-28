@@ -7,6 +7,7 @@ import it.uniroma3.siw.hz.model.Movie;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
 import it.uniroma3.siw.hz.repository.ImageRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -74,5 +75,24 @@ public class ArtistService {
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return artist;
+    }
+
+    @Transactional
+    public Artist updateArtist(Long idOldArtist, Artist newArtist,MultipartFile multipartFile){
+
+        Artist oldArtist = this.getArtist(idOldArtist);
+
+        try {
+            this.addArtistPhoto(multipartFile, oldArtist);
+        }catch(IOException e){
+
+        }
+
+
+        BeanUtils.copyProperties(newArtist, oldArtist, new String[]{"id","starredMovies","directedMovies","picture"});
+
+        this.artistRepository.save(oldArtist);
+
+        return oldArtist;
     }
 }

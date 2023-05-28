@@ -9,26 +9,26 @@
 
 body{
 
-
-
+    display:flex;
+    justify-content: center;
+    align-items : center;
+    flex-direction: column;
+    background-color: #ccc;
+    /*  background-size: 400% 400%;*/
     font-family: 'Cera Round Pro', sans-serif;
     font-size: 13px;
     min-height: 100%;
     margin-top: 0;
+    margin:0;
 
-    background-image: url("https://i.postimg.cc/XqCWKWrp/cleanbackground.jpg");
+    background-image: url("https://i.postimg.cc/mDYsHkJN/dark-background-abstract-background-network-3d-background-1920x1080-8324.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
+    text-shadow : 1px 2px 23px #fff;
 
     /*  animation: gradient 10s ease infinite;*/
-
-    word-spacing : 0.5em;
-
-
 
 }
 
@@ -44,6 +44,8 @@ body{
     justify-content: center;
     align-items : center;
     flex-direction: column;
+
+
 }
 
 
@@ -56,6 +58,8 @@ img{
     object-fit: cover;
     border-radius: 50%;
 
+    animation: spread 0.5s ease-in forwards;
+
 
 }
 
@@ -63,25 +67,56 @@ h1{
 
     color: #fff;
     font-size: 3em;
+    animation: spread 0.5s ease-in forwards;
+
 }
 
 #date{
+    margin-top:1%;
+    width:100%;
+    border-top: solid #fff;
+    border-bottom: solid #fff;
 
     display: flex;
     justify-content: center;
-    align-items : flex-start;
+    align-items : center;
     flex-direction: column;
     font-style: italic;
 
+    box-shadow : 1px 2px 23px #fff;
+
+    animation: spread 0.5s ease-in forwards;
+
+
+
+
+}
+
+
+@keyframes spread{
+
+
+    0%{
+        transform: scale(4);
+    }
+    70%{
+        transform: scale(0.8);
+    }
+    100%{
+
+        transform: scale(1);
+    }
 }
 
 #date div{
 
-    color: gold;
+    color: #fff;
     font-weight: 505;
     font-size: 2em;
-    margin-top: 5%;
+    margin-top:1%;
+    margin-bottom: 1%;
     letter-spacing: 0.05em;
+
 }
 
 
@@ -104,16 +139,56 @@ h1{
     flex-direction: column;
 
     margin-bottom: 2%;
+
 }
 
+
+#act-movies, #dir-movies{
+
+
+    padding: 6%;
+    display: inline-flex;
+    justify-content: center;
+    align-items : center;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+
+
+
+}
 
 #starred-movie img,  #directed-movie img{
 
     height: 15em;
     border-radius: 10px;
+    margin-top: 0;
+    margin: 3%;
+
+    flex: 0 0 auto;
+
 
 
 }
+
+
+#starred-movie h1,  #directed-movie h1{
+    width:100%;
+    text-align: center;
+    border: solid;
+    border-radius: 15px;
+    padding: 2%;
+    background: rgba(255,255,255,0.2);
+
+
+    box-shadow : 1px 2px 23px #fff;
+
+
+
+
+}
+
 
 #empty-list{
 

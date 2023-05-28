@@ -81,4 +81,28 @@ public class ArtistController {
 		return "admin/indexAdmin.html";
 	}
 
+
+
+	
+	@RequestMapping(value={"/updateArtist/{idA}"}, method = RequestMethod.GET)
+	public String updateArtist(@PathVariable("idA") Long idArtist,Model model){
+
+		model.addAttribute("artist", this.artistService.getArtist(idArtist));
+		return "admin/formUpdateArtist.html";
+
+	}
+
+
+	@RequestMapping(value={"/update/artist/{idA}"}, method = RequestMethod.POST)
+	public String updateArtist(@ModelAttribute Artist newArtist,@PathVariable("idA") Long idArtist,
+			@RequestParam("image") MultipartFile multipartFile, Model model){
+
+
+
+		model.addAttribute("artist", this.artistService.updateArtist(idArtist,newArtist,multipartFile));
+
+
+		return "artist.html";
+
+	}
 }

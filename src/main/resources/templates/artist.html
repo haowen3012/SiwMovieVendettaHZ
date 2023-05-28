@@ -4,9 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" th:href="@{/css/artist.css}" />
-    <title>JS Bin</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" th:href="@{/css/animation.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>SiwMovieVendettaHZ</title>
 </head>
 <body>
+<a href="/" id="go-back">
+    <i id="home" class="fa fa-home"></i>
+</a>
+
 <div id="artist">
     <img th:src="@{${artist.pictureImagePath}}"/>
     <h1 th:text=" ${artist.name} + ' ' + ${artist.surname}"> Robery Downey Jr</h1>
@@ -19,19 +26,78 @@
 
     <div  th:if="${!artist.starredMovies.isEmpty()}" id="starred-movie">
         <h1>Movies</h1>
-        <div th:each="sarredMovie : ${artist.starredMovies}">
-            <img th:src="${starredMovie.image}"/>
+        <div  id="act-movies">
+            <img  th:each="starredMovie : ${artist.starredMovies}" th:src="${starredMovie.getImagePath}"/>
         </div>
     </div>
 
     <div th:if="${!artist.directedMovies.isEmpty()}" id="directed-movie">
-        <h1> Directed Movies </h1>
-        <div th:each="directedMovie: ${artist.directedMovies}">
-            <img  th:src="${directedMovie.image}" />
-            <img/>
-            <img/>
+        <h1>Directed Movies</h1>
+        <div id="dir-movies">
+            <img    th:each="directedMovie: ${artist.directedMovies}" th:src="${directedMovie.getImagePath}" />
+
         </div>
     </div>
 </div>
+<script>
+    const slider = document.querySelector('#dir-movies');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        console.log(walk);
+    });
+</script>
+
+
+<script>
+    const slider = document.querySelector('#act-movies');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        console.log(walk);
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" th:href="@{/css/newArtist.css}" />
+  <link rel="stylesheet" th:href="@{/css/button.css}" />
+  <title>JS Bin</title>
+</head>
+<body>
+<a href="/" id="go-back">
+  <i id="home" class="fa fa-home"></i>
+</a>
+
+<form id="artist" th:action="@{'/update' + '/' + 'artist' +'/' + ${artist.id}}" method="post" enctype="multipart/form-data">
+  <div class="artist-name" th:field="${artist.name}">
+    <h1>Artist Name</h1>
+    <input th:field="${artist.name}"   required/>
+  </div>
+
+  <div class="artist-name">
+    <h1>Artist Surname</h1>
+    <input th:field="${artist.surname}"  required/>
+  </div>
+
+  <div class="artist-date">
+    <h1> Date of Birth</h1>
+    <input   type="date"   th:field="${artist.dateOfBirth}"  required  />
+  </div>
+  <div class="artist-date">
+    <h1> Date of Death</h1>
+    <input   type="date"    th:field="${artist.dateOfDeath}"   />
+  </div>
+
+  <div id="artist-picture">
+    <h1>Artist pircture</h1>
+    <div id="picture" >
+      <input id="file" type="file" name="image" accept="image/png, image/jpeg"  th:value="${artist.picture}"/>
+      <img id="thumbnail"  th:src="@{${artist.getPictureImagePath}}" />
+      <i class="fa fa-plus" id="plus"></i>
+    </div>
+  </div>
+  <button id="create">update</button>
+</form>
+<script>
+  document.getElementById('plus').addEventListener('click', function() {
+    document.getElementById('file').click();
+  });
+</script>
+<script>
+
+  var plusIcon = document.getElementById('plus');
+  var thumbnail = document.getElementById('thumbnail');
+
+  $(document).ready(function(){
+    $('#file').change(function(){
+      showImageThumbnail(this);
+    });
+
+  });
+
+  function  showImageThumbnail(fileInput){
+
+
+    file = fileInput.files[0];
+    reader = new FileReader();
+
+    reader.onload = function(e){
+      $('#thumbnail').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(file);
+
+    thumbnail.style.border ="none";
+  }
+
+
+</script>
+</body>
+</html>
+

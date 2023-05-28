@@ -2,21 +2,65 @@
 <html>
 
 <head>
-	<title>Artisti</title>
-	<link rel="stylesheet" href="/css/index.css" />
+	<title>Film</title>
+	<link rel="stylesheet" th:href="@{/css/movie.css}" />
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" th:href="@{/css/animation.css}" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+<a href="/" id="go-back">
+	<i id="home" class="fa fa-home"></i>
+</a>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Artisti</h1>
-	<div th:if="${artists==null || artists.isEmpty()}">Non ci sono artisti nel sistema</div>
-	<ul>
-		<li th:each="artist : ${artists}">
-			<a th:href="@{'/artist' + '/' + ${artist.id}}"
-				th:text="${artist.name} + ' ' + ${artist.surname}">Dino Risi</a>
-		</li>
-	</ul>
+<div th:if="${artists==null}">Non ci sono film nel sistema</div>
+
+<div id="wrapper">
+	<div id="luce"></div>
+	<div id="light"></div>
+</div>
+
+<div id="movies"  th:each="artist : ${artists}">
+	<div class="tape-left">
+
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+
+	</div>
+
+	<div class="center">
+		<div class="top-padding"></div>
+		<div class="upper-bound"></div>
+		<a  th:href="'/artist' + '/' + ${artist.id}" class="movie">
+			<img  class="movie-image" th:src="@{${artist.getPictureImagePath}}">
+		</a>
+		<div class="lower-bound">
+		</div>
+		<a  th:text="${role} ? 'UPDATE' : ''"  class="lower-padding" th:href="'/updateArtist' + '/' + ${artist.id}">
+			add a review
+		</a>
+	</div>
+	<div class="tape-right">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</div>
+</div>
+
+<script>
+
+</script>
 </body>
-
 </html>
