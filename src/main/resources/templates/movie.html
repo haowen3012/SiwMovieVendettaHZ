@@ -53,7 +53,9 @@
 
     <a th:style="${role} ? 'visibility: visible' : 'visibility: hidden'" th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update-director" >update </a>
     <a th:style="${role} ? 'visibility: visible' : 'visibility: hidden'" th:href="'/admin' + '/' + 'updateActors' + '/' + ${movie.id}" id="update-actor" >update </a>
-    <a th:style="${role} ?  'visibility: hidden' : 'visibility: visible'"  th:href="'/addReview' + '/' + ${movie.id}" id="add-review" >add review </a>
+    <a th:style="${role} ?  'visibility: hidden' : 'visibility: visible'" th:text="${reviewed} ? 'already reviewed' : 'add review'"
+       th:classappend="${reviewed} ? 'unselectable' : 'selectable'"
+       th:href="'/addReview' + '/' + ${movie.id}" id="add-review" >add review </a>
 
     <div class="cast">
 
@@ -85,20 +87,16 @@
                     <img th:src="@{${review.author.getPictureImagePath}}"/>
                     <h1 class="author" th:text="${review.author.userName}">Haowen Zheng</h1>
                     <div class="stars" th:value="${review.rating}">
-                        <div th:if="${review.rating >= 1}" style="color: gold" class="star"></div>
-                        <div th:if="${review.rating < 1}"   class="star"></div>
+                        <div th:style="${review.rating >= 1} ? 'color:gold': 'color:#fff'" class="star"></div>
 
-                        <div th:if="${review.rating >= 2}" style="color: gold" class="star"></div>
-                        <div th:if="${review.rating < 2}"   class="star"></div>
+                        <div th:style="${review.rating >= 2} ? 'color:gold': 'color:#fff'" class="star"></div>
 
-                        <div th:if="${review.rating >= 3}" style="color: gold" class="star"></div>
-                        <div th:if="${review.rating < 3}"   class="star"></div>
+                        <div th:style="${review.rating >= 3} ? 'color:gold': 'color:#fff'" class="star"></div>
 
-                        <div th:if="${review.rating >= 4}" style="color: gold" class="star"></div>
-                        <div th:if="${review.rating < 4}"   class="star"></div>
+                        <div th:style="${review.rating >= 4} ? 'color:gold': 'color:#fff'" class="star"></div>
 
-                        <div th:if="${review.rating >= 5}" style="color: gold" class="star"></div>
-                        <div th:if="${review.rating < 5}"   class="star"></div>
+                        <div th:style="${review.rating >= 5} ? 'color:gold': 'color:#fff'" class="star"></div>
+
 
                     </div>
 
@@ -118,6 +116,35 @@
 
 <script>
     const slider = document.querySelector('.cast');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        console.log(walk);
+    });
+</script>
+<script>
+    const slider = document.querySelector('#reviews');
     let isDown = false;
     let startX;
     let scrollLeft;

@@ -224,4 +224,11 @@ public class MovieService {
 
         return movie;
     }
+
+
+    @Transactional
+    public Collection<Movie> getMoviesReviewdByUser(User user){
+
+        return this.movieRepository.findMoviesNotReviewedByUser(user);
+    }
 }

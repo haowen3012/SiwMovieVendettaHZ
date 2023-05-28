@@ -21,6 +21,7 @@ body {
     color: #fff;
 
 
+
 }
 
 .mySlides {
@@ -394,6 +395,15 @@ a{
 #update-director,#add-review{
     display: none;
 }
+
+
+.unselectable {
+    pointer-events: none;
+}
+
+.selectable {
+    pointer-events: auto;
+}
 /**********************/
 
 #plot{
@@ -486,35 +496,52 @@ a:hover{
 #reviews{
 
     width:100%;
-    min-height:60%;
+    min-height: 60%;
+
 
     display:none;
     justify-content:flex-start;
     align-items: flex-start;
-    flex-direction: column;
+
+
+
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+
+}
+#reviews:active{
+    background-color: transparent;
 }
 
-
 .rating{
+    flex: 0 0 auto;
 
 
+    width:35%;
+    min-height: 100%;
 
-    width:100%;
 
-
-    box-shadow: 1px 2px 23px #fff;
+    box-shadow: 1px 10px 4px #fff;
 
     display:flex;
     justify-content:flex-start;
     align-items: flex-start;
     flex-direction: column;
     border-top: 1px solid;
-    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
     margin-bottom: 2%;
+    margin-left: 2%;
+    border-radius: 15px;
+
+    word-wrap:break-word;
 
 }
 
 .top-section{
+
     width:100%;
     height: 50%;
     margin-top: 1%;
@@ -527,11 +554,11 @@ a:hover{
 
 .top-section img {
 
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
     border: solid;
-    margin-left: 2%;
+    margin-left: 3%;
     margin-right: 2%;
 
     object-fit: cover;
@@ -545,7 +572,8 @@ a:hover{
 }
 
 .stars{
-    margin-left: 7%;
+    position:relative;
+    margin-left: 15%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -568,11 +596,14 @@ a:hover{
 
     width: 100%;
     height: 50%;
-    padding: 2%;
+
+    padding: 3%;
     font-size: 1.1em;
 
 
 }
+
+
 
 
 

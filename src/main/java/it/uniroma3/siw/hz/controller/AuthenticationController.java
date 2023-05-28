@@ -46,11 +46,15 @@ public class AuthenticationController {
 			model.addAttribute("credentialsForm", new Credentials());
 	        return "index.html";
 		}
-		else {		
-			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-				return "admin/indexAdmin.html";
+		else {
+			try {
+				UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+				if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+					return "admin/indexAdmin.html";
+				}
+			}catch(ClassCastException e ){
+				return "index.html";
 			}
 		}
         return "index.html";

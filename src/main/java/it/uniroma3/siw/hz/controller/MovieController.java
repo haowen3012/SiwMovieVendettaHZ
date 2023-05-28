@@ -34,6 +34,9 @@ public class MovieController {
 	@Autowired 
 	private MovieValidator movieValidator;
 
+	@Autowired
+	private SessionData sessionData;
+
 
 
 	@GetMapping(value="/admin/formNewMovie")
@@ -105,18 +108,21 @@ public class MovieController {
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", this.movieService.getMovie(id));
+		User loggedUser = this.sessionData.getLoggedUser();
+		Movie movie = this.movieService.getMovie(id);
+		model.addAttribute("movie", movie);
+		model.addAttribute("reviewed",this.movieService.getMoviesReviewdByUser(loggedUser).contains(movie));
 		return "movie.html";
 	}
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
-		
-    /*	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());*/
 
+		User loggedUser = this.sessionData.getLoggedUser();
 		model.addAttribute("movies", this.movieService.getAllMovies());
-		/*model.addAttribute("user", credentials.getUser());*/
+		model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
+
+
 		return "movies.html";
 	}
 	
