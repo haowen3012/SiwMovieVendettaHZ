@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" th:href="@{/css/review.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/animation.css}" />
+
+  <title>SiwMovieVendettaHZ</title>
+</head>
+<body>
+<a href="/" id="go-back">
+  <i id="home" class="fa fa-home"></i>
+</a>
+
+<div id="reviews">
+  <div id="review" th:each="review: ${reviews}">
+
+    <div class="rating" >
+
+      <div class="top-section">
+        <img th:src="@{${review.author.getPictureImagePath}}"/>
+        <h1 class="author" th:text="${review.author.userName}">Haowen Zheng</h1>
+        <div class="stars" th:value="${review.rating}">
+          <div th:style="${review.rating >= 1} ? 'color:gold': 'color:#fff'" class="star"></div>
+
+          <div th:style="${review.rating >= 2} ? 'color:gold': 'color:#fff'" class="star"></div>
+
+          <div th:style="${review.rating >= 3} ? 'color:gold': 'color:#fff'" class="star"></div>
+
+          <div th:style="${review.rating >= 4} ? 'color:gold': 'color:#fff'" class="star"></div>
+
+          <div th:style="${review.rating >= 5} ? 'color:gold': 'color:#fff'" class="star"></div>
+
+
+        </div>
+
+
+      </div>
+
+      <div class="comment" th:text="${review.comment}">
+        Il film è bellissimo!
+      </div>
+
+    </div>
+    <a id="movie-reviewed" th:href="'/movie' + '/' +  ${review.reviewedMovie.id}"><img th:src="@{${review.reviewedMovie.getImagePath}}"/></a>
+    <a id="remove-review" th:href="'/deleteReview' + '/' +  ${review.id}">delete</a>
+  </div>
+
+
+</div>
+
+
+<!---pop up for deleting review---->
+<div id="deleted-warn" th:if="${reviewDeleted}">
+  The review has been successfully removed
+</div>
+<!-------->
+
+<script>
+
+  try{
+
+
+    var deleted_war = document.getElementById('deleted-warn');
+
+    setTimeout( function(){
+      deleted_war.style.display = "none";},3000);
+
+  }catch(error){
+
+  }
+</script>
+</body>
+</html>

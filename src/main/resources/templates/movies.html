@@ -43,7 +43,7 @@
 			</a>
 			<div class="lower-bound">
 			</div>
-			<a  th:text="${role!=null  or  #lists.contains(reviewedMovies, movie)} ? '' : 'ADD A REVIEW'"  class="lower-padding" th:href="'/addReview' + '/' + ${movie.id}">
+			<a  th:text="${role!=null  or user!=null  or  #lists.contains(reviewedMovies, movie)} ? '' : 'ADD A REVIEW'"  class="lower-padding" th:href="'/addReview' + '/' + ${movie.id}">
 				add a review
 			</a>
 		</div>

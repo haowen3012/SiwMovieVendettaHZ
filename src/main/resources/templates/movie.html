@@ -53,9 +53,15 @@
 
     <a th:style="${role} ? 'visibility: visible' : 'visibility: hidden'" th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update-director" >update </a>
     <a th:style="${role} ? 'visibility: visible' : 'visibility: hidden'" th:href="'/admin' + '/' + 'updateActors' + '/' + ${movie.id}" id="update-actor" >update </a>
-    <a th:style="${role} ?  'visibility: hidden' : 'visibility: visible'" th:text="${reviewed} ? 'already reviewed' : 'add review'"
+    <a th:style="${role!=null and user==null} ?  'visibility: hidden' : 'visibility: visible'" th:text="${reviewed} ? 'already reviewed' : 'add review'"
        th:classappend="${reviewed} ? 'unselectable' : 'selectable'"
        th:href="'/addReview' + '/' + ${movie.id}" id="add-review" >add review </a>
+
+    <div id="average">
+        <h1 th:text="${averageRating}"> 3.4</h1>
+        <meter id="average-rating" min="0" max="5" th:value="${averageRating}" title="4.3 out of 5 stars"></meter>
+        <div th:text="${numReviews} + ' reviews'">5 reviews</div>
+    </div>
 
     <div class="cast">
 
@@ -113,6 +119,15 @@
     </div>
 
 </div>
+<script>
+
+    var avarage_rating = document.getElementById('average-rating');
+
+    avarage_rating.style.setProperty('--percent','calc(' + avarage_rating.value +  '/5 *103%)');
+
+
+
+</script>
 
 <script>
     const slider = document.querySelector('.cast');
@@ -225,6 +240,8 @@
 
     var reviews = document.getElementById('reviews');
 
+    var average_rev = document.getElementById('average');
+
 
     index = 0;
 
@@ -249,6 +266,7 @@
         update_director.style.display="block";
 
         reviews.style.display = "none";
+        average_rev.style.display ="none";
 
 
 
@@ -278,6 +296,7 @@
         reviews.style.display = "none";
         update_director.style.display="none";
         add_review.style.display="none";
+        average_rev.style.display ="none";
 
 
         act.style.borderBottom =" 5px solid green";
@@ -310,6 +329,8 @@
         update_actor.style.display="none";
 
         reviews.style.display = "flex";
+
+        average_rev.style.display ="inline-flex";
 
 
 

@@ -4,6 +4,9 @@
     box-sizing: border-box
 }
 
+
+
+
 body {
     font-family: Verdana, sans-serif;
     margin:0;
@@ -20,9 +23,8 @@ body {
 
     color: #fff;
 
-
-
 }
+
 
 .mySlides {
     width: 65%;
@@ -254,6 +256,9 @@ img{
 
 }
 
+.cast:active{
+    background: #1B1B1B;
+}
 .cast .actor{
     width:12%;
     height:90%;
@@ -512,7 +517,7 @@ a:hover{
 
 }
 #reviews:active{
-    background-color: transparent;
+    background: #1B1B1B;
 }
 
 .rating{
@@ -604,6 +609,84 @@ a:hover{
 }
 
 
+
+/***********/
+
+:root{
+    --percent: calc(4.5/5 *103%);
+}
+#average{
+    position: absolute;
+    top: 55%;
+    left: 3%;
+
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    height: 6%;
+
+
+    word-spacing: 0.5em;
+
+    text-shadow: 1px 2px 23px #fff;
+
+}
+
+
+#average h1{
+
+    font-size: 1.5em;
+
+
+
+
+
+}
+#average-rating {
+    position: relative;
+    margin-left: 3%;
+    margin-top: -3%;
+
+    position: relative;
+    appearance: none;
+    color: transparent;
+    width: auto;
+    display: inline-block;
+    vertical-align: baseline;
+    font-size: 25px;
+
+}
+
+
+
+#average-rating::before {
+
+    content: '\2605 \00a0\2605 \00a0\2605 \00a0\2605 \00a0\2605';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgba(0,0,0,0.2);
+    background: linear-gradient(90deg, gold var(--percent), rgba(0,0,0,0.9) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.2em;
+
+
+    text-shadow: 1px 2px 23px #fff;
+}
+
+#average div{
+
+    margin-left: 32%;
+    font-size : 1.1em;
+    border: 2px solid;
+    border-radius: 15px;
+    padding: 1%;
+    background: green;
+
+    box-shadow: 1px 2px 23px green;
+}
 
 
 

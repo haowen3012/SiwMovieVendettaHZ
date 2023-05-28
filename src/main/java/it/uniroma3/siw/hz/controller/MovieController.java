@@ -11,6 +11,7 @@ import it.uniroma3.siw.hz.repository.MovieRepository;
 import it.uniroma3.siw.hz.service.ArtistService;
 import it.uniroma3.siw.hz.service.CredentialsService;
 import it.uniroma3.siw.hz.service.MovieService;
+import it.uniroma3.siw.hz.service.ReviewService;
 import jakarta.persistence.PreUpdate;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class MovieController {
 	
 	@Autowired 
 	private ArtistService artistService;
+
+	@Autowired
+	private ReviewService reviewService;
 
 	@Autowired 
 	private MovieValidator movieValidator;
@@ -112,15 +116,22 @@ public class MovieController {
 		Movie movie = this.movieService.getMovie(id);
 		model.addAttribute("movie", movie);
 		model.addAttribute("reviewed",this.movieService.getMoviesReviewdByUser(loggedUser).contains(movie));
+		model.addAttribute("averageRating", this.reviewService.getAvarageRatingByMovie(movie));
+		model.addAttribute("numReviews", this.reviewService.countReviewsByMovie(movie));
 		return "movie.html";
 	}
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
 
-		User loggedUser = this.sessionData.getLoggedUser();
-		model.addAttribute("movies", this.movieService.getAllMovies());
-		model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
+		try {
+			User loggedUser = this.sessionData.getLoggedUser();
+			model.addAttribute("movies", this.movieService.getAllMovies());
+			model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
+		}catch(ClassCastException e){
+
+			return "movies.html";
+		}
 
 
 		return "movies.html";
@@ -201,11 +212,9 @@ public class MovieController {
 
 	 @RequestMapping(value={"/addReview/{idM}"}, method = RequestMethod.POST)
 	public String addReviewToMovie(@ModelAttribute Review review,@PathVariable("idM") Long idMovie,Model model){
+		Movie movie = this.movieService.addReviewToMovie(review,idMovie);
 
-
-		model.addAttribute("movie",this.movieService.addReviewToMovie(review,idMovie));
-
-		return "movie.html";
+		return "redirect:/movie/" + movie.getId();
 	 }
 
 
