@@ -143,27 +143,6 @@ public class Movie {
 	}
 
 
-	@Transient
-	public String getImagePath() {
-		if (this.image == null || id == null) return null;
 
-		return "/files/movieFiles/" + id + "/" + this.image.getName();
-	}
-
-
-	@Transient
-	public String getScenePath(Long id) {
-
-		if (this.image == null || id == null) return null;
-
-		for (Image scene : this.scenes) {
-
-			if (scene.getId() == id) {
-				return "/files/movieFiles/scenes" + this.id + "/" + scene.getName();
-			}
-		}
-
-		return "";
-	}
 }
 

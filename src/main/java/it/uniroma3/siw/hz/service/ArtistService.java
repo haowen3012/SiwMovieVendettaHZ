@@ -66,13 +66,9 @@ public class ArtistService {
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-        artist.setPicture(imageRepository.save(new Image(fileName)));
+        artist.setPicture(imageRepository.save(new Image(multipartFile.getBytes())));
 
         this.saveArtist(artist);
-
-        String uploadDir = "files/artistFiles/" + artist.getId();
-
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return artist;
     }

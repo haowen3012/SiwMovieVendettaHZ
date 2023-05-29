@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<img id="image-admin" onclick="openSideNav('admin')"  th:src="@{${user.pictureImagePath}}" />
+<img id="image-admin" onclick="openSideNav('admin')"  th:src="@{'/display/image/' + ${user.picture.id}}"/>
 <h1 id="greeting">Welcome back Boss !</h1>
 
 <div id="operations">
@@ -47,7 +47,7 @@
 
 <div  id="side_nav" class=" side-nav">
 	<div onclick="closeSideNav('admin')">&times;</div>
-	<img  th:src="@{${user.pictureImagePath}}" />
+	<img th:src="@{'/display/image/' + ${user.picture.id}}" />
 	<a href="#">Favourites</a>
 	<a href="#">Reviews</a>
 	<a href="#"> Log out</a>

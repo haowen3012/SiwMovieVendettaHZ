@@ -39,7 +39,7 @@
 		<div class="top-padding"></div>
 		<div class="upper-bound"></div>
 		<a  th:href="'/artist' + '/' + ${artist.id}" class="movie">
-			<img  class="movie-image" th:src="@{${artist.getPictureImagePath}}">
+			<img  class="movie-image"  th:src="@{'/display/image/' + ${artist.picture.id}}">
 		</a>
 		<div class="lower-bound">
 		</div>

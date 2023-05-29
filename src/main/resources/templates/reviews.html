@@ -45,7 +45,7 @@
       </div>
 
     </div>
-    <a id="movie-reviewed" th:href="'/movie' + '/' +  ${review.reviewedMovie.id}"><img th:src="@{${review.reviewedMovie.getImagePath}}"/></a>
+    <a id="movie-reviewed" th:href="'/movie' + '/' +  ${review.reviewedMovie.id}"><img th:src="@{'/display/image/' + ${review.reviewedMovie.image.id}}"/></a>
     <a id="remove-review" th:href="'/deleteReview' + '/' +  ${review.id}">delete</a>
   </div>
 

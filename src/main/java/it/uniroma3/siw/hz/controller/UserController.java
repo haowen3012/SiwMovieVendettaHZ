@@ -39,16 +39,10 @@ public class UserController {
 
         User user = this.userService.getUser(id);
 
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-        user.setPicture(imageRepository.save(new Image(fileName)));
+        user.setPicture(imageRepository.save(new Image(multipartFile.getBytes())));
 
         this.userService.saveUser(user);
 
-        String uploadDir = "files/userFiles/" + user.getId();
-
-
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return "index.html";
     }

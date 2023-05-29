@@ -34,7 +34,7 @@
     </div>
 
     <div class="mySlides fade" th:each="scene : ${movie.scenes}">
-        <img th:src="@{${movie.getScenePath(scene.id)}}"/>
+        <img  th:src="@{'/display/image/' + ${scene.id}}"/>
 
     </div>
 
@@ -67,7 +67,7 @@
 
 
         <div class="actor" th:each=" actor : ${movie.actors}">
-            <img  th:src="@{${actor.getPictureImagePath}}"/>
+            <img  th:src="@{'/display/image/' + ${actor.picture.id}}"/>
             <a id="remove" th:href="'/admin' + '/' + 'removeActorFromMovie'+ '/' + ${actor.id}  +'/' + ${movie.id}"
             >remove</a>
         </div>
@@ -75,7 +75,7 @@
 
 
         <div class="director" th:if="${movie.director}">
-            <img  th:src="@{${movie.director.getPictureImagePath}}"/>
+            <img   th:src="@{'/display/image/' + ${movie.director.picture.id}}"/>
             <a id="remove" th:href="'/removeDirector' + '/' + ${movie.id}" >remove</a>
         </div>
 
@@ -90,7 +90,7 @@
             <div class="rating" th:each="review: ${movie.reviews}">
 
                 <div class="top-section">
-                    <img th:src="@{${review.author.getPictureImagePath}}"/>
+                    <img th:src="@{'/display/image/' + ${review.author.picture.id}}"/>
                     <h1 class="author" th:text="${review.author.userName}">Haowen Zheng</h1>
                     <div class="stars" th:value="${review.rating}">
                         <div th:style="${review.rating >= 1} ? 'color:gold': 'color:#fff'" class="star"></div>

@@ -131,11 +131,4 @@ public class Artist {
 
 
 
-	@Transient
-	public String getPictureImagePath() {
-		if (this.picture == null || id == null) return null;
-
-		return "/files/artistFiles/" + id + "/" + this.picture.getName();
-	}
-
 }

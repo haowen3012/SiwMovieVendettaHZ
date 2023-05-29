@@ -122,10 +122,5 @@ public class User {
 		this.reviewSet = reviewSet;
 	}
 
-	@Transient
-	public String getPictureImagePath() {
-		if (this.picture == null || id == null) return null;
 
-		return "/files/userFiles/" + id + "/" + this.picture.getName();
-	}
 }

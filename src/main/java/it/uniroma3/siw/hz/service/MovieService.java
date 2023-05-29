@@ -144,32 +144,17 @@ public class MovieService {
     @Transactional
     private Movie addMovieScenes(Collection<MultipartFile> scenes, Movie movie) throws IOException {
 
-     Collection<String> movieScenes = new ArrayList<>();
-     Set<Image>  result  = new HashSet<>();
+     Set<Image>  movieScenes  = new HashSet<>();
 
      for(MultipartFile scene : scenes){
 
-        String sceneName =  StringUtils.cleanPath(scene.getOriginalFilename());
 
+         movieScenes.add(imageRepository.save(new Image(scene.getBytes())));
 
-         movieScenes.add(sceneName);
-
-
-
-
-         String uploadDir = "files/movieFiles/scenes" + movie.getId();
-
-         FileUploadUtil.saveFile(uploadDir,sceneName, scene);
      }
 
-     for(String scene : movieScenes){
 
-         result.add(imageRepository.save(new Image(scene)));
-
-        }
-
-
-        movie.setScenes(result);
+        movie.setScenes(movieScenes);
 
 
         this.saveMovie(movie);
@@ -183,17 +168,10 @@ public class MovieService {
     public Movie addMoviePhoto(MultipartFile multipartFile, Movie movie) throws IOException {
 
 
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-        movie.setImage(imageRepository.save(new Image(fileName)));
-
-
+        movie.setImage(imageRepository.save(new Image(multipartFile.getBytes())));
 
         this.saveMovie(movie);
 
-        String uploadDir = "files/movieFiles/" + movie.getId();
-
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return movie;
     }

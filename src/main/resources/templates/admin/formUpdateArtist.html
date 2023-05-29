@@ -38,7 +38,7 @@
     <h1>Artist pircture</h1>
     <div id="picture" >
       <input id="file" type="file" name="image" accept="image/png, image/jpeg"  th:value="${artist.picture}"/>
-      <img id="thumbnail"  th:src="@{${artist.getPictureImagePath}}" />
+      <img id="thumbnail"   th:src="@{'/display/image/' + ${artist.picture.id}}" />
       <i class="fa fa-plus" id="plus"></i>
     </div>
   </div>
