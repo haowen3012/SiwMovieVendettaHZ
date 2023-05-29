@@ -105,3 +105,45 @@
     }
 }
 
+
+
+
+@keyframes close{
+
+
+    0%{
+        width:80%;
+        height:100%;
+
+    }
+    100%{
+
+        width:0;
+
+    }
+}
+
+
+@keyframes open{
+
+
+    0%{
+
+
+        width:0;
+        font-size: 0;
+        color: transparent;
+
+
+    }
+    100%{
+
+        width:80%;
+        height:100%;
+        color:#fff;
+        transform: scale(1);
+
+
+    }
+}
+

@@ -53,7 +53,7 @@
 
     <a th:style="${role} ? 'visibility: visible' : 'visibility: hidden'" th:href="'/admin' + '/' + 'addDirector' + '/' + ${movie.id}" id="update-director" >update </a>
     <a th:style="${role} ? 'visibility: visible' : 'visibility: hidden'" th:href="'/admin' + '/' + 'updateActors' + '/' + ${movie.id}" id="update-actor" >update </a>
-    <a th:style="${role!=null and user==null} ?  'visibility: hidden' : 'visibility: visible'" th:text="${reviewed} ? 'already reviewed' : 'add review'"
+    <a th:style="${role!=null || user==null} ?  'visibility: hidden' : 'visibility: visible'" th:text="${reviewed} ? 'already reviewed' : 'add review'"
        th:classappend="${reviewed} ? 'unselectable' : 'selectable'"
        th:href="'/addReview' + '/' + ${movie.id}" id="add-review" >add review </a>
 

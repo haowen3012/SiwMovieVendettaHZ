@@ -74,16 +74,17 @@ public class ArtistService {
     }
 
     @Transactional
-    public Artist updateArtist(Long idOldArtist, Artist newArtist,MultipartFile multipartFile){
+    public Artist updateArtist(Long idOldArtist, Artist newArtist, MultipartFile multipartFile){
 
         Artist oldArtist = this.getArtist(idOldArtist);
 
         try {
-            this.addArtistPhoto(multipartFile, oldArtist);
-        }catch(IOException e){
+            oldArtist.getPicture().setBytes(multipartFile.getBytes());
 
         }
+        catch(IOException e){
 
+        }
 
         BeanUtils.copyProperties(newArtist, oldArtist, new String[]{"id","starredMovies","directedMovies","picture"});
 

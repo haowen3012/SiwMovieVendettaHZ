@@ -36,6 +36,8 @@ public class Movie {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate releaseDate;
 
+	@Column(length = 300)
+	private String plot;
 
 
 	@OneToOne
@@ -81,6 +83,14 @@ public class Movie {
 
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
 	}
 
 	public Image getImage() {

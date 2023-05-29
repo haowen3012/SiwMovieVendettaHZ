@@ -1,0 +1,91 @@
+#filter{
+    position: fixed;
+
+    top: 57%;
+    right: 2%;
+
+
+    width: 70%;
+    height: 7%;
+
+
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #fff;
+
+    border-radius: 15px;
+
+
+
+
+
+}
+
+#filter #options{
+    width:80%;
+    height:100%;
+
+    border: solid;
+
+    transform: scale(0);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+
+    box-shadow:0 14px 28px rgba(0,0,0,0.25),
+    0 10px 10px rgba(0,0,0,0.22);
+
+}
+
+
+
+#options .option{
+
+    position: relative;
+
+    font-size : 0.8em;
+
+    margin: 5%;
+
+    text-shadow: 1px 2px 23px #fff;
+    transition: 0.5s;
+
+
+
+
+}
+
+#filter .option:hover{
+
+
+    transform: scale(1.05);
+}
+
+
+#close-filter{
+    right:2%;
+    position: absolute;
+
+    font-size : 1.1em;
+    padding: 1%;
+
+    background: tomato;
+    border-radius: 15px;
+    text-transform: uppercase;
+
+    text-shadow: 1px 2px 23px #fff;
+    box-shadow: 1px 2px 23px tomato;
+
+    cursor: pointer;
+}
+
+
+#close-filter:active{
+
+    transform: scale(0.95);
+
+}

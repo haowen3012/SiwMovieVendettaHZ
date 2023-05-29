@@ -26,6 +26,11 @@
 		<input   type="date" required  th:field="${movie.releaseDate}"/>
 	</div>
 
+	<div id="movie-plot">
+		<h1>Movie Plot </h1>
+		<textarea    th:field="${movie.plot}" required/></textarea>
+	</div>
+
 	<div id="movie-image">
 		<h1>Movie Image</h1>
 		<div id="picture" >
@@ -62,7 +67,7 @@
 		<h1>Choose the director </h1>
 		<div id="directors">
 			<div id="director" th:each="director: ${artists}">
-				<img  th:src="@{${director.pictureImagePath}}"/>
+				<img  th:src="@{'/display/image/' + ${director.picture.id}}"/>
 				<input  name="directorsToAdd" th:value="${director.id}" class="checkbox" type="checkbox"/>
 			</div>
 		</div>
@@ -73,7 +78,7 @@
 
 		<div id="actors">
 			<div id="actor" th:each="actor: ${artists}" >
-				<img  th:src="@{${actor.pictureImagePath}}"/>
+				<img th:src="@{'/display/image/' + ${actor.picture.id}}"/>
 				<input  class="checkbox" type="checkbox"  name="actorsToAdd" th:value="${actor.id}" />
 			</div>
 		</div>
@@ -160,6 +165,64 @@
 
 
 </script>
+<script>
+	const slider = document.querySelector('#actors');
+	let isDown = false;
+	let startX;
+	let scrollLeft;
+
+	slider.addEventListener('mousedown', (e) => {
+		isDown = true;
+		slider.classList.add('active');
+		startX = e.pageX - slider.offsetLeft;
+		scrollLeft = slider.scrollLeft;
+	});
+	slider.addEventListener('mouseleave', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mouseup', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mousemove', (e) => {
+		if(!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - slider.offsetLeft;
+		const walk = (x - startX) * 3; //scroll-fast
+		slider.scrollLeft = scrollLeft - walk;
+		console.log(walk);
+	});
+</script>
+
+<script>
+	const slider_2 = document.querySelector('#directors');
+
+
+	slider_2.addEventListener('mousedown', (e) => {
+		isDown = true;
+		slider_2.classList.add('active');
+		startX = e.pageX - slider.offsetLeft;
+		scrollLeft = slider.scrollLeft;
+	});
+	slider_2.addEventListener('mouseleave', () => {
+		isDown = false;
+		slider_2.classList.remove('active');
+	});
+	slider_2.addEventListener('mouseup', () => {
+		isDown = false;
+		slider_2.classList.remove('active');
+	});
+	slider_2.addEventListener('mousemove', (e) => {
+		if(!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - slider_2.offsetLeft;
+		const walk = (x - startX) * 3; //scroll-fast
+		slider_2.scrollLeft = scrollLeft - walk;
+		console.log(walk);
+	});
+</script>
+
 </body>
 </html>
 

@@ -5,6 +5,7 @@
 <link rel="stylesheet" th:href="@{/css/index.css}" />
 <link rel="stylesheet" th:href="@{/css/button.css}" />
 <link rel="stylesheet" th:href="@{/css/sideNav.css}" />
+<link rel="stylesheet" th:href="@{/css/filterMenu.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -32,7 +33,23 @@
 	</div>
 </div>
 
+<!------FILTER----->
+<div id="filter">
 
+	<div id="options">
+		<a class="option"> <h1>New Releases </h1></a>
+
+
+		<a class="option"> <h1>Highiest Score</h1></a>
+
+
+		<a class="option" ><h1>Most Reviewed</h1></a>
+
+	</div>
+
+	<h1 id="close-filter">filter</h1>
+</div>
+<!------>
 <div class="new-releases">
 
 	<h1>New Release Movies </h1>
@@ -388,5 +405,34 @@
 
 
 </script>
+
+
+<script>
+
+	var close_filter = document.getElementById('close-filter');
+	var options = document.getElementById('options');
+
+
+	close_filter.addEventListener('click', () => {
+
+		if(close_filter.innerHTML == 'filter'){
+			options.style.animation ="open 0.3s ease-out forwards";
+			close_filter.innerHTML = "close";
+		}
+
+		else if(close_filter.innerHTML == 'close'){
+			options.style.animation ="shrink 0.2s ease-out forwards";
+			close_filter.innerHTML = "filter";
+		}
+
+
+
+
+	});
+
+
+
+</script>
+
 </body>
 </html>

@@ -15,7 +15,7 @@
 </a>
 
 <div id="artist">
-    <img th:src="@{${artist.pictureImagePath}}"/>
+    <img th:src="@{'/display/image/' + ${artist.picture.id}}"/>
     <h1 th:text=" ${artist.name} + ' ' + ${artist.surname}"> Robery Downey Jr</h1>
 
     <div id="date">
