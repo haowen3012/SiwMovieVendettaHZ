@@ -48,6 +48,11 @@ public class MovieService {
         return this.movieRepository.findById(id).get();
     }
 
+    @Transactional
+    public Collection<Movie> getMovie(String title){
+        return this.movieRepository.findByTitle(title);
+    }
+
 
     @Transactional
     public Collection<Movie> getAllMovies(){
@@ -254,6 +259,12 @@ public class MovieService {
 
 
         return movieObjects;
+    }
+
+
+
+    public List<String> search(String keyword) {
+        return movieRepository.search(keyword);
     }
 }
 

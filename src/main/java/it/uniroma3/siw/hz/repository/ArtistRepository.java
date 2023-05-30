@@ -3,6 +3,7 @@ package it.uniroma3.siw.hz.repository;
 
 import it.uniroma3.siw.hz.model.Artist;
 import it.uniroma3.siw.hz.model.Movie;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -26,4 +27,12 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 	Collection<Artist> findArtistByDirectedMoviesNotContaining(Movie movie);
 
 
+
+	@Modifying
+	@Query("UPDATE Movie m SET m.actors = NULL WHERE :artist MEMBER OF m.actors")
+	void removeArtistFromMovies(@Param("artist") Artist artist);
+
+	@Modifying
+	@Query("UPDATE Movie m SET m.director = NULL WHERE m.director = :artist")
+	void removeArtistFromDirectedMovies(@Param("artist") Artist artist);
 }

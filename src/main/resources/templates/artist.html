@@ -13,7 +13,8 @@
 <a href="/" id="go-back">
     <i id="home" class="fa fa-home"></i>
 </a>
-<a id="delete">
+
+<a id="delete" th:if="${role}" th:href="'/deleteArtist' + '/' + ${artist.id}">
     delete
 </a>
 </div>
@@ -74,31 +75,28 @@
 
 
 <script>
-    const slider = document.querySelector('#act-movies');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    const slider_2 = document.querySelector('#act-movies');
 
     slider.addEventListener('mousedown', (e) => {
         isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
+        slider_2.classList.add('active');
+        startX = e.pageX - slider_2.offsetLeft;
+        scrollLeft = slider_2.scrollLeft;
     });
-    slider.addEventListener('mouseleave', () => {
+    slider_2.addEventListener('mouseleave', () => {
         isDown = false;
-        slider.classList.remove('active');
+        slider_2.classList.remove('active');
     });
-    slider.addEventListener('mouseup', () => {
+    slider_2.addEventListener('mouseup', () => {
         isDown = false;
-        slider.classList.remove('active');
+        slider_2.classList.remove('active');
     });
-    slider.addEventListener('mousemove', (e) => {
+    slider_2.addEventListener('mousemove', (e) => {
         if(!isDown) return;
         e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
+        const x = e.pageX - slider_2.offsetLeft;
         const walk = (x - startX) * 3; //scroll-fast
-        slider.scrollLeft = scrollLeft - walk;
+        slider_2.scrollLeft = scrollLeft - walk;
         console.log(walk);
     });
 </script>

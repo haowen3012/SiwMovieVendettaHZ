@@ -24,7 +24,7 @@
         </a>
 
         <h1 th:text="${movie.title}">Iron Man</h1>
-        <div id="plot">
+        <div id="plot" th:text="${movie.plot}">
 
             Dopo essere sopravvissuto ad un attacco inaspettato in territorio nemico, l'industriale Tony Stark costruisce un'armatura ad alta tecnologia e giura di proteggere il mondo nei panni di Iron Man.
 
@@ -60,7 +60,7 @@
     <div id="average">
         <h1 th:text="${averageRating}"> 3.4</h1>
         <meter id="average-rating" min="0" max="5" th:value="${averageRating}" title="4.3 out of 5 stars"></meter>
-        <div th:text="${numReviews} + ' reviews'">5 reviews</div>
+        <div th:text="${numReviews != null ? numReviews + ' reviews' : '0 reviews'}">5 reviews</div>
     </div>
 
     <div class="cast">
@@ -68,7 +68,7 @@
 
         <div class="actor" th:each=" actor : ${movie.actors}">
             <img  th:src="@{'/display/image/' + ${actor.picture.id}}"/>
-            <a id="remove" th:href="'/admin' + '/' + 'removeActorFromMovie'+ '/' + ${actor.id}  +'/' + ${movie.id}"
+            <a id="remove" th:if="${role}" th:href="'/admin' + '/' + 'removeActorFromMovie'+ '/' + ${actor.id}  +'/' + ${movie.id}"
             >remove</a>
         </div>
 
@@ -76,7 +76,7 @@
 
         <div class="director" th:if="${movie.director}">
             <img   th:src="@{'/display/image/' + ${movie.director.picture.id}}"/>
-            <a id="remove" th:href="'/removeDirector' + '/' + ${movie.id}" >remove</a>
+            <a id="remove" th:if="${role}" th:href="'/removeDirector' + '/' + ${movie.id}" >remove</a>
         </div>
 
         <div class="director" th:unless="${movie.director}">

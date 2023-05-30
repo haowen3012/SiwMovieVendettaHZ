@@ -1,0 +1,30 @@
+#errors{
+    top:2%;
+    left: 15%;
+    width: 70%;
+    position: fixed;
+    text-align: center;
+    margin: 1%;
+    font-size: 15px;
+    z-index: 3;
+    color: rgb(234, 76, 70);
+    font-style: italic;
+    animation: slide-in-down 1.2s ease-out forwards;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.error{
+    margin: 3%;
+    padding: 6px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 7px 0 red;
+    animation: slide-in-down 1.2s ease-out forwards;
+
+
+}

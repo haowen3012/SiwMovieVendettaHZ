@@ -7,6 +7,7 @@
   <link rel="stylesheet" th:href="@{/css/review.css}" />
   <link rel="stylesheet" th:href="@{/css/home.css}" />
   <link rel="stylesheet" th:href="@{/css/animation.css}" />
+  <link rel="stylesheet" th:href="@{/css/deleted-warn.css}" />
 
   <title>SiwMovieVendettaHZ</title>
 </head>
@@ -21,7 +22,7 @@
     <div class="rating" >
 
       <div class="top-section">
-        <img th:src="@{${review.author.getPictureImagePath}}"/>
+        <img th:src="@{'/display/image/' + ${review.author.picture.id}}"/>
         <h1 class="author" th:text="${review.author.userName}">Haowen Zheng</h1>
         <div class="stars" th:value="${review.rating}">
           <div th:style="${review.rating >= 1} ? 'color:gold': 'color:#fff'" class="star"></div>

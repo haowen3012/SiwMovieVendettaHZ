@@ -204,32 +204,6 @@ img{
 }
 
 
-/************************/
-
-#deleted-warn{
-
-    position: absolute;
-    top: 2%;
-
-    padding: 2%;
-    border: solid;
-    z-index: 2;
-    border-radius: 15px;
-
-    text-align: center;
-
-    font-size: 1.3em;
-
-    background: green;
-
-    box-shadow: 0 2px 28px green;
-
-
-    animation : slide-in-down 0.8s ease-in forwards;
-
-
-}
-
 a{
     text-decoration: none;
 }

@@ -31,14 +31,14 @@ public class Artist {
 	private LocalDate dateOfDeath;
 
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private Image picture;
 
 	
-	@ManyToMany(mappedBy="actors",cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy="actors")
 	private Set<Movie> starredMovies;
 	
-	@OneToMany(mappedBy="director",cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="director")
 	private List<Movie> directedMovies;
 
 	

@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 
-	/*public List<Movie> findByYear(int year);*/
+	public Collection<Movie> findByTitle(String title);
 
 	public boolean existsByTitleAndReleaseDate(String title, LocalDate releaseDate);
 
@@ -25,10 +25,11 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 	List<Movie> findMoviesReleasedInLast30Days(@Param("startDate") LocalDate startDate);
 
 
-	@Query("SELECT m, COUNT(r) AS reviewCount,  COALESCE(AVG(r.rating), 0) AS avgRating " +
+	@Query("SELECT m, COUNT(r) AS reviewCount, COALESCE(AVG(r.rating), 0) AS avgRating\n" +
 			"FROM Movie m\n" +
 			"LEFT JOIN Review r ON r.reviewedMovie.id = m.id\n" +
-			" GROUP BY m.id ORDER BY AVG(r.rating) ")
+			"GROUP BY m.id\n" +
+			"ORDER BY COALESCE(AVG(r.rating), 0) DESC")
 	List<Object[]> findMoviesOrderByAverageRatingWithCountAndAvgRating();
 
 
@@ -37,8 +38,11 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 				"FROM Movie m\n" +
 				"LEFT JOIN Review r ON r.reviewedMovie.id = m.id\n" +
 				"GROUP BY m.id\n" +
-				"ORDER BY reviewCount DESC")
+				"ORDER BY reviewCount DESC,  COALESCE(AVG(r.rating), 0) DESC")
 		List<Object[]> findMoviesOrderByMostReviewsWithCountAndAvgRating();
 
 
+
+	@Query("SELECT m.title FROM Movie m where m.title like %:keyword%")
+	public List<String> search(@Param("keyword") String keyword);
 }

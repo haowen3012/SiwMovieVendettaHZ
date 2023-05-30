@@ -102,7 +102,7 @@ public class ArtistController {
 		model.addAttribute("artist", this.artistService.updateArtist(idArtist,newArtist,multipartFile));
 
 
-		return "artist.html";
+		return "redirect:/artist";
 
 	}
 
@@ -110,8 +110,9 @@ public class ArtistController {
 	@RequestMapping(value="/deleteArtist/{idA}", method = RequestMethod.GET)
 	public String deleteArtist(@PathVariable("idA") Long idA,Model model){
 
+          this.artistService.deleteArtist(idA);
+		  model.addAttribute("artistDeleted",true);
 
-
-		return "";
+		  return "redirect:/artist";
 	}
 }

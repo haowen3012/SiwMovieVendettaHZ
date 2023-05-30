@@ -13,6 +13,7 @@ import it.uniroma3.siw.hz.service.CredentialsService;
 import it.uniroma3.siw.hz.service.MovieService;
 import it.uniroma3.siw.hz.service.ReviewService;
 import jakarta.persistence.PreUpdate;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -114,25 +115,32 @@ public class MovieController {
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
-		User loggedUser = this.sessionData.getLoggedUser();
 		Movie movie = this.movieService.getMovie(id);
+
 		model.addAttribute("movie", movie);
-		model.addAttribute("reviewed",this.movieService.getMoviesReviewdByUser(loggedUser).contains(movie));
-		model.addAttribute("averageRating", this.reviewService.getAvarageRatingByMovie(movie));
-		model.addAttribute("numReviews", this.reviewService.countReviewsByMovie(movie));
+		try {
+			User loggedUser = this.sessionData.getLoggedUser();
+			model.addAttribute("reviewed", this.movieService.getMoviesReviewdByUser(loggedUser).contains(movie));
+			model.addAttribute("averageRating", this.reviewService.getAvarageRatingByMovie(movie));
+			model.addAttribute("numReviews", this.reviewService.countReviewsByMovie(movie));
+
+		}catch(ClassCastException e){
+
+		}
+
 		return "movie.html";
 	}
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
 
+		model.addAttribute("movies", this.movieService.getAllMovies());
 		try {
 			User loggedUser = this.sessionData.getLoggedUser();
-			model.addAttribute("movies", this.movieService.getAllMovies());
+
 			model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
 		}catch(ClassCastException e){
 
-			return "movies.html";
 		}
 
 
@@ -143,12 +151,21 @@ public class MovieController {
 	public String formSearchMovies() {
 		return "formSearchMovies.html";
 	}
-/*
+
 	@PostMapping("/searchMovies")
-	public String searchMovies(Model model, @RequestParam int year) {
-		model.addAttribute("movies", this.movieService.getMoviesByYear(year));
-		return "foundMovies.html";
-	}*/
+	public String searchMovies(Model model, @RequestParam("movieTitle") String movieTitle) {
+		try {
+			User loggedUser = this.sessionData.getLoggedUser();
+			model.addAttribute("movies", this.movieService.getMovie(movieTitle));
+			model.addAttribute("reviewedMovies",this.movieService.getMoviesReviewdByUser(loggedUser));
+			return "movies.html";
+
+		}catch(Exception e){
+
+			return "movieNotFound.html";
+		}
+
+	}
 	
 	@GetMapping("/admin/updateActors/{id}")
 	public String updateActors(@PathVariable("id") Long id, Model model) {
@@ -244,5 +261,11 @@ public class MovieController {
 
 		return "redirect:/";
 
+	}
+
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> search(HttpServletRequest request) {
+		return this.movieService.search(request.getParameter("term"));
 	}
 }

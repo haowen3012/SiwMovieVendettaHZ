@@ -2,6 +2,8 @@ package it.uniroma3.siw.hz.controller;
 
 
 import it.uniroma3.siw.hz.controller.session.SessionData;
+import it.uniroma3.siw.hz.controller.validator.CredentialsValidator;
+import it.uniroma3.siw.hz.controller.validator.UserValidator;
 import it.uniroma3.siw.hz.model.Credentials;
 import it.uniroma3.siw.hz.model.MergeMovieObject;
 import it.uniroma3.siw.hz.model.Movie;
@@ -28,6 +30,13 @@ public class AuthenticationController {
 	
 	@Autowired
 	private CredentialsService credentialsService;
+
+
+	@Autowired
+	private UserValidator userValidator;
+
+	@Autowired
+	private CredentialsValidator credentialsValidator;
 
 	@Autowired
 	private MovieService movieService;
@@ -92,9 +101,12 @@ public class AuthenticationController {
                  @ModelAttribute("credentialsForm") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
+		//validate user and credentials fields
+		this.userValidator.validate(user, userBindingResult);
+		this.credentialsValidator.validate(credentials, credentialsBindingResult);
 
         // se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
-        if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
+        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
 			model.addAttribute("user" ,user);

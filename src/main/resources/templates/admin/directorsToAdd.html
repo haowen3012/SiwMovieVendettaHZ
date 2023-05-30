@@ -25,7 +25,7 @@
 	<h1> SELECTED DIRECTOR </h1>
 	<div class="artists">
 		<a class="artist" th:if="${movie.director}" >
-			<img  th:src="@{${movie.director.pictureImagePath}}"/>
+			<img th:src="@{'/display/image/' + ${movie.director.picture.id}}"/>
 		</a>
 	</div>
 </div>
@@ -34,7 +34,7 @@
 	<h1>  SELECT A DIRECTOR </h1>
 	<div class="artists">
 		<a   class="artist" th:each="director: ${notMovieDirectors}" th:href=" '/admin' + '/' + 'setDirectorToMovie' +'/' + ${director.id} + '/' + ${movie.id}">
-			<img  th:src="@{${director.pictureImagePath}}"/>
+			<img  th:src="@{'/display/image/' + ${director.picture.id}}"/>
 		</a>
 	</div>
 </div>

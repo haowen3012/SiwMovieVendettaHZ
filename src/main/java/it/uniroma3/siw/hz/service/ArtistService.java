@@ -95,7 +95,18 @@ public class ArtistService {
 
 
     @Transactional
-    public void deleteArtist(Long id){
+    public void deleteArtist(Long idArtist){
 
+
+        Artist artist = this.getArtist(idArtist);
+
+
+        artist.getStarredMovies().forEach(movie -> movie.getActors().remove(artist));
+        artist.getStarredMovies().clear();
+
+        artist.getDirectedMovies().forEach(movie -> movie.setDirector(null));
+        artist.getDirectedMovies().clear();
+
+        artistRepository.delete(artist);
     }
 }

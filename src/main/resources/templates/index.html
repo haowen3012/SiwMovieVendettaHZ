@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<head>
 <meta name="viewport" content="width=device-width">
 <title>JS Bin</title>
 <link rel="stylesheet" th:href="@{/css/login.css}" />
@@ -6,9 +9,53 @@
 <link rel="stylesheet" th:href="@{/css/button.css}" />
 <link rel="stylesheet" th:href="@{/css/sideNav.css}" />
 <link rel="stylesheet" th:href="@{/css/filterMenu.css}" />
+<link rel="stylesheet" th:href="@{/css/error.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script
+			src="https://code.jquery.com/jquery-1.12.4.js"
+			integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css"/>
+
 </head>
 <body>
+
+<!--registration erros-->
+<div id="errors">
+	<div class="error" th:if="${#fields.hasErrors('credentialsForm.username')}"
+		 th:errors="${credentialsForm.username}" ></div>
+
+	<div class="error" th:if="${#fields.hasErrors('credentialsForm.password')}"
+		 th:errors="${credentialsForm.password}" ></div>
+
+	<div class="error"  th:if="${#fields.hasErrors('userForm.name')}"
+		 th:errors="${userForm.name}" ></div>
+
+	<div class="error"  th:if="${#fields.hasErrors('userForm.surname')}"
+		 th:errors="${userForm.surname}" ></div>
+</div>
+
+<script>
+	var error_element = document.getElementById('errors');
+
+	error_element.addEventListener('animationend', () => {
+
+		setTimeout( function(){
+			error_element.style.animation="slide-out-up 1s ease-out forwards";
+		},2000);
+
+
+		setTimeout( function(){
+			error_element.innerHTML="";
+		},2600);
+	});
+
+</script>
+<!----->
+
+
 <div class="nav-container">
 
 	<div class="nav">
@@ -19,7 +66,7 @@
 
 
 		<a  href="/artist"><h1>ARTISTS</h1></a>
-		<a th:if="${user}" id="log-out"><h1>LOG OUT</h1></a>
+		<a th:if="${user}" href="/logout" id="log-out"><h1>LOG OUT</h1></a>
 		<a id="login" th:unless="${user}" ><h1>LOGIN</h1></a>
 
 
@@ -189,10 +236,56 @@
 <div  id="side_nav" class="side-nav">
 	<div onclick="closeSideNav()">&times;</div>
 	<img th:if="${user}"   th:src="@{'/display/image/' + ${user.picture.id}}" />
-	<a href="#">Favourites</a>
+	<a href="/movie">movies</a>
+	<a href="/artist">artists</a>
 	<a href="/userReviews">Reviews</a>
-	<a href="#"> Log out</a>
+	<a href="/logout"> Log out</a>
 </div>
+
+<!--------SEARCH------>
+
+<form id="search" th:action="@{/searchMovies}" method="post">
+	<i class="fa fa-search"  id="icon" aria-hidden="true"></i>
+	<input  id="movie-title" name="movieTitle"/>
+	<input type="submit" hidden />
+</form>
+
+<script >
+	$(document).ready(function() {
+		$('#movie-title').autocomplete({
+			source : 'http://localhost:8080/search'
+		});
+	});
+</script>
+<script>
+
+	var search = document.getElementById('search');
+
+	var icon = document.getElementById('icon');
+
+	search.style.width = "0%";
+
+
+	index =0;
+	icon.addEventListener('click', () => {
+
+		if(search.style.width == "0%"){
+
+			search.style.animation ="wide-up 0.3s ease-in forwards";
+			search.style.width = "30%";
+
+
+		}
+		else{
+			search.style.animation ="wide-down 0.4s ease-in forwards";
+			search.style.width = "0%";
+
+		}
+
+	});
+
+
+</script>
 <!----->
 <script>
 
@@ -438,11 +531,13 @@
 		if(close_filter.innerHTML == 'filter'){
 			options.style.animation ="open 0.3s ease-out forwards";
 			close_filter.innerHTML = "close";
+			search.style.display= "none";
 		}
 
 		else if(close_filter.innerHTML == 'close'){
 			options.style.animation ="shrink 0.2s ease-out forwards";
 			close_filter.innerHTML = "filter";
+			search.style.display= "inline-flex";
 		}
 
 
@@ -450,9 +545,9 @@
 
 	});
 
-
-
 </script>
+
+
 
 </body>
 </html>

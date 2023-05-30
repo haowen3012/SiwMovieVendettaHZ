@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -83,21 +84,29 @@ public  class AuthConfiguration {
 				.requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 				.requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 				.anyRequest().authenticated()
+				.and().exceptionHandling().accessDeniedPage("/index")
 				.and().formLogin()
 				.loginPage("/login")
 				.permitAll()
 				.defaultSuccessUrl("/success")
 				.failureUrl("/login?error=true")
-				.and().logout()
-				.invalidateHttpSession(true)
-				.clearAuthentication(true).permitAll()
 				.and()
 				.oauth2Login()
 				.loginPage("/login")
 				.userInfoEndpoint()
 				.userService( customOAuth2UserService)
 				.and()
-				.successHandler(oAuth2LoginSuccessHandler);
+				.successHandler(oAuth2LoginSuccessHandler)
+				.and()
+				.logout()
+				// il logout è attivato con una richiesta GET a "/logout"
+				.logoutUrl("/logout")
+				// in caso di successo, si viene reindirizzati alla home
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.clearAuthentication(true).permitAll();
 
 
 
