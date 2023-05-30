@@ -48,30 +48,9 @@ public class AuthenticationController {
 	}*/
 
 	@RequestMapping(value = "/",method = RequestMethod.GET)
-	public String index(Model model, @RequestParam(name="newMovies",required = false) Collection<Movie> newMovies, @RequestParam(name="mostReviewedMovies",required = false) Collection<MergeMovieObject> mostReviewedMovies,
-						@RequestParam(name = "highestScoreMovies",required = false) Collection<MergeMovieObject> highestScoreMovies) {
+	public String index(Model model) {
 
-		if(mostReviewedMovies != null) {
-
-			model.addAttribute("mostReviewedMovies", mostReviewedMovies);
- System.out.println("ciao");
-		}
-
-		 else if(highestScoreMovies != null){
-
-			model.addAttribute("highestScoreMovies", highestScoreMovies);
-		}
-
-		else if(newMovies != null ){
-
-			model.addAttribute("newMovies", newMovies);
-		}
-
-       else {
-
-			model.addAttribute("newMovies",newMovies);
-		}
-
+		model.addAttribute("newMovies", this.movieService.getMoviesReleasedInLast30Days());
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
@@ -133,7 +112,7 @@ public class AuthenticationController {
 
 		if(loggedUser.getPicture()!=null ){
 
-			return "index.html";
+			return "redirect:/";
 		}
 
 

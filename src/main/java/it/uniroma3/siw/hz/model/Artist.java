@@ -35,10 +35,10 @@ public class Artist {
 	private Image picture;
 
 	
-	@ManyToMany(mappedBy="actors")
+	@ManyToMany(mappedBy="actors",cascade = CascadeType.REMOVE)
 	private Set<Movie> starredMovies;
 	
-	@OneToMany(mappedBy="director")
+	@OneToMany(mappedBy="director",cascade = CascadeType.REMOVE)
 	private List<Movie> directedMovies;
 
 	

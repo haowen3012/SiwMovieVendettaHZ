@@ -223,9 +223,7 @@ public class MovieController {
 	 @RequestMapping(value={"/newReleases"}, method = RequestMethod.GET)
 	public String getNewReleases(RedirectAttributes redirectAttributes){
 
-         redirectAttributes.addFlashAttribute("newMovies",this.movieService.getMoviesReleasedInLast30Days());
-
-		 return "return:/";
+		 return "redirect:/";
 	 }
 
 	@RequestMapping(value={"/highestScore"}, method = RequestMethod.GET)

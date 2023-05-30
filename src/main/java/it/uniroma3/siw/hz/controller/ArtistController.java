@@ -105,4 +105,13 @@ public class ArtistController {
 		return "artist.html";
 
 	}
+
+
+	@RequestMapping(value="/deleteArtist/{idA}", method = RequestMethod.GET)
+	public String deleteArtist(@PathVariable("idA") Long idA,Model model){
+
+
+
+		return "";
+	}
 }

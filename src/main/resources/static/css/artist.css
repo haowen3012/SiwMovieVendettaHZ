@@ -30,6 +30,7 @@ body{
 
     /*  animation: gradient 10s ease infinite;*/
 
+
 }
 
 
@@ -198,4 +199,77 @@ h1{
 }
 
 
+.upper-section{
 
+    width:95%;
+    padding: 1%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+
+
+
+#delete{
+
+    margin-left: 85%;
+    background-image: linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%);
+
+    padding: 2%;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 16px red;
+    border-radius: 10px;
+    display: block;
+    cursor: pointer;
+    font-weight: bold;
+
+
+
+}
+#delete:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+
+#go-back {
+
+    height:100%;
+    border: none;
+    background: none;
+    box-shadow: none;
+
+    color: #fff;
+    font-size: 2.1em;
+    text-shadow:  none;
+    padding: 0.7%;
+    text-align: center;
+    border-radius: 20%;
+    transition: 0.3s;
+
+    text-shadow : 1px 2px 23px #fff;
+
+    z-index: 3;
+}
+
+#go-back:hover{
+    transform: scale(1.1);
+    color:#000;
+    background: #fff;
+
+    box-shadow : 1px 2px 23px #fff;
+}
+
+#go-back:active{
+    transform: scale(0.9);
+}

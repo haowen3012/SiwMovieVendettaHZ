@@ -50,7 +50,7 @@
 	<h1 id="close-filter">filter</h1>
 </div>
 <!------>
-<div class="new-releases" th:if="${newMovies}">
+<div class="new-releases" th:if="${newMovies!=null and highestScoreMovies==null && mostReviewedMovies==null}">
 
 	<h1>New Release Movies </h1>
 	<div class="content">

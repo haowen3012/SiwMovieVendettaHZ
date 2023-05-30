@@ -92,4 +92,10 @@ public class ArtistService {
 
         return oldArtist;
     }
+
+
+    @Transactional
+    public void deleteArtist(Long id){
+
+    }
 }
