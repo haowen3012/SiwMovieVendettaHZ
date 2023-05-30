@@ -3,9 +3,13 @@ package it.uniroma3.siw.hz.controller;
 
 import it.uniroma3.siw.hz.controller.session.SessionData;
 import it.uniroma3.siw.hz.model.Credentials;
+import it.uniroma3.siw.hz.model.MergeMovieObject;
+import it.uniroma3.siw.hz.model.Movie;
 import it.uniroma3.siw.hz.model.User;
 import it.uniroma3.siw.hz.service.CredentialsService;
+import it.uniroma3.siw.hz.service.MovieService;
 import jakarta.validation.Valid;
+import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 
 @Controller
 public class AuthenticationController {
@@ -24,9 +30,12 @@ public class AuthenticationController {
 	private CredentialsService credentialsService;
 
 	@Autowired
+	private MovieService movieService;
+
+	@Autowired
 	private SessionData sessionData;
 	
-	@GetMapping(value = "/register") 
+	@GetMapping(value = "/register")
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
@@ -38,13 +47,38 @@ public class AuthenticationController {
 		return "index.html";
 	}*/
 
-	@GetMapping(value = "/")
-	public String index(Model model) {
+	@RequestMapping(value = "/",method = RequestMethod.GET)
+	public String index(Model model, @RequestParam(name="newMovies",required = false) Collection<Movie> newMovies, @RequestParam(name="mostReviewedMovies",required = false) Collection<MergeMovieObject> mostReviewedMovies,
+						@RequestParam(name = "highestScoreMovies",required = false) Collection<MergeMovieObject> highestScoreMovies) {
+
+		if(mostReviewedMovies != null) {
+
+			model.addAttribute("mostReviewedMovies", mostReviewedMovies);
+ System.out.println("ciao");
+		}
+
+		 else if(highestScoreMovies != null){
+
+			model.addAttribute("highestScoreMovies", highestScoreMovies);
+		}
+
+		else if(newMovies != null ){
+
+			model.addAttribute("newMovies", newMovies);
+		}
+
+       else {
+
+			model.addAttribute("newMovies",newMovies);
+		}
+
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			model.addAttribute("userForm", new User());
 			model.addAttribute("credentialsForm", new Credentials());
-	        return "index.html";
+
+
 		}
 		else {
 			try {
@@ -54,9 +88,11 @@ public class AuthenticationController {
 					return "admin/indexAdmin.html";
 				}
 			}catch(ClassCastException e ){
+
 				return "index.html";
 			}
 		}
+
         return "index.html";
 	}
 		

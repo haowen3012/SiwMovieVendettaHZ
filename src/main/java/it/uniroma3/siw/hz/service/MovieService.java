@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -209,4 +210,50 @@ public class MovieService {
 
         return this.movieRepository.findMoviesNotReviewedByUser(user);
     }
+
+
+    @Transactional
+    public Collection<Movie> getMoviesReleasedInLast30Days(){
+
+        LocalDate currentTime = LocalDate.now();
+
+        LocalDate startDate = currentTime.minusDays(30);
+
+        return this.movieRepository.findMoviesReleasedInLast30Days(startDate);
+    }
+
+
+    @Transactional
+    public Collection<MergeMovieObject> getMovieOrderByAverageRating(){
+
+        Collection<Object[]> objects =  this.movieRepository.findMoviesOrderByAverageRatingWithCountAndAvgRating();
+
+        Collection<MergeMovieObject> movieObjects = new ArrayList<>();
+
+        for( Object[] object:  objects){
+
+            movieObjects.add(new MergeMovieObject( (Movie)object[0],(Long)object[1],(Double)object[2]));
+
+        }
+
+        return movieObjects;
+
+    }
+
+    @Transactional
+    public  Collection<MergeMovieObject> getMoviesOrderByMostReviews(){
+
+        Collection<Object[]> objects = this.movieRepository.findMoviesOrderByMostReviewsWithCountAndAvgRating();
+
+        Collection<MergeMovieObject> movieObjects = new ArrayList<>();
+
+        for( Object[] object: objects ){
+
+            movieObjects.add(new MergeMovieObject( (Movie)object[0],(Long)object[1],(Double)object[2]));
+        }
+
+
+        return movieObjects;
+    }
 }
+

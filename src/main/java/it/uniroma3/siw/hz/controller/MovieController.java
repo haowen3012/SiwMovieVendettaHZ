@@ -22,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -218,4 +220,31 @@ public class MovieController {
 	 }
 
 
+	 @RequestMapping(value={"/newReleases"}, method = RequestMethod.GET)
+	public String getNewReleases(RedirectAttributes redirectAttributes){
+
+         redirectAttributes.addFlashAttribute("newMovies",this.movieService.getMoviesReleasedInLast30Days());
+
+		 return "return:/";
+	 }
+
+	@RequestMapping(value={"/highestScore"}, method = RequestMethod.GET)
+	public String getHighestScoreMovies( RedirectAttributes redirectAttributes){
+
+		redirectAttributes.addFlashAttribute("highestScoreMovies",this.movieService.getMovieOrderByAverageRating());
+
+		return "redirect:/";
+	}
+
+
+
+	@RequestMapping(value={"/mostReviewed"}, method = RequestMethod.GET)
+	public String getMostReviewedMovies( RedirectAttributes redirectAttributes){
+
+
+		redirectAttributes.addFlashAttribute("mostReviewedMovies",this.movieService.getMoviesOrderByMostReviews());
+
+		return "redirect:/";
+
+	}
 }

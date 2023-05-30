@@ -13,8 +13,8 @@
 
 	<div class="nav">
 
-		<img th:if="${user}" onclick="openSideNav()" id="image-user"  th:src="@{${user.pictureImagePath}}" />
-		<a><h1>HOME</h1></a>
+		<img th:if="${user}" onclick="openSideNav()" id="image-user"  th:src="@{'/display/image/' + ${user.picture.id}}"/>
+		<a href="/"><h1>HOME</h1></a>
 		<a href="/movie"><h1>MOVIES</h1></a>
 
 
@@ -37,40 +37,60 @@
 <div id="filter">
 
 	<div id="options">
-		<a class="option"> <h1>New Releases </h1></a>
+		<a class="option" href="/newReleases"> <h1>New Releases </h1></a>
 
 
-		<a class="option"> <h1>Highiest Score</h1></a>
+		<a class="option" href="/highestScore"> <h1>Highiest Score</h1></a>
 
 
-		<a class="option" ><h1>Most Reviewed</h1></a>
+		<a class="option" href="/mostReviewed"><h1>Most Reviewed</h1></a>
 
 	</div>
 
 	<h1 id="close-filter">filter</h1>
 </div>
 <!------>
-<div class="new-releases">
+<div class="new-releases" th:if="${newMovies}">
 
 	<h1>New Release Movies </h1>
 	<div class="content">
 
-		<image class="release"  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
-		<image class="release"  src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
-		<image class="release"  src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
-		<image  class="release" src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
-		<image class="release"  src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
-
-
-		<image class="release"  src="https://i.postimg.cc/d08jWpRV/iron-man-poster.jpg"></image>
-		<image class="release"  src="https://i.postimg.cc/DyXJdsP2/avatar.jpg"></image>
-		<image class="release"  src="https://i.postimg.cc/0jQT7tMh/guardiani-Poster.jpg"></image>
-		<image  class="release" src="https://i.postimg.cc/vBjJLrrB/avengers-Poster.jpg"></image>
-		<image class="release"  src="https://i.postimg.cc/1z72sGYH/demonslayerposter.jpg"></image>
-
+		<a class="release"  th:each="movie: ${newMovies}"><img class="release" th:src="@{'/display/image/' + ${movie.image.id}}"/></a>
 
 	</div>
+</div>
 
+
+	<div class="new-releases" th:if="${highestScoreMovies}">
+
+		<h1> The Highest Scores </h1>
+		<div class="content">
+
+			<a class="release"  th:each="object: ${highestScoreMovies}"><img class="release" th:src="@{'/display/image/' + ${object.movie.image.id}}"/>
+				<div class="rate">
+				<h1 th:text="${object.avgRating}"></h1>
+				<h1  class="num-reviews" th:text="${object.reviewCount + ' reviews'}"></h1>
+				</div>
+			</a>
+
+		</div>
+	</div>
+
+<div class="new-releases" th:if="${mostReviewedMovies}">
+
+			<h1>The Most Reviewed </h1>
+			<div class="content">
+
+				<a class="release"  th:each="object: ${mostReviewedMovies}">
+
+					<img class="release" th:src="@{'/display/image/' + ${object.movie.image.id}}"/>
+					<div class="rate">
+					<h1 th:text="${object.avgRating}"></h1>
+					<h1  class="num-reviews" th:text="${object.reviewCount + ' reviews'}"></h1>
+					</div>
+				</a>
+
+			</div>
 
 </div>
 
@@ -108,7 +128,7 @@
 
 </div>
 
-<div id="sign-up"   th:if="${userForm != null and credentialsForm !=null}">
+<div id="sign-up"   th:if="${(userForm != null and credentialsForm !=null) }">
 	<div class="close-2" >&times;</div>
 	<form  id="form" method="POST"  th:action="@{/register}" >
 		<h1>Sign Up</h1>
@@ -168,7 +188,7 @@
 <!---------SIDE NAV------>
 <div  id="side_nav" class="side-nav">
 	<div onclick="closeSideNav()">&times;</div>
-	<img th:if="${user}"  th:src="@{${user.pictureImagePath}}" />
+	<img th:if="${user}"   th:src="@{'/display/image/' + ${user.picture.id}}" />
 	<a href="#">Favourites</a>
 	<a href="/userReviews">Reviews</a>
 	<a href="#"> Log out</a>

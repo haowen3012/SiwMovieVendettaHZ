@@ -25,7 +25,7 @@
 	<h1> SELECTED ACTORS </h1>
 	<div class="artists">
 		<a class="artist" th:each="movieActor : ${movieActors}" >
-			<img  th:src="@{${movieActor.pictureImagePath}}"/>
+			<img th:src="@{'/display/image/' + ${movieActor.picture.id}}"/>
 		</a>
 	</div>
 </div>
@@ -34,7 +34,7 @@
 	<h1>  SELECT ACTORS </h1>
 	<div class="artists">
 		<a   class="artist" th:each="actorToAdd: ${actorsToAdd}" th:href=" '/admin' + '/' + 'addActorToMovie' +'/' + ${actorToAdd.id} + '/' + ${movie.id}">
-			<img  th:src="@{${actorToAdd.pictureImagePath}}"/>
+			<img  th:src="@{'/display/image/' + ${actorToAdd.picture.id}}"/>
 		</a>
 	</div>
 </div>
