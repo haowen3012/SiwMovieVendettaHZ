@@ -1,14 +1,19 @@
 package it.uniroma3.siw.hz.service;
 
+import it.uniroma3.siw.hz.controller.validator.MultipartFileValidator;
+import it.uniroma3.siw.hz.model.Image;
 import it.uniroma3.siw.hz.model.User;
 import it.uniroma3.siw.hz.oauth.AuthenticationProvider;
+import it.uniroma3.siw.hz.repository.ImageRepository;
 import it.uniroma3.siw.hz.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,9 @@ public class UserService {
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -64,6 +72,23 @@ public class UserService {
         for(User user : iterable)
             result.add(user);
         return result;
+    }
+
+
+    @Transactional
+    public  void addUserPicture(Long idUser, MultipartFile picture){
+
+        User user = this.getUser(idUser);
+
+        try {
+            user.setPicture(   this.imageRepository.save(new Image(picture.getOriginalFilename(), picture.getBytes())));
+
+        }catch(IOException e){
+
+        }
+
+        this.saveUser(user);
+
     }
 
     /*******************OAuth2********************************************+*/

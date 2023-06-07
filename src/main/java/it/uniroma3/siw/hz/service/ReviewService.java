@@ -44,6 +44,8 @@ public class ReviewService {
 
     @Transactional
     public void deleteReview(Long idReview){
-         this.reviewRepository.deleteById(idReview);
+
+        this.reviewRepository.deleteById(idReview);
+
     }
 }

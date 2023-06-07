@@ -285,4 +285,44 @@ public class MovieController {
 	public List<String> search(HttpServletRequest request) {
 		return this.movieService.search(request.getParameter("term"));
 	}
+
+
+
+
+
+	@RequestMapping(value="/updateMovieFields/{id}", method = RequestMethod.GET)
+	public String updateAllMovieField(Model model, @PathVariable("id") Long idMovie){
+
+		model.addAttribute("movie",this.movieService.getMovie(idMovie));
+		model.addAttribute("artists",this.artistService.getAllArtists());
+		return "admin/formUpdateMovie.html";
+	}
+
+	@RequestMapping(value="/updateMovieFields/{id}", method = RequestMethod.POST)
+	public String updateAllMovieField(Model model, @PathVariable("id") Long idMovie, @Valid @ModelAttribute Movie newMovie
+			,BindingResult movieBindingResult, @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadBindingResult){
+
+		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
+		if(!fileUploadBindingResult.hasErrors()) {
+			model.addAttribute("movie", this.movieService.updateMovie(idMovie, newMovie, fileUploadWrapper.getImage()));
+			return "redirect:/movie/" + idMovie;
+		}
+
+		model.addAttribute("fileUploadWrapper",fileUploadWrapper);
+		model.addAttribute("artist",newMovie);
+
+		return "admin/formUpdateMovie.html";
+
+	}
+
+	@RequestMapping(value="/deleteMovie/{id}", method = RequestMethod.GET)
+	public String deleteMovie(@PathVariable("id") Long id, Model model){
+
+		this.movieService.deleteMovie(id);
+		model.addAttribute("deleted", true);
+
+		return "redirect:/movie";
+	}
+
+
 }

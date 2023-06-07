@@ -102,7 +102,7 @@
 	<h1>New Release Movies </h1>
 	<div class="content">
 
-		<a class="release"  th:each="movie: ${newMovies}"><img class="release" th:src="@{'/display/image/' + ${movie.image.id}}"/></a>
+		<a class="release"  th:each="movie: ${newMovies}"><img class="release" th:src="@{'/display/image/' + ${movie.poster.id}}"/></a>
 
 	</div>
 </div>
@@ -113,7 +113,7 @@
 		<h1> The Highest Scores </h1>
 		<div class="content">
 
-			<a class="release"  th:each="object: ${highestScoreMovies}"><img class="release" th:src="@{'/display/image/' + ${object.movie.image.id}}"/>
+			<a class="release"  th:each="object: ${highestScoreMovies}"><img class="release" th:src="@{'/display/image/' + ${object.movie.poster.id}}"/>
 				<div class="rate">
 				<h1 th:text="${object.avgRating}"></h1>
 				<h1  class="num-reviews" th:text="${object.reviewCount + ' reviews'}"></h1>
@@ -130,7 +130,7 @@
 
 				<a class="release"  th:each="object: ${mostReviewedMovies}">
 
-					<img class="release" th:src="@{'/display/image/' + ${object.movie.image.id}}"/>
+					<img class="release" th:src="@{'/display/image/' + ${object.movie.poster.id}}"/>
 					<div class="rate">
 					<h1 th:text="${object.avgRating}"></h1>
 					<h1  class="num-reviews" th:text="${object.reviewCount + ' reviews'}"></h1>

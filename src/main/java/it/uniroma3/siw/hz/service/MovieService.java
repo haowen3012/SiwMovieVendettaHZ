@@ -6,6 +6,7 @@ import it.uniroma3.siw.hz.repository.ImageRepository;
 import it.uniroma3.siw.hz.repository.MovieRepository;
 import it.uniroma3.siw.hz.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,18 +39,18 @@ public class MovieService {
 
 
     @Transactional
-    public Movie getMovie(Long id){
+    public Movie getMovie(Long id) {
         return this.movieRepository.findById(id).get();
     }
 
     @Transactional
-    public Collection<Movie> getMovie(String title){
+    public Collection<Movie> getMovie(String title) {
         return this.movieRepository.findByTitle(title);
     }
 
 
     @Transactional
-    public Collection<Movie> getAllMovies(){
+    public Collection<Movie> getAllMovies() {
         return (Collection<Movie>) this.movieRepository.findAll();
 
     }
@@ -63,17 +64,17 @@ public class MovieService {
 
 
     @Transactional
-    public Movie setDirectorToMovie(Long directorId, Long movieId){
+    public Movie setDirectorToMovie(Long directorId, Long movieId) {
 
         Artist director = this.artistService.getArtist(directorId);
         Movie movie = this.getMovie(movieId);
         movie.setDirector(director);
-        return  this.movieRepository.save(movie);
+        return this.movieRepository.save(movie);
     }
 
 
     @Transactional
-    public  Collection<Artist> addActorToMovie(Movie movie, Artist actor){
+    public Collection<Artist> addActorToMovie(Movie movie, Artist actor) {
 
 
         Set<Artist> actors = movie.getActors();
@@ -88,7 +89,7 @@ public class MovieService {
 
 
     @Transactional
-    public Collection<Artist> removeActorFromMovie(Movie movie, Artist actor){
+    public Collection<Artist> removeActorFromMovie(Movie movie, Artist actor) {
 
         Set<Artist> actors = movie.getActors();
         actors.remove(actor);
@@ -100,14 +101,13 @@ public class MovieService {
     }
 
     @Transactional
-    public Movie saveMovie(Movie movie){
+    public Movie saveMovie(Movie movie) {
         return this.movieRepository.save(movie);
     }
 
 
-
     @Transactional
-    public Collection<Artist> actorsToAdd( Long movieId){
+    public Collection<Artist> actorsToAdd(Long movieId) {
 
         List<Artist> actorsToAdd = new ArrayList<>();
 
@@ -119,23 +119,23 @@ public class MovieService {
 
     @Transactional
     public void createMovie(Movie movie, Long directorToAddId, Collection<Long> actorsToaddId,
-                            MultipartFile multipartFile,  Collection<MultipartFile> scenes) {
+                            MultipartFile multipartFile, Collection<MultipartFile> scenes) {
 
         movie.setDirector(this.artistService.getArtist(directorToAddId));
 
         try {
             this.addMoviePhoto(multipartFile, movie);
             this.addMovieScenes(scenes, movie);
-        }catch(IOException e){
+        } catch (IOException e) {
 
         }
 
         Set<Artist> actors = new HashSet<>();
 
-        for(Long actorId : actorsToaddId){
+        for (Long actorId : actorsToaddId) {
 
-             actors.add(this.artistService.getArtist(actorId));
-             movie.setActors(actors);
+            actors.add(this.artistService.getArtist(actorId));
+            movie.setActors(actors);
         }
 
         this.movieRepository.save(movie);
@@ -144,14 +144,17 @@ public class MovieService {
     @Transactional
     private Movie addMovieScenes(Collection<MultipartFile> scenes, Movie movie) throws IOException {
 
-     Set<Image>  movieScenes  = new HashSet<>();
+        Set<Image> movieScenes = new HashSet<>();
 
-     for(MultipartFile scene : scenes){
+        for (MultipartFile scene : scenes) {
 
 
-         movieScenes.add(imageRepository.save(new Image(scene.getName(),scene.getBytes())));
+            if (!scene.isEmpty()) {
 
-     }
+                movieScenes.add(imageRepository.save(new Image(scene.getName(), scene.getBytes())));
+            }
+
+        }
 
 
         movie.setScenes(movieScenes);
@@ -168,7 +171,7 @@ public class MovieService {
     public Movie addMoviePhoto(MultipartFile multipartFile, Movie movie) throws IOException {
 
 
-        movie.setPoster(imageRepository.save(new Image(multipartFile.getName(),multipartFile.getBytes())));
+        movie.setPoster(imageRepository.save(new Image(multipartFile.getName(), multipartFile.getBytes())));
 
         this.saveMovie(movie);
 
@@ -188,7 +191,7 @@ public class MovieService {
     }
 
 
-    public Movie addReviewToMovie(Review review, Long idMovie){
+    public Movie addReviewToMovie(Review review, Long idMovie) {
 
         Movie movie = this.getMovie(idMovie);
         User loggedUser = this.sessionData.getLoggedUser();
@@ -205,14 +208,14 @@ public class MovieService {
 
 
     @Transactional
-    public Collection<Movie> getMoviesReviewdByUser(User user){
+    public Collection<Movie> getMoviesReviewdByUser(User user) {
 
         return this.movieRepository.findMoviesNotReviewedByUser(user);
     }
 
 
     @Transactional
-    public Collection<Movie> getMoviesReleasedInLast30Days(){
+    public Collection<Movie> getMoviesReleasedInLast30Days() {
 
         LocalDate currentTime = LocalDate.now();
 
@@ -223,15 +226,15 @@ public class MovieService {
 
 
     @Transactional
-    public Collection<MergeMovieObject> getMovieOrderByAverageRating(){
+    public Collection<MergeMovieObject> getMovieOrderByAverageRating() {
 
-        Collection<Object[]> objects =  this.movieRepository.findMoviesOrderByAverageRatingWithCountAndAvgRating();
+        Collection<Object[]> objects = this.movieRepository.findMoviesOrderByAverageRatingWithCountAndAvgRating();
 
         Collection<MergeMovieObject> movieObjects = new ArrayList<>();
 
-        for( Object[] object:  objects){
+        for (Object[] object : objects) {
 
-            movieObjects.add(new MergeMovieObject( (Movie)object[0],(Long)object[1],(Double)object[2]));
+            movieObjects.add(new MergeMovieObject((Movie) object[0], (Long) object[1], (Double) object[2]));
 
         }
 
@@ -240,15 +243,15 @@ public class MovieService {
     }
 
     @Transactional
-    public  Collection<MergeMovieObject> getMoviesOrderByMostReviews(){
+    public Collection<MergeMovieObject> getMoviesOrderByMostReviews() {
 
         Collection<Object[]> objects = this.movieRepository.findMoviesOrderByMostReviewsWithCountAndAvgRating();
 
         Collection<MergeMovieObject> movieObjects = new ArrayList<>();
 
-        for( Object[] object: objects ){
+        for (Object[] object : objects) {
 
-            movieObjects.add(new MergeMovieObject( (Movie)object[0],(Long)object[1],(Double)object[2]));
+            movieObjects.add(new MergeMovieObject((Movie) object[0], (Long) object[1], (Double) object[2]));
         }
 
 
@@ -256,9 +259,74 @@ public class MovieService {
     }
 
 
-
     public List<String> search(String keyword) {
         return movieRepository.search(keyword);
     }
-}
 
+    public Movie updateMovie(Long idOldMovie, Movie newMovie, MultipartFile pst) {
+
+
+        Movie oldMovie = this.getMovie(idOldMovie);
+
+
+        if (!pst.isEmpty()) {
+
+
+            Image poster = oldMovie.getPoster();
+
+            if (poster == null) {
+
+                try {
+                    oldMovie.setPoster(new Image(pst.getOriginalFilename(), pst.getBytes()));
+
+
+                } catch (IOException e) {
+
+
+                }
+            } else {
+
+                Image oldPoster = oldMovie.getPoster();
+
+
+                try {
+                    oldPoster.setName(pst.getOriginalFilename());
+                    oldPoster.setBytes(pst.getBytes());
+
+                } catch (IOException e) {
+
+                }
+
+            }
+
+        }
+
+
+        BeanUtils.copyProperties(oldMovie, newMovie, new String[]{"id", "reviewes", "picture", "scenes"});
+
+        this.saveMovie(oldMovie);
+
+        return oldMovie;
+
+    }
+
+
+    @Transactional
+    public  void deleteMovie(Long idMovie){
+
+
+        Movie movie = this.getMovie(idMovie);
+
+        movie.getDirector().getDirectedMovies().remove(movie);
+
+
+        movie.getActors().forEach(artist -> artist.getStarredMovies().remove(movie));
+        movie.getActors().clear();
+
+
+
+        this.movieRepository.delete(movie);
+
+    }
+
+}

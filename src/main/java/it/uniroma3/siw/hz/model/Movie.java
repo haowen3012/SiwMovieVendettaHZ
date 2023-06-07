@@ -29,11 +29,11 @@ public class Movie {
 	private String plot;
 
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Image poster;
 
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Image> scenes;
 
 
@@ -45,7 +45,7 @@ public class Movie {
 	private Set<Artist> actors;
 
 
-	@OneToMany(mappedBy = "reviewedMovie")
+	@OneToMany(mappedBy = "reviewedMovie",cascade = CascadeType.ALL)
 	private Set<Review> reviews;
 
 

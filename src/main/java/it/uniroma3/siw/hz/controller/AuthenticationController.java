@@ -110,7 +110,7 @@ public class AuthenticationController {
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
 			model.addAttribute("user" ,user);
-            return "registrationSuccessful";
+            return "registrationSuccessful.html";
         }
         return "index.html";
     }

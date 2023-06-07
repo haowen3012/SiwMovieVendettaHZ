@@ -10,12 +10,30 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<!-----error logs----->
+<div id="errors" th:fragment="movieErrors">
+
+	<div class="error" th:if="${#fields.hasErrors('movie')}"
+		 th:errors="${movie}" >Campo Obbligatorio</div>
+
+
+	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
+		 th:errors="${fileUploadWrapper.image}" ></div>
+
+	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.movieScenes')}"
+		 th:errors="${fileUploadWrapper.movieScenes}" ></div>
+
+</div>
+
+<!---------------------->
+
 <a href="/" id="go-back">
 	<i id="home" class="fa fa-home"></i>
 </a>
 
 <form id="movie" th:action="@{/admin/movie}" method="post" enctype="multipart/form-data">
-	<div id="movie-name" th:fragment="movieName">
+	<div id="movie-name" th:fragment="movieTitle">
 		<h1>Movie Title</h1>
 		<input th:field="${movie.title}"/>
 	</div>
@@ -31,7 +49,7 @@
 		<textarea    th:field="${movie.plot}" required/></textarea>
 	</div>
 
-	<div id="movie-image" th:fragment="movieImage">
+	<div id="movie-image" th:fragment="moviePoster">
 		<h1>Movie Image</h1>
 		<div id="picture" >
 			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
@@ -63,7 +81,7 @@
 	</div>
 
 
-	<div id="select-director" th:if="${artists}" th:fragment="selectDirectors">
+	<div id="select-director" th:if="${artists}" th:fragment="selectDirector">
 		<h1>Choose the director </h1>
 		<div id="directors">
 			<div id="director" th:each="director: ${artists}">

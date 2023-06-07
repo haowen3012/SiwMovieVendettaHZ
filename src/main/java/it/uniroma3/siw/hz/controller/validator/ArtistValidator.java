@@ -12,6 +12,10 @@ import org.springframework.validation.Validator;
 
 @Component
 public class ArtistValidator implements Validator {
+
+
+    private final  Integer min_year = 1940;
+    private final  Integer max_year = 2000;
     @Autowired
     private ArtistRepository artistRepository;
 
@@ -21,8 +25,21 @@ public class ArtistValidator implements Validator {
         System.out.println(errors);
         if (artist.getName() !=null &&  artist.getSurname()!=null && artist.getDateOfBirth() != null
                 && artistRepository.existsByNameAndSurnameAndDateOfBirth(artist.getName(), artist.getSurname(),artist.getDateOfBirth())) {
-            errors.reject("artist.duplicate");
+            errors.rejectValue("artist","artist.duplicate");
 
+        }
+
+        if(artist.getDateOfBirth().getYear()< min_year){
+            errors.rejectValue("dateOfBirth","min.artist.dateOfBirth");
+        }
+
+        if(artist.getDateOfBirth().getYear()> max_year){
+            errors.rejectValue("dateOfBirth","max.artist.dateOfBirth");
+        }
+
+        if(artist.getDateOfDeath()!=null && artist.getDateOfBirth().isAfter(artist.getDateOfDeath())){
+
+            errors.rejectValue("artist","artist.invalidBirthAndDeath");
         }
     }
     @Override

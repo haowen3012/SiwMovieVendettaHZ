@@ -7,9 +7,39 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" th:href="@{/css/newArtist.css}" />
 	<link rel="stylesheet" th:href="@{/css/button.css}" />
-	<title>JS Bin</title>
+	<link rel="stylesheet" th:href="@{/css/error.css}" />
+	<link rel="stylesheet" th:href="@{/css/animation.css}" />
+	<title>SiwMovieVendettaHZ</title>
+
 </head>
+
 <body>
+
+
+<!-----error logs------->
+<div id="errors" th:fragment="artistErrors">
+
+	<div class="error" th:if="${#fields.hasErrors('artist')}"
+		 th:errors="${artist}" >Campo Obbligatorio</div>
+
+
+
+	<div class="error" th:if="${#fields.hasErrors('artist.dateOfBirth')}"
+		 th:errors="${artist.dateOfBirth}" ></div>
+
+
+	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
+		 th:errors="${fileUploadWrapper.image}" ></div>
+
+</div>
+
+<script th:src="@{/javascript/errorLogs.js}"></script>
+
+<script th:src="@{/javascript/errorLogs.js}"></script>
+
+<!------------>
+
+
 <a href="/" id="go-back">
 	<i id="home" class="fa fa-home"></i>
 </a>
@@ -17,7 +47,7 @@
 <form id="artist" th:action="@{/admin/artist}" method="post" enctype="multipart/form-data">
 	<div class="artist-name" th:field="${artist.name}" th:fragment="artistName">
 		<h1>Artist Name</h1>
-		<input th:field="${artist.name}" ></input>
+		<input th:field="${artist.name}" required></input>
 	</div>
 
 	<div class="artist-name"  th:fragment="artistSurname">

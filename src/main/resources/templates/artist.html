@@ -31,14 +31,14 @@
     <div  th:if="${!artist.starredMovies.isEmpty()}" id="starred-movie">
         <h1>Movies</h1>
         <div  id="act-movies">
-            <img  th:each="starredMovie : ${artist.starredMovies}"  th:src="@{'/display/image/' + ${starredMovie.image.id}}"/>
+            <img  th:each="starredMovie : ${artist.starredMovies}"  th:src="@{'/display/image/' + ${starredMovie.poster.id}}"/>
         </div>
     </div>
 
     <div th:if="${!artist.directedMovies.isEmpty()}" id="directed-movie">
         <h1>Directed Movies</h1>
         <div id="dir-movies">
-            <img    th:each="directedMovie: ${artist.directedMovies}"  th:src="@{'/display/image/' + ${directedMovie.image.id}}" />
+            <img    th:each="directedMovie: ${artist.directedMovies}"  th:src="@{'/display/image/' + ${directedMovie.poster.id}}" />
 
         </div>
     </div>

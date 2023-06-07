@@ -19,7 +19,7 @@ public class MovieValidator implements Validator {
 		System.out.println(errors);
 		if (movie.getTitle() !=null &&  movie.getReleaseDate() != null
 				&& movieRepository.existsByTitleAndReleaseDate(movie.getTitle(), movie.getReleaseDate())) {
-			errors.reject("movie.duplicate");
+			errors.rejectValue("movie", "movie.duplicate");
 
 		}
 	}

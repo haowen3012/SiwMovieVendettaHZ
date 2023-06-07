@@ -1,6 +1,5 @@
 #errors{
     top:2%;
-    left: 15%;
     width: 70%;
     position: fixed;
     text-align: center;
@@ -20,11 +19,23 @@
 
 .error{
     margin: 3%;
-    padding: 6px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 1px 7px 0 red;
-    animation: slide-in-down 1.2s ease-out forwards;
+    padding: 2%;
+    border: solid #fff;
+    z-index: 2;
+    border-radius: 15px;
+
+    text-align: center;
+
+    font-size: 1.3em;
+
+    background: red;
+
+    color: #fff;
+
+    box-shadow: 0 2px 28px red;
+
+
+    animation : slide-in-down 0.8s ease-in forwards;
 
 
 }

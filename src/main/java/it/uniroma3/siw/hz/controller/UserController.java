@@ -37,27 +37,27 @@ public class UserController {
     private MultipartFileValidator multipartFileValidator;
 
     @Transactional
-    @RequestMapping(value={"/addUserPhoto/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/addUserPhoto/{id}"}, method = RequestMethod.POST)
     public String addUserPhoto(@Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,
-                               BindingResult fileUploadWrapperBindingResult , @PathVariable("id")
-                               Long id) throws IOException {
+                               BindingResult fileUploadWrapperBindingResult, @PathVariable("id")
+                               Long id) {
 
         this.multipartFileValidator.validate(fileUploadWrapper, fileUploadWrapperBindingResult);
 
 
-        if (!fileUploadWrapperBindingResult.hasErrors()){
+        if (!fileUploadWrapperBindingResult.hasErrors()) {
 
-            this.userService.addUserPicture(id, file);
-            User user = this.userService.getUser(id);
 
-        user.setPicture(imageRepository.save(new Image(multipartFile.getName(), multipartFile.getBytes())));
+            this.userService.addUserPicture(id, fileUploadWrapper.getImage());
 
-        this.userService.saveUser(user);
+            return "index.html";
+        } else {
 
-        return "index.html";
+
+            return "registrationSuccessfull.html";
+        }
+
+
     }
 
-
-
-    }
 }

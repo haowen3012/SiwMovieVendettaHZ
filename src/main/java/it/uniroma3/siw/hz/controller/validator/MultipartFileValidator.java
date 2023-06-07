@@ -28,7 +28,7 @@ public class MultipartFileValidator implements Validator {
         if( fileUploadWrapper.getImage()!=null && !fileUploadWrapper.getImage().isEmpty() &&  !fileUploadWrapper.getImage().getOriginalFilename().endsWith(".png") &&
                 !fileUploadWrapper.getImage().getOriginalFilename().endsWith(".jpg")){
 
-            errors.rejectValue("movieImage","invalidFormat.fileUploadWrapper.movieImage");
+            errors.rejectValue("image","invalidFormat.fileUploadWrapper.image");
 
         }
 

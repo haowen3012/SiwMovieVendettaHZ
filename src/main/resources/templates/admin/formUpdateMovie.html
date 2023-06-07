@@ -1,41 +1,189 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>
-		New Movie
-	</title>
-	<link rel="stylesheet" href="/css/index.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>SiwMovieVendettaHZ</title>
+	<link rel="stylesheet" th:href="@{/css/newMovie.css}" />
+	<link rel="stylesheet" th:href="@{/css/button.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
-	<h1>Aggiorna film</h1>
-	<div th:if="${movie}">
-		<div>
-			<span th:text="${movie.title}">Up!</span>
-			<span th:text="'(' + ${movie.year} + ')'">2000</span>
-		</div>
-		<div th:if="${movie.director}">
-			<span>Regista: </span><span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven
-				Spielberg</span>
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a></span>
-		</div>
-		<div th:unless="${movie.director}">
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
-		</div>
 
-		<div>
-			<span>Attori: </span>
-			<div th:each="actor: ${movie.actors}">
-				<span th:text="${actor.name} + ' ' + ${actor.surname}">Al Pacino</span>
-			</div>
-			<a th:href="@{'/admin/updateActors/' + ${movie.id}}">
-				<button type="button">Modifica</button>
-			</a>
-		</div>
-		<div th:unless="${movie}">Film non esistente</div>
+<!-----error logs------->
+<div  th:replace="admin/formNewMovie.html :: movieErrors"></div>
+
+<script th:src="@{/javascript/errorLogs.js}"></script>
+<!------------>
+
+<a href="/" id="go-back">
+	<i id="home" class="fa fa-home"></i>
+</a>
+
+<form id="movie" th:action="@{'/updateMovieFields' + '/'  + ${movie.id}}" method="post" enctype="multipart/form-data">
+
+	<div th:replace="admin/formNewMovie.html :: movieTitle"></div>
+
+	<div th:replace="admin/formNewMovie.html :: moiveReleaseDate"></div>
+
+	<div th:replace="admin/formNewMovie.html :: moviePlot"></div>
+
+	<div th:replace="admin/formNewMovie.html :: moviePoster"></div>
+
+	<div th:replace="admin/formNewMovie.html :: selectDirector"></div>
+
+	<div th:replace="admin/formNewMovie.html :: selectActors"></div>
+
+
+	<button id="create">update</button>
+
+</form>
+
+
+<script src="/javascript/imagePreview.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('input[name="directorsToAdd"]').click(function (){
+			$('input[name="directorsToAdd"]').not(this).prop('checked',false);
+		});
+	});
+</script>
+
+<script>
+
+	document.getElementById('plus-1').addEventListener('click', function() {
+
+
+		document.getElementById('scene1').click();
+
+
+
+	});
+
+
+	document.getElementById('plus-2').addEventListener('click', function() {
+
+		document.getElementById('scene2').click();
+
+
+
+	});
+
+
+	document.getElementById('plus-3') .addEventListener('click', function() {
+
+		document.getElementById('scene3').click();
+
+
+
+	});
+
+
+
+
+
+
+
+
+	$(document).ready(function(){
+
+
+		$('#scene1').change(function(){
+			showImageThumbnail(this,1);
+		});
+
+
+		$("#scene2").change(function(){
+			showImageThumbnail(this,2);
+		});
+
+		$("#scene3").change(function(){
+			showImageThumbnail(this,3);
+		});
+
+	});
+
+	function  showImageThumbnail(fileInput, n){
+
+		var thumbnail = document.getElementById('thumbnail-scene'+ n);
+
+		file = fileInput.files[0];
+		reader = new FileReader();
+
+		console.log(n);
+		reader.onload = function(e){
+			$('#thumbnail-scene' + n).attr('src', e.target.result);
+		};
+
+		reader.readAsDataURL(file);
+
+		thumbnail.style.border ="none";
+	}
+
+
+
+</script>
+<script>
+	const slider = document.querySelector('#actors');
+	let isDown = false;
+	let startX;
+	let scrollLeft;
+
+	slider.addEventListener('mousedown', (e) => {
+		isDown = true;
+		slider.classList.add('active');
+		startX = e.pageX - slider.offsetLeft;
+		scrollLeft = slider.scrollLeft;
+	});
+	slider.addEventListener('mouseleave', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mouseup', () => {
+		isDown = false;
+		slider.classList.remove('active');
+	});
+	slider.addEventListener('mousemove', (e) => {
+		if(!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - slider.offsetLeft;
+		const walk = (x - startX) * 3; //scroll-fast
+		slider.scrollLeft = scrollLeft - walk;
+		console.log(walk);
+	});
+</script>
+
+<script>
+	const slider_2 = document.querySelector('#directors');
+
+
+	slider_2.addEventListener('mousedown', (e) => {
+		isDown = true;
+		slider_2.classList.add('active');
+		startX = e.pageX - slider.offsetLeft;
+		scrollLeft = slider.scrollLeft;
+	});
+	slider_2.addEventListener('mouseleave', () => {
+		isDown = false;
+		slider_2.classList.remove('active');
+	});
+	slider_2.addEventListener('mouseup', () => {
+		isDown = false;
+		slider_2.classList.remove('active');
+	});
+	slider_2.addEventListener('mousemove', (e) => {
+		if(!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - slider_2.offsetLeft;
+		const walk = (x - startX) * 3; //scroll-fast
+		slider_2.scrollLeft = scrollLeft - walk;
+		console.log(walk);
+	});
+</script>
+
 </body>
-
 </html>
+

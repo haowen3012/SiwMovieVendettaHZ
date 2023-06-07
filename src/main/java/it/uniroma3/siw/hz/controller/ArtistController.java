@@ -66,7 +66,7 @@ public class ArtistController {
 			return "artist.html";
 
 		} else {
-			model.addAttribute("messaggioErrore", "Questo artista esiste già");
+			model.addAttribute("fileUploadWrapper",fileUploadWrapper);
 			return "admin/formNewArtist.html"; 
 		}
 	}
@@ -115,11 +115,14 @@ public class ArtistController {
 
 
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
-		model.addAttribute("artist", this.artistService.updateArtist(idArtist,newArtist,fileUploadWrapper.getImage()));
+		if(!fileUploadBindingResult.hasErrors()) {
+			model.addAttribute("artist", this.artistService.updateArtist(idArtist, newArtist, fileUploadWrapper.getImage()));
+			return "redirect:/artist/" + idArtist;
+		}
 
-
-		return "redirect:/artist";
-
+		model.addAttribute("fileUploadWrapper",fileUploadWrapper);
+		model.addAttribute("artist",newArtist);
+          return "admin/formUpdateArtist.html";
 	}
 
 

@@ -10,25 +10,40 @@
   <title>JS Bin</title>
 </head>
 <body>
+
+
+<!-----error logs------->
+<div  th:replace="admin/formNewArtist.html :: artistErrors"></div>
+
+<script th:src="@{/javascript/errorLogs.js}"></script>
+<!------------>
+
 <a href="/" id="go-back">
   <i id="home" class="fa fa-home"></i>
 </a>
 
 <form id="artist" th:action="@{'/update' + '/' + 'artist' +'/' + ${artist.id}}" method="post" enctype="multipart/form-data">
 
-  <div th:replace="/formNewArtist.html :: artistName"></div>
+  <div th:replace="admin/formNewArtist.html :: artistName"></div>
 
 
-  <div th:replace="/formNewArtist.html :: artistSurname"></div>
+  <div th:replace="admin/formNewArtist.html :: artistSurname"></div>
 
 
-  <div th:replace="/formNewArtist.html :: artistDateOfBirth"></div>
+  <div th:replace="admin/formNewArtist.html :: artistDateBirth"></div>
 
 
-  <div th:replace="/formNewArtist.html :: artistDateOfDeath"></div>
+  <div th:replace="admin/formNewArtist.html :: artistDateDeath"></div>
 
 
-  <div th:replace="/formNewArtist.html :: artistPicture"></div>
+  <div id="artist-picture"  th:fragment="artistPicture">
+    <h1>Artist pircture</h1>
+    <div id="picture" >
+      <input id="file" type="file" name="image" accept="image/png, image/jpeg" />
+      <img id="thumbnail" th:src="@{'/display/image/' + ${artist.picture.id}}"  />
+      <i class="fa fa-plus" id="plus"></i>
+    </div>
+  </div>
 
 
   <button id="create">update</button>
