@@ -521,10 +521,9 @@ a:hover{
 }
 
 .rating{
-    flex: 0 0 auto;
 
 
-    width:35%;
+    width:100%;
     min-height: 100%;
 
 
@@ -687,6 +686,28 @@ a:hover{
 
     box-shadow: 1px 2px 23px green;
 }
+/*********************/
+.deleteReview{
 
+    margin-left: 80%;
+    padding: 2%;
+    background-image: linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%);
+
+}
+
+.rate-container{
+
+    margin: 2%;
+
+    flex: 0 0 auto;
+
+
+    width:35%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
 

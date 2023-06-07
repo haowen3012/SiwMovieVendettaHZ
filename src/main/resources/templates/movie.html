@@ -86,8 +86,8 @@
 
 
         <div id="reviews">
-
-            <div class="rating" th:each="review: ${movie.reviews}">
+  <div class="rate-container" th:each="review: ${movie.reviews}">
+            <div class="rating" >
 
                 <div class="top-section">
                     <img th:src="@{'/display/image/' + ${review.author.picture.id}}"/>
@@ -113,6 +113,9 @@
                     Il film è bellissimo!
                 </div>
             </div>
+      <a class="deleteReview" th:if="${role}" th:href="'/admin'  + '/' + 'deleteReview' + '/'+ ${movie.id} + '/' + ${review.id}"
+      >remove</a>
+  </div>
 
 
         </div>

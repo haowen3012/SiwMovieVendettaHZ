@@ -1,19 +1,13 @@
 package it.uniroma3.siw.hz.service;
 
-import com.nimbusds.oauth2.sdk.id.Actor;
-import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.controller.session.SessionData;
 import it.uniroma3.siw.hz.model.*;
 import it.uniroma3.siw.hz.repository.ImageRepository;
 import it.uniroma3.siw.hz.repository.MovieRepository;
 import it.uniroma3.siw.hz.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
-import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
-import org.hibernate.internal.util.MutableLong;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -155,7 +149,7 @@ public class MovieService {
      for(MultipartFile scene : scenes){
 
 
-         movieScenes.add(imageRepository.save(new Image(scene.getBytes())));
+         movieScenes.add(imageRepository.save(new Image(scene.getName(),scene.getBytes())));
 
      }
 
@@ -174,7 +168,7 @@ public class MovieService {
     public Movie addMoviePhoto(MultipartFile multipartFile, Movie movie) throws IOException {
 
 
-        movie.setImage(imageRepository.save(new Image(multipartFile.getBytes())));
+        movie.setPoster(imageRepository.save(new Image(multipartFile.getName(),multipartFile.getBytes())));
 
         this.saveMovie(movie);
 

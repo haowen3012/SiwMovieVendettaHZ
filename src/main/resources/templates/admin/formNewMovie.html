@@ -15,33 +15,33 @@
 </a>
 
 <form id="movie" th:action="@{/admin/movie}" method="post" enctype="multipart/form-data">
-	<div id="movie-name">
+	<div id="movie-name" th:fragment="movieName">
 		<h1>Movie Title</h1>
 		<input th:field="${movie.title}"/>
 	</div>
 
 
-	<div id="movie-releasedate">
+	<div id="movie-releasedate" th:fragment="moiveReleaseDate">
 		<h1>Release Date </h1>
 		<input   type="date" required  th:field="${movie.releaseDate}"/>
 	</div>
 
-	<div id="movie-plot">
+	<div id="movie-plot" th:fragment="moviePlot">
 		<h1>Movie Plot </h1>
 		<textarea    th:field="${movie.plot}" required/></textarea>
 	</div>
 
-	<div id="movie-image">
+	<div id="movie-image" th:fragment="movieImage">
 		<h1>Movie Image</h1>
 		<div id="picture" >
-			<input id="file" type="file" name="movieImage" accept="image/png, image/jpeg" />
+			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
 			<img id="thumbnail" />
 			<i class="fa fa-plus" id="plus"></i>
 		</div>
 	</div>
 
 
-	<div id="movie-scenes">
+	<div id="movie-scenes" th:fragment="movieScenes">
 		<h1>Movie Scenes</h1>
 		<div class="scene" >
 			<input class="sceneFile" type="file" id="scene1" name="movieScenes" accept="image/png, image/jpeg" />
@@ -63,7 +63,7 @@
 	</div>
 
 
-	<div id="select-director" th:if="${artists}">
+	<div id="select-director" th:if="${artists}" th:fragment="selectDirectors">
 		<h1>Choose the director </h1>
 		<div id="directors">
 			<div id="director" th:each="director: ${artists}">
@@ -73,7 +73,7 @@
 		</div>
 
 	</div>
-	<div id="select-actors" th:if="${artists}">
+	<div id="select-actors" th:if="${artists}" th:fragment="selectActors">
 		<h1>Choose the actors</h1>
 
 		<div id="actors">
@@ -91,6 +91,15 @@
 
 
 <script src="/javascript/imagePreview.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('input[name="directorsToAdd"]').click(function (){
+			$('input[name="directorsToAdd"]').not(this).prop('checked',false);
+		});
+	});
+</script>
+
 <script>
 
 	document.getElementById('plus-1').addEventListener('click', function() {

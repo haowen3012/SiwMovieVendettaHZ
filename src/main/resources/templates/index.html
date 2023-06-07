@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<!--registration erros-->
+<!--registration erros>
 <div id="errors">
 	<div class="error" th:if="${#fields.hasErrors('credentialsForm.username')}"
 		 th:errors="${credentialsForm.username}" ></div>
@@ -36,7 +36,7 @@
 	<div class="error"  th:if="${#fields.hasErrors('userForm.surname')}"
 		 th:errors="${userForm.surname}" ></div>
 </div>
-
+<-!------>
 <script>
 	var error_element = document.getElementById('errors');
 
@@ -236,8 +236,6 @@
 <div  id="side_nav" class="side-nav">
 	<div onclick="closeSideNav()">&times;</div>
 	<img th:if="${user}"   th:src="@{'/display/image/' + ${user.picture.id}}" />
-	<a href="/movie">movies</a>
-	<a href="/artist">artists</a>
 	<a href="/userReviews">Reviews</a>
 	<a href="/logout"> Log out</a>
 </div>

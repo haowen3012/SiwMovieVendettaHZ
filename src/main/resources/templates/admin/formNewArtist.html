@@ -15,26 +15,26 @@
 </a>
 
 <form id="artist" th:action="@{/admin/artist}" method="post" enctype="multipart/form-data">
-	<div class="artist-name" th:field="${artist.name}">
+	<div class="artist-name" th:field="${artist.name}" th:fragment="artistName">
 		<h1>Artist Name</h1>
 		<input th:field="${artist.name}" ></input>
 	</div>
 
-	<div class="artist-name">
+	<div class="artist-name"  th:fragment="artistSurname">
 		<h1>Artist Surname</h1>
 		<input th:field="${artist.surname}" required></input>
 	</div>
 
-	<div class="artist-date">
+	<div class="artist-date"  th:fragment="artistDateBirth">
 		<h1> Date of Birth</h1>
 		<input   type="date"   th:field="${artist.dateOfBirth}" required  />
 	</div>
-	<div class="artist-date">
+	<div class="artist-date"  th:fragment="artistDateDeath">
 		<h1> Date of Death</h1>
 		<input   type="date"    th:field="${artist.dateOfDeath}"  />
 	</div>
 
-	<div id="artist-picture">
+	<div id="artist-picture"  th:fragment="artistPicture">
 		<h1>Artist pircture</h1>
 		<div id="picture" >
 			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />

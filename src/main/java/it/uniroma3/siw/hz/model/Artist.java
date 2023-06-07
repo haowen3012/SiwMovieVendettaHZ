@@ -31,7 +31,7 @@ public class Artist {
 	private LocalDate dateOfDeath;
 
 
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Image picture;
 
 	

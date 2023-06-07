@@ -3,8 +3,10 @@ package it.uniroma3.siw.hz.controller;
 import java.util.*;
 
 
+import it.uniroma3.siw.hz.FileUploadWrapper;
 import it.uniroma3.siw.hz.controller.session.SessionData;
 import it.uniroma3.siw.hz.controller.validator.MovieValidator;
+import it.uniroma3.siw.hz.controller.validator.MultipartFileValidator;
 import it.uniroma3.siw.hz.model.*;
 import it.uniroma3.siw.hz.repository.ArtistRepository;
 import it.uniroma3.siw.hz.repository.MovieRepository;
@@ -15,6 +17,7 @@ import it.uniroma3.siw.hz.service.ReviewService;
 import jakarta.persistence.PreUpdate;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,6 +46,9 @@ public class MovieController {
 
 	@Autowired
 	private SessionData sessionData;
+
+	@Autowired
+	private MultipartFileValidator multipartFileValidator;
 
 
 
@@ -89,18 +95,21 @@ public class MovieController {
 	}
 
 	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult,
-						   @RequestParam( value = "movieImage",required = false) MultipartFile multipartFile,
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult movieBindingResult,
+						  @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadWrapperBindingResult,
 						   @RequestParam(value = "directorsToAdd",required = false) Long directorToAddId,
-						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId,
-						   @RequestParam(value = "movieScenes",required = false) Collection<MultipartFile> scenes
+						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId
+
 
 			, Model model) {
 		
-		this.movieValidator.validate(movie, bindingResult);
-		  if (!bindingResult.hasErrors()) {
+		this.movieValidator.validate(movie, movieBindingResult);
+		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadWrapperBindingResult);
 
-			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,multipartFile,scenes);
+
+		if (!movieBindingResult.hasErrors() && !fileUploadWrapperBindingResult.hasErrors()) {
+
+			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,fileUploadWrapper.getImage(),fileUploadWrapper.getMovieScenes());
 
 			model.addAttribute("movie", movie);
 
@@ -154,15 +163,23 @@ public class MovieController {
 
 	@PostMapping("/searchMovies")
 	public String searchMovies(Model model, @RequestParam("movieTitle") String movieTitle) {
-		try {
-			User loggedUser = this.sessionData.getLoggedUser();
-			model.addAttribute("movies", this.movieService.getMovie(movieTitle));
-			model.addAttribute("reviewedMovies",this.movieService.getMoviesReviewdByUser(loggedUser));
-			return "movies.html";
 
-		}catch(Exception e){
 
-			return "movieNotFound.html";
+		if(this.movieService.getMovie(movieTitle)==null){
+			return "errore.html";
+		}else {
+ ;
+               model.addAttribute("movies",this.movieService.getMovie(movieTitle));
+
+			try {
+				User loggedUser = this.sessionData.getLoggedUser();
+				model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
+				return "movies.html";
+
+			} catch (Exception e) {
+
+				return "movies.html";
+			}
 		}
 
 	}

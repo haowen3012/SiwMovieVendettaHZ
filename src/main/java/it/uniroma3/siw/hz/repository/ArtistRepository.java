@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 
@@ -27,6 +28,9 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 	Collection<Artist> findArtistByDirectedMoviesNotContaining(Movie movie);
 
 
+	boolean existsByNameAndSurnameAndDateOfBirth(String name, String surname, LocalDate dateOfBirth);
+
+
 
 	@Modifying
 	@Query("UPDATE Movie m SET m.actors = NULL WHERE :artist MEMBER OF m.actors")
@@ -35,4 +39,9 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 	@Modifying
 	@Query("UPDATE Movie m SET m.director = NULL WHERE m.director = :artist")
 	void removeArtistFromDirectedMovies(@Param("artist") Artist artist);
+
+
+
+
 }
+

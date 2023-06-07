@@ -1,6 +1,5 @@
 package it.uniroma3.siw.hz.service;
 
-import it.uniroma3.siw.hz.FileUploadUtil;
 import it.uniroma3.siw.hz.model.Artist;
 import it.uniroma3.siw.hz.model.Image;
 import it.uniroma3.siw.hz.model.Movie;
@@ -15,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class ArtistService {
@@ -63,12 +61,12 @@ public class ArtistService {
     @Transactional
     public Artist addArtistPhoto(MultipartFile multipartFile, Artist artist) throws IOException {
 
+        if(!multipartFile.isEmpty()) {
 
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            artist.setPicture(imageRepository.save(new Image(multipartFile.getName(), multipartFile.getBytes())));
 
-        artist.setPicture(imageRepository.save(new Image(multipartFile.getBytes())));
-
-        this.saveArtist(artist);
+            this.saveArtist(artist);
+        }
 
         return artist;
     }
@@ -78,11 +76,39 @@ public class ArtistService {
 
         Artist oldArtist = this.getArtist(idOldArtist);
 
-        try {
-            oldArtist.getPicture().setBytes(multipartFile.getBytes());
+        if(!multipartFile.isEmpty()){
 
-        }
-        catch(IOException e){
+
+            Image picture = oldArtist.getPicture();
+
+            if(picture==null){
+
+                try {
+                    oldArtist.setPicture(new Image(multipartFile.getOriginalFilename(), multipartFile.getBytes()));
+
+
+                }catch (IOException e){
+
+
+                }
+            }
+              else{
+
+                 Image oldPicture = oldArtist.getPicture();
+
+                 oldPicture.setName(multipartFile.getOriginalFilename());
+
+                 try {
+                     oldPicture.setBytes(multipartFile.getBytes());
+
+                 }catch (IOException e){
+
+                 }
+
+            }
+
+
+
 
         }
 

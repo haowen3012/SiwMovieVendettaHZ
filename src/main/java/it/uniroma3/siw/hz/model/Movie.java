@@ -2,22 +2,11 @@ package it.uniroma3.siw.hz.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.CollectionIdJavaType;
-import org.hibernate.annotations.CollectionType;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.type.SqlTypes;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -41,7 +30,7 @@ public class Movie {
 
 
 	@OneToOne
-	private Image image;
+	private Image poster;
 
 
 	@OneToMany
@@ -93,12 +82,12 @@ public class Movie {
 		this.plot = plot;
 	}
 
-	public Image getImage() {
-		return image;
+	public Image getPoster() {
+		return poster;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
+	public void setPoster(Image image) {
+		this.poster = image;
 	}
 
 

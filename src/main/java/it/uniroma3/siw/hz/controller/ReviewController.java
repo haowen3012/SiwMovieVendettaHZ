@@ -45,4 +45,14 @@ public class ReviewController {
 
     }
 
+
+    @RequestMapping(value="/admin/deleteReview/{idM}/{idR}", method = RequestMethod.GET)
+    public String deleteReviewByAdmin(Model model,@PathVariable("idR") Long idReview,@PathVariable("idM")Long idMovie){
+
+        this.reviewService.deleteReview(idReview);
+
+        return "redirect:/movie/" + idMovie;
+
+    }
+
 }
