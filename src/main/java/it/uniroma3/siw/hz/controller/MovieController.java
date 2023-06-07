@@ -302,8 +302,9 @@ public class MovieController {
 	public String updateAllMovieField(Model model, @PathVariable("id") Long idMovie, @Valid @ModelAttribute Movie newMovie
 			,BindingResult movieBindingResult, @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadBindingResult){
 
+		this.movieValidator.validate(newMovie,movieBindingResult);
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
-		if(!fileUploadBindingResult.hasErrors()) {
+		if(!fileUploadBindingResult.hasErrors() && !movieBindingResult.hasErrors()) {
 			model.addAttribute("movie", this.movieService.updateMovie(idMovie, newMovie, fileUploadWrapper.getImage()));
 			return "redirect:/movie/" + idMovie;
 		}
@@ -319,7 +320,7 @@ public class MovieController {
 	public String deleteMovie(@PathVariable("id") Long id, Model model){
 
 		this.movieService.deleteMovie(id);
-		model.addAttribute("deleted", true);
+		model.addAttribute("movieDeleted", true);
 
 		return "redirect:/movie";
 	}

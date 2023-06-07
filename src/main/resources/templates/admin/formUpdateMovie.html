@@ -30,13 +30,14 @@
 
 	<div th:replace="admin/formNewMovie.html :: moviePlot"></div>
 
-	<div th:replace="admin/formNewMovie.html :: moviePoster"></div>
-
-	<div th:replace="admin/formNewMovie.html :: selectDirector"></div>
-
-	<div th:replace="admin/formNewMovie.html :: selectActors"></div>
-
-
+	<div id="movie-image" th:fragment="moviePoster">
+		<h1>Movie Image</h1>
+		<div id="picture" >
+			<input id="file" type="file" name="image" accept="image/png, image/jpeg" />
+			<img id="thumbnail" th:src="@{'/display/image/' + ${movie.poster.id}}"/>
+			<i class="fa fa-plus" id="plus"></i>
+		</div>
+	</div>
 	<button id="create">update</button>
 
 </form>

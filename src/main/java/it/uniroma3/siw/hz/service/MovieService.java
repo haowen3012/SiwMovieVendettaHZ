@@ -302,7 +302,7 @@ public class MovieService {
         }
 
 
-        BeanUtils.copyProperties(oldMovie, newMovie, new String[]{"id", "reviewes", "picture", "scenes"});
+        BeanUtils.copyProperties(oldMovie, newMovie, new String[]{"id", "reviewes","", "picture", "scenes"});
 
         this.saveMovie(oldMovie);
 

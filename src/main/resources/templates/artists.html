@@ -8,6 +8,7 @@
 	<link rel="stylesheet" th:href="@{/css/animation.css}" />
 	<link rel="stylesheet" th:href="@{/css/deleted-warn.css}" />
 
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -61,20 +62,9 @@
 </div>
 <!-----deleted-warn-->
 <div id="deleted-warn" th:if="${artistDeleted}">
-	The review has been successfully removed
+	The artists has been successfully deleted
 </div>
-<script>
-	try{
-
-
-		var deleted_war = document.getElementById('deleted-warn');
-
-		setTimeout( function(){
-			deleted_war.style.display = "none";},3000);
-
-	}catch(error){
-
-	}
-</script>
+<script th:src="@{/javascript/warnings}"></script>
+<!---------------------------------------------------------->
 </body>
 </html>

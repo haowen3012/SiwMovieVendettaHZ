@@ -6,11 +6,20 @@
 	<link rel="stylesheet" th:href="@{/css/movie.css}" />
 	<link rel="stylesheet" th:href="@{/css/home.css}" />
 	<link rel="stylesheet" th:href="@{/css/animation.css}" />
+	<link rel="stylesheet" th:href="@{/css/deleted-warn.css}" />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+<!---pop up for deleting review---->
+<div id="deleted-warn" th:if="${movieDeleted}">
+	The movie has been successfully deleted
+</div>
+
+<script th:src="@{/javascript/warnings}"></script>
+<!-------->
+
 <a href="/" id="go-back">
 	<i id="home" class="fa fa-home"></i>
 </a>
