@@ -28,9 +28,7 @@
 
 <!---------------------->
 
-<a href="/" id="go-back">
-	<i id="home" class="fa fa-home"></i>
-</a>
+<div th:replace="artist.html :: homeButton"></div>
 
 <form id="movie" th:action="@{/admin/movie}" method="post" enctype="multipart/form-data">
 	<div id="movie-name" th:fragment="movieTitle">

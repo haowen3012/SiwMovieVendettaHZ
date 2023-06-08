@@ -12,9 +12,7 @@
   <title>SiwMovieVendettaHZ</title>
 </head>
 <body>
-<a href="/" id="go-back">
-  <i id="home" class="fa fa-home"></i>
-</a>
+<div th:replace="artist.html :: homeButton"></div>
 
 <div id="reviews">
   <div id="review" th:each="review: ${reviews}">

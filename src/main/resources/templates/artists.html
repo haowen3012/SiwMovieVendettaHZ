@@ -13,9 +13,7 @@
 </head>
 
 <body>
-<a href="/" id="go-back">
-	<i id="home" class="fa fa-home"></i>
-</a>
+<div th:replace="artist.html :: homeButton"></div>
 
 <div th:if="${artists==null}">Non ci sono film nel sistema</div>
 

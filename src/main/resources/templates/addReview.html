@@ -10,9 +10,8 @@
 </head>
 
 <body>
-<a href="/" id="go-back">
-  <i id="home" class="fa fa-home"></i>
-</a>
+
+<div th:replace="artist.html :: homeButton"></div>
 
 <form id="rating-container" th:action="'/addReview' + '/' + ${movie.id}"  method="post">
   <h1>How is the movie?</h1>

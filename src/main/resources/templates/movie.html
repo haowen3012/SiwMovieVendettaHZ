@@ -19,9 +19,7 @@
 
     <div id="movie-details">
 
-        <a href="/" id="go-back">
-            <i id="home" class="fa fa-home"></i>
-        </a>
+        <div th:replace="artist.html :: homeButton"></div>
 
         <h1 th:text="${movie.title}">Iron Man</h1>
         <div id="plot" th:text="${movie.plot}">

@@ -18,9 +18,7 @@
 <script th:src="@{/javascript/errorLogs.js}"></script>
 <!------------>
 
-<a href="/" id="go-back">
-  <i id="home" class="fa fa-home"></i>
-</a>
+<div th:replace="artist.html :: homeButton"></div>
 
 <form id="artist" th:action="@{'/update' + '/' + 'artist' +'/' + ${artist.id}}" method="post" enctype="multipart/form-data">
 
