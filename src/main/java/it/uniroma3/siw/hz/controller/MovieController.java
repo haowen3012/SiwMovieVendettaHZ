@@ -101,7 +101,7 @@ public class MovieController {
 						   @RequestParam(value = "actorsToAdd",required = false) Collection<Long> actorsToaddId
 
 
-			, Model model) {
+			, Model model, RedirectAttributes redirectAttributes) {
 		
 		this.movieValidator.validate(movie, movieBindingResult);
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadWrapperBindingResult);
@@ -117,7 +117,9 @@ public class MovieController {
 		} else {
 
 
-			return "admin/formNewMovie.html";
+			redirectAttributes.addFlashAttribute("fileUploadWrapper", fileUploadWrapper);
+
+			return "redirect:/admin/formNewMovie";
 
 		}
 	}
@@ -317,10 +319,10 @@ public class MovieController {
 	}
 
 	@RequestMapping(value="/deleteMovie/{id}", method = RequestMethod.GET)
-	public String deleteMovie(@PathVariable("id") Long id, Model model){
+	public String deleteMovie(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
 
 		this.movieService.deleteMovie(id);
-		model.addAttribute("movieDeleted", true);
+		redirectAttributes.addFlashAttribute("movieDeleted", true);
 
 		return "redirect:/movie";
 	}

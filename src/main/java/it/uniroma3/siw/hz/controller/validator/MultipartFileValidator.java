@@ -26,7 +26,7 @@ public class MultipartFileValidator implements Validator {
 
 
         if( fileUploadWrapper.getImage()!=null && !fileUploadWrapper.getImage().isEmpty() &&  !fileUploadWrapper.getImage().getOriginalFilename().endsWith(".png") &&
-                !fileUploadWrapper.getImage().getOriginalFilename().endsWith(".jpg")){
+                !fileUploadWrapper.getImage().getOriginalFilename().endsWith(".jpg") && !fileUploadWrapper.getImage().getOriginalFilename().endsWith(".jpeg")){
 
             errors.rejectValue("image","invalidFormat.fileUploadWrapper.image");
 
@@ -38,7 +38,7 @@ public class MultipartFileValidator implements Validator {
             for(MultipartFile scene : fileUploadWrapper.getMovieScenes()) {
 
                 if (scene!= null && !scene.isEmpty() && !scene.getOriginalFilename().endsWith(".png") &&
-                        !scene.getOriginalFilename().endsWith(".jpg")) {
+                        !scene.getOriginalFilename().endsWith(".jpeg") && !scene.getOriginalFilename().endsWith(".jpg") ) {
 
                     errors.rejectValue("movieScenes", "invalidFormat.fileUploadWrapper.movieScenes");
 

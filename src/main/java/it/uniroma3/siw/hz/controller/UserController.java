@@ -50,7 +50,7 @@ public class UserController {
 
             this.userService.addUserPicture(id, fileUploadWrapper.getImage());
 
-            return "index.html";
+            return "redirect:/";
         } else {
 
 

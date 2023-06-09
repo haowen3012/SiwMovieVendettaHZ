@@ -24,6 +24,7 @@
 	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.movieScenes')}"
 		 th:errors="${fileUploadWrapper.movieScenes}" ></div>
 
+	<script th:src="@{/javascript/errorLogs.js}"></script>
 </div>
 
 <!---------------------->

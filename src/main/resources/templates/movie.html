@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>JS Bin</title>
-    <link rel="stylesheet" th:href="@{/css/movies.css}" />
+    <link rel="stylesheet" th:href="@{/css/movie.css}" />
     <link rel="stylesheet" th:href="@{/css/animation.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -54,6 +54,11 @@
     <a th:style="${role!=null || user==null} ?  'visibility: hidden' : 'visibility: visible'" th:text="${reviewed} ? 'already reviewed' : 'add review'"
        th:classappend="${reviewed} ? 'unselectable' : 'selectable'"
        th:href="'/addReview' + '/' + ${movie.id}" id="add-review" >add review </a>
+
+    <div class="release">
+        <h1>Release :</h1>
+        <h1 th:text="${#temporals.format( movie.releaseDate, 'dd MMMM yyyy')}">11 December 2022 </h1>
+    </div>
 
     <div id="average">
         <h1 th:text="${averageRating}"> 3.4</h1>

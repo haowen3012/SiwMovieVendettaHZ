@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collection;
 
@@ -92,15 +93,15 @@ public class AuthenticationController {
     	if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
             return "admin/indexAdmin.html";
         }
-        return "index.html";
+        return "redirect:/";
     }
 
 	@PostMapping(value = { "/register" })
     public String registerUser(@Valid @ModelAttribute("userForm") User user,
-                 BindingResult userBindingResult, @Valid
+							   BindingResult userBindingResult, @Valid
                  @ModelAttribute("credentialsForm") Credentials credentials,
-                 BindingResult credentialsBindingResult,
-                 Model model) {
+							   BindingResult credentialsBindingResult,
+							   Model model, RedirectAttributes redirectAttributes) {
 		//validate user and credentials fields
 		this.userValidator.validate(user, userBindingResult);
 		this.credentialsValidator.validate(credentials, credentialsBindingResult);
@@ -112,7 +113,10 @@ public class AuthenticationController {
 			model.addAttribute("user" ,user);
             return "registrationSuccessful.html";
         }
-        return "index.html";
+
+		redirectAttributes.addFlashAttribute(credentialsBindingResult);
+		redirectAttributes.addFlashAttribute(userBindingResult);
+        return "redirect:/";
     }
 
 

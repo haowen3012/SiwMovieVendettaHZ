@@ -21,40 +21,23 @@
 
 </head>
 <body>
-
-<!--registration erros>
+<!----------------------------------------------------------------------------->
 <div id="errors">
-	<div class="error" th:if="${#fields.hasErrors('credentialsForm.username')}"
+	<div class="error" th:if="${ credentialsForm!=null and #fields.hasErrors('credentialsForm.username')}"
 		 th:errors="${credentialsForm.username}" ></div>
 
-	<div class="error" th:if="${#fields.hasErrors('credentialsForm.password')}"
+	<div class="error" th:if="${ credentialsForm!=null and #fields.hasErrors('credentialsForm.password')}"
 		 th:errors="${credentialsForm.password}" ></div>
 
-	<div class="error"  th:if="${#fields.hasErrors('userForm.name')}"
-		 th:errors="${userForm.name}" ></div>
+	<div class="error"  th:if="${ userForm!=null and #fields.hasErrors('userForm.name')}"
+		 th:errors="${userForm.surname}" ></div>
 
-	<div class="error"  th:if="${#fields.hasErrors('userForm.surname')}"
+	<div class="error"  th:if="${ userForm!=null and #fields.hasErrors('userForm.surname')}"
 		 th:errors="${userForm.surname}" ></div>
 </div>
-<-!------>
-<script>
-	var error_element = document.getElementById('errors');
 
-	error_element.addEventListener('animationend', () => {
-
-		setTimeout( function(){
-			error_element.style.animation="slide-out-up 1s ease-out forwards";
-		},2000);
-
-
-		setTimeout( function(){
-			error_element.innerHTML="";
-		},2600);
-	});
-
-</script>
-<!----->
-
+<script th:src="@{script/errorLogs.js}"></script>
+<!------------------------------------------------------->
 
 <div class="nav-container">
 
