@@ -10,6 +10,7 @@
 <link rel="stylesheet" th:href="@{/css/sideNav.css}" />
 <link rel="stylesheet" th:href="@{/css/filterMenu.css}" />
 <link rel="stylesheet" th:href="@{/css/error.css}" />
+<link rel="stylesheet" th:href="@{/css/deleted-warn.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script
 			src="https://code.jquery.com/jquery-1.12.4.js"
@@ -34,13 +35,15 @@
 
 	<div class="error"  th:if="${ userForm!=null and #fields.hasErrors('userForm.surname')}"
 		 th:errors="${userForm.surname}" ></div>
+
+	<div class="error" th:if="${moviesNotFound}"  >
+		Movies not found
+	</div>
 </div>
 
 <script th:src="@{javascript/errorLogs.js}"></script>
 <!------------------------------------------------------->
-<div id="event-warn" th:if="${moviesNotFound}" style="background: red">
-	Movies not found
-</div>
+
 
 <script th:src="@{javascript/warnings.js}"></script>
 <!------------------------------------------------------>
@@ -72,13 +75,13 @@
 <div id="filter">
 
 	<div id="options">
-		<a class="option" href="/newReleases"> <h1>New Releases </h1></a>
+		<a class="option" href="filter/newReleases"> <h1>New Releases </h1></a>
 
 
-		<a class="option" href="/highestScore"> <h1>Highiest Score</h1></a>
+		<a class="option" href="filter/highestScore"> <h1>Highiest Score</h1></a>
 
 
-		<a class="option" href="/mostReviewed"><h1>Most Reviewed</h1></a>
+		<a class="option" href="filter/mostReviewed"><h1>Most Reviewed</h1></a>
 
 	</div>
 

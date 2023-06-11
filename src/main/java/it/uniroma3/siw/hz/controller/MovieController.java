@@ -60,12 +60,14 @@ public class MovieController {
 		return "admin/formNewMovie.html";
 	}
 
+
+/*
 	@GetMapping(value="/admin/formUpdateMovie/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieService.getMovie(id));
 		return "admin/formUpdateMovie.html";
-	}
-
+	}*/
+/*
 	@GetMapping(value="/admin/indexMovie")
 	public String indexMovie() {
 		return "admin/indexMovie.html";
@@ -76,24 +78,7 @@ public class MovieController {
 		model.addAttribute("movies", this.movieService.getAllMovies());
 		return "admin/manageMovies.html";
 	}
-	
-	@GetMapping(value="/admin/setDirectorToMovie/{directorId}/{movieId}")
-	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId, Model model) {
-
-		model.addAttribute("movie", this.movieService.setDirectorToMovie(directorId, movieId));
-		return "movie.html";
-	}
-	
-	
-	@GetMapping(value="/admin/addDirector/{id}")
-	public String addDirector(@PathVariable("id") Long id, Model model) {
-
-		Movie movie = this.movieService.getMovie(id);
-		model.addAttribute("notMovieDirectors", this.artistService.getArtistsNotDirectingMovie(movie));
-		model.addAttribute("movie",  movie);
-
-		return "admin/directorsToAdd.html";
-	}
+*/
 
 	@PostMapping("/admin/movie")
 	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult movieBindingResult,
@@ -163,68 +148,18 @@ public class MovieController {
 
 		return "movies.html";
 	}
-	
+
+	/*
 	@GetMapping("/formSearchMovies")
 	public String formSearchMovies() {
 		return "formSearchMovies.html";
 	}
 
-
-	
-	@GetMapping("/admin/updateActors/{id}")
-	public String updateActors(@PathVariable("id") Long id, Model model) {
+	 */
 
 
-		Movie movie = this.movieService.getMovie(id);
-		Collection<Artist> actorsToAdd = this.actorsToAdd(id);
-		model.addAttribute("actorsToAdd", actorsToAdd);
-		model.addAttribute("movieActors",movie.getActors());
-		model.addAttribute("movie",movie );
 
-		return "admin/actorsToAdd.html";
-	}
-
-	@GetMapping(value="/admin/addActorToMovie/{actorId}/{movieId}")
-	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
-
-		Movie movie = this.movieService.getMovie(movieId);
-		Artist actor = this.artistService.getArtist(actorId);
-
-
-		Collection<Artist> actorsToAdd = 	this.movieService.addActorToMovie(movie,actor);
-		
-		model.addAttribute("movie", movie);
-		model.addAttribute("movieActors", movie.getActors());
-		model.addAttribute("actorsToAdd",actorsToAdd );
-
-		return "movie.html";
-	}
-	
-	@GetMapping(value="/admin/removeActorFromMovie/{actorId}/{movieId}")
-	public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
-		Movie movie = this.movieService.getMovie(movieId);
-		Artist actor = this.artistService.getArtist(actorId);
-
-		Collection<Artist> actorsToAdd = 	this.movieService.removeActorFromMovie(movie,actor);
-
-		model.addAttribute("movie", movie);
-
-		return "movie.html";
-	}
-
-	private Collection<Artist> actorsToAdd(Long movieId) {
-             return this.movieService.actorsToAdd(movieId);
-}
-
-
-     @RequestMapping(value = {"/removeDirector/{idM}"}, method = RequestMethod.GET)
-	public String removeDirectorFromMovie(Model model, @PathVariable("idM") Long idMovie){
-
-
-		model.addAttribute("movie",this.movieService.removeDirectorFromMovie(idMovie) );
-		return "movie.html";
-
-	 }
+	 /**************************REVIEWS*************************************************/
 
 	 @RequestMapping(value={"/addReview/{idM}"}, method = RequestMethod.GET)
 	 public String addReviewToMovie(@PathVariable("idM") Long idMovie,Model model){
@@ -241,13 +176,15 @@ public class MovieController {
 	 }
 
 
-	 @RequestMapping(value={"/newReleases"}, method = RequestMethod.GET)
+	 /***********************FILTERS*********************************/
+
+	 @RequestMapping(value={"/filter/newReleases"}, method = RequestMethod.GET)
 	public String getNewReleases(RedirectAttributes redirectAttributes){
 
 		 return "redirect:/";
 	 }
 
-	@RequestMapping(value={"/highestScore"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/filter/highestScore"}, method = RequestMethod.GET)
 	public String getHighestScoreMovies( RedirectAttributes redirectAttributes){
 
 		redirectAttributes.addFlashAttribute("highestScoreMovies",this.movieService.getMovieOrderByAverageRating());
@@ -257,7 +194,7 @@ public class MovieController {
 
 
 
-	@RequestMapping(value={"/mostReviewed"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/filter/mostReviewed"}, method = RequestMethod.GET)
 	public String getMostReviewedMovies( RedirectAttributes redirectAttributes){
 
 
@@ -267,43 +204,8 @@ public class MovieController {
 
 	}
 
-/*****************************************/
-	@PostMapping("/searchMovies")
-	public String searchMovies(Model model, @RequestParam("movieTitle") String movieTitle,RedirectAttributes redirectAttributes) {
 
-
-		if (this.movieService.getMovie(movieTitle) == null) {
-
-			redirectAttributes.addFlashAttribute("moviesNotFound",true);
-
-			return "redirect:/";
-
-		} else {
-
-			model.addAttribute("movies", this.movieService.getMovie(movieTitle));
-
-			try {
-				User loggedUser = this.sessionData.getLoggedUser();
-				model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
-				return "movies.html";
-
-			} catch (Exception e) {
-
-				return "movies.html";
-			}
-		}
-
-	}
-	@RequestMapping(value = "search", method = RequestMethod.GET)
-	@ResponseBody
-	public List<String> search(HttpServletRequest request) {
-
-		return this.movieService.search(request.getParameter("term"));
-	}
-
-
-
-/*********************************/
+/************************************UPDATE***********************++++**************/
 
 	@RequestMapping(value="/updateMovieFields/{id}", method = RequestMethod.GET)
 	public String updateAllMovieField(Model model, @PathVariable("id") Long idMovie){
@@ -339,6 +241,86 @@ public class MovieController {
 
 	}
 
+
+	@GetMapping("/admin/updateActors/{id}")
+	public String updateActors(@PathVariable("id") Long id, Model model) {
+
+
+		Movie movie = this.movieService.getMovie(id);
+		Collection<Artist> actorsToAdd = this.actorsToAdd(id);
+		model.addAttribute("actorsToAdd", actorsToAdd);
+		model.addAttribute("movieActors",movie.getActors());
+		model.addAttribute("movie",movie );
+
+		return "admin/actorsToAdd.html";
+	}
+
+	@GetMapping(value="/admin/addActorToMovie/{actorId}/{movieId}")
+	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
+
+		Movie movie = this.movieService.getMovie(movieId);
+		Artist actor = this.artistService.getArtist(actorId);
+
+
+		Collection<Artist> actorsToAdd = 	this.movieService.addActorToMovie(movie,actor);
+
+		model.addAttribute("movie", movie);
+		model.addAttribute("movieActors", movie.getActors());
+		model.addAttribute("actorsToAdd",actorsToAdd );
+
+		return "movie.html";
+	}
+
+	@GetMapping(value="/admin/removeActorFromMovie/{actorId}/{movieId}")
+	public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
+		Movie movie = this.movieService.getMovie(movieId);
+		Artist actor = this.artistService.getArtist(actorId);
+
+		Collection<Artist> actorsToAdd = 	this.movieService.removeActorFromMovie(movie,actor);
+
+		model.addAttribute("movie", movie);
+
+		return "movie.html";
+	}
+
+	private Collection<Artist> actorsToAdd(Long movieId) {
+		return this.movieService.actorsToAdd(movieId);
+	}
+
+
+	@RequestMapping(value = {"/removeDirector/{idM}"}, method = RequestMethod.GET)
+	public String removeDirectorFromMovie(Model model, @PathVariable("idM") Long idMovie){
+
+
+		model.addAttribute("movie",this.movieService.removeDirectorFromMovie(idMovie) );
+		return "movie.html";
+
+	}
+
+
+
+	@GetMapping(value="/admin/setDirectorToMovie/{directorId}/{movieId}")
+	public String setDirectorToMovie(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId, Model model) {
+
+		model.addAttribute("movie", this.movieService.setDirectorToMovie(directorId, movieId));
+		return "movie.html";
+	}
+
+
+	@GetMapping(value="/admin/addDirector/{id}")
+	public String addDirector(@PathVariable("id") Long id, Model model) {
+
+		Movie movie = this.movieService.getMovie(id);
+		model.addAttribute("notMovieDirectors", this.artistService.getArtistsNotDirectingMovie(movie));
+		model.addAttribute("movie",  movie);
+
+		return "admin/directorsToAdd.html";
+	}
+
+
+
+	/****************************DELETE************************************/
+
 	@RequestMapping(value="/deleteMovie/{id}", method = RequestMethod.GET)
 	public String deleteMovie(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
 
@@ -348,5 +330,41 @@ public class MovieController {
 		return "redirect:/movie";
 	}
 
+
+
+	/*****************************SEARCH*************************************/
+
+	@PostMapping("/searchMovies")
+	public String searchMovies(Model model, @RequestParam("movieTitle") String movieTitle,RedirectAttributes redirectAttributes) {
+
+
+		if (this.movieService.getMovie(movieTitle).isEmpty()) {
+
+			redirectAttributes.addFlashAttribute("moviesNotFound",true);
+
+			return "redirect:/";
+
+		} else {
+
+			model.addAttribute("movies", this.movieService.getMovie(movieTitle));
+
+			try {
+				User loggedUser = this.sessionData.getLoggedUser();
+				model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
+				return "movies.html";
+
+			} catch (Exception e) {
+
+				return "movies.html";
+			}
+		}
+
+	}
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> search(HttpServletRequest request) {
+
+		return this.movieService.search(request.getParameter("term"));
+	}
 
 }

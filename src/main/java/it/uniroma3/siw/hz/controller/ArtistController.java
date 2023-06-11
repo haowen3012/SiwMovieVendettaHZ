@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -36,15 +37,15 @@ public class ArtistController {
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
 		model.addAttribute("artist", new Artist());
-		model.addAttribute("create",true);
 		return "admin/formNewArtist.html";
 	}
-	
+
+	/*
 	@GetMapping(value="/admin/indexArtist")
 	public String indexArtist() {
 		return "admin/indexArtist.html";
 	}
-
+*/
 
 	
 	@PostMapping("/admin/artist")
@@ -110,14 +111,22 @@ public class ArtistController {
 
 
 	@RequestMapping(value={"/update/artist/{idA}"}, method = RequestMethod.POST)
-	public String updateArtist(@ModelAttribute Artist newArtist,@PathVariable("idA") Long idArtist,
-			@Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadBindingResult, Model model){
+	public String updateArtist(@ModelAttribute Artist newArtist, @PathVariable("idA") Long idArtist,
+							   @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper, BindingResult fileUploadBindingResult, Model model,
+							   RedirectAttributes redirectAttributes){
 
 
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
 		if(!fileUploadBindingResult.hasErrors()) {
-			model.addAttribute("artist", this.artistService.updateArtist(idArtist, newArtist, fileUploadWrapper.getImage()));
-			return "redirect:/artist/" + idArtist;
+
+			try {
+				model.addAttribute("artist", this.artistService.updateArtist(idArtist, newArtist, fileUploadWrapper.getImage()));
+				return "redirect:/artist/" + idArtist;
+			}catch (IOException e){
+
+				redirectAttributes.addFlashAttribute("fileUploadError","An error occured while uploading the input file");
+				return "redirect/updateMovieFields/" + idArtist;
+			}
 		}
 
 		model.addAttribute("fileUploadWrapper",fileUploadWrapper);

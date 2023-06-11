@@ -72,7 +72,7 @@ public class ArtistService {
     }
 
     @Transactional
-    public Artist updateArtist(Long idOldArtist, Artist newArtist, MultipartFile multipartFile){
+    public Artist updateArtist(Long idOldArtist, Artist newArtist, MultipartFile multipartFile) throws IOException{
 
         Artist oldArtist = this.getArtist(idOldArtist);
 
@@ -83,14 +83,8 @@ public class ArtistService {
 
             if(picture==null){
 
-                try {
-                    oldArtist.setPicture(new Image(multipartFile.getOriginalFilename(), multipartFile.getBytes()));
+                oldArtist.setPicture(new Image(multipartFile.getOriginalFilename(), multipartFile.getBytes()));
 
-
-                }catch (IOException e){
-
-
-                }
             }
               else{
 
@@ -98,13 +92,8 @@ public class ArtistService {
 
                  oldPicture.setName(multipartFile.getOriginalFilename());
 
-                 try {
+
                      oldPicture.setBytes(multipartFile.getBytes());
-
-                 }catch (IOException e){
-
-                 }
-
             }
 
 
