@@ -11,50 +11,61 @@
 <body>
 
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
-	</div>
-	<h1>Registrazione nuovo utente</h1>
-	<form th:action="@{/register}" method="POST">
-		<div>
-			<label>Username</label>
-			<span>
-				<input type="text" placeholder="username" required th:field="${credentials.username}" />
-			</span>
-			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-				th:style="'color:red'">
-			</span>
+<div id="sign-up"   th:if="${(userForm != null and credentialsForm !=null) }" th:fragment="registerForm">
+	<div class="close-2" >&times;</div>
+	<form  id="form" method="POST"  th:action="@{/register}" >
+		<h1>Sign Up</h1>
+		<div class="social-container">
+			<a href="/oauth2/authorization/facebook" class="social" id="faceb"><i class="fa fa-facebook"></i></a>
+			<a href="/oauth2/authorization/google" class="social" id="goog"><i class="fa fa-google"></i></a>
+			<a href="/oauth2/authorization/github" class="social"  id="github"><i class="fa fa-github"></i></a>
+			<a href="https://www.linkedin.com/uas/oauth2/authorization?" class="social" id="link"><i class="fa fa-linkedin"></i></a>
 		</div>
-		<div>
-			<label>Password</label>
-			<span><input type="password" placeholder="password" required th:field="${credentials.password}" />
-			</span>
-			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
-				th:style="'color:red'">
-			</span>
+
+		<div class="input-container" id="id-username">
+			<i class="fa fa-user icon"></i>
+			<input type="text" id="username" placeholder="username" onkeydown="validation('username')" required th:field="${credentialsForm.username}"/>
+			<div class="check" id="check-username"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-username"><i class="fa fa-times"></i></div>
 		</div>
-		<div>
-			<label>Nome</label>
-			<span><input type="text" placeholder="name" required th:field="${user.name}" /></span>
-			<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'">
-			</span>
+
+		<span id="username-valid"></span>
+
+		<div class="input-container" id="id-password">
+			<i class="fa fa-key icon"></i>
+			<input type="password" id="password" placeholder="password" required onkeydown="validation('password')"   th:field="${credentialsForm.password}"/>
+			<div class="check" id="check-password"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-password"><i class="fa fa-times"></i></div>
 		</div>
-		<div>
-			<label>Cognome</label>
-			<span><input type="text" placeholder="surname" required th:field="${user.surname}" /></span>
-			<span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'">
-			</span>
+		<span id="password-valid"></span>
+
+
+		<div class="input-container"  id="id-firstname">
+			<i class="fa fa-user icon"></i>
+			<input type="text"  id="firstname" placeholder="first name" required  onkeydown="validation('firstname')" th:field="${userForm.name}"/>
+			<div class="check" id="check-firstname"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-firstname"><i class="fa fa-times"></i></div>
 		</div>
-		<div>
-			<label>Email</label>
-			<span><input type="text" placeholder="email" required th:field="${user.email}" /></span>
-			<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
-			</span>
+		<span id="firstname-valid"></span>
+
+
+		<div class="input-container"   id="id-lastname">
+
+			<i class="fa fa-user icon"></i>
+			<input type="text" id="lastname" placeholder="last name" required  onkeydown="validation('lastname')" th:field="${userForm.surname}"/>
+			<div class="check" id="check-lastname"><i class="fa fa-check"></i></div>
+			<div class="times" id="times-lastname"><i class="fa fa-times"></i></div>
 		</div>
-		<div>
-			<button type="submit">Registra</button>
+		<span id="lastname-valid"></span>
+
+
+		<div class="bottom">
+			<span>Already have an account?</span>
+			<a onclick="log_in()">Sign in</a>
+			<button>Sign Up</button>
 		</div>
 	</form>
+</div>
 </body>
 
 </html>

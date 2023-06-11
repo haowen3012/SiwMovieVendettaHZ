@@ -11,29 +11,41 @@
 <body>
 
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
-	</div>
-	<h1>Login</h1>
-	<form th:action="@{/login}" method="POST">
-			<div>
-				<span>Username:</span>
-				<span><input name="username" type="text" required /></span>
-			</div>
-			<div>
-				<span>Password:</span>
-				<span><input name="password" type="password" required /></span>
-			</div>
-			<div>
-				<span th:if="${param.error != null}">Username o password errati</span>
-			</div>
-			<div>
-				<span><button type="submit">Login</button></span>
-			</div>
+<!----LOGIN AND REGISTRATION--->
+
+<div id="sign-in" th:fragment="loginForm">
+	<div class="close" >&times;</div>
+	<form  th:action="@{/login}" method='post'>
+		<h1>Sign In</h1>
+		<div class="social-container">
+			<a href="/oauth2/authorization/facebook" class="social" id="facebook"><i class="fa fa-facebook"></i></a>
+			<a href="/oauth2/authorization/google" class="social" id="google"><i class="fa fa-google"></i></a>
+			<a href="/oauth2/authorization/github" class="social" id="github" ><i class="fa fa-github"></i></a>
+			<a href="https://www.linkedin.com/developers/tools/oauth/redirect" class="social" id="linkedin"><i class="fa fa-linkedin"></i></a>
+		</div>
+		<div class="input-container">
+			<i class="fa fa-user icon"></i>
+			<input type="text" name="username" placeholder="username" required="">
+
+		</div>
+
+		<div class="input-container">
+			<i class="fa fa-key icon"></i>
+			<input type="password" name="password" placeholder="password" required="">
+		</div>
+
+		<button>Sign In</button>
+
+		<div class="register-now">
+			<span>Not a memeber?</span>
+			<a onclick="register()">Register now</a>
+		</div>
+
 	</form>
-	<div>
-		<a th:href="@{/register}" th:text="Registrati">Registrati</a>
-	</div>
+
+</div>
+
+
 </body>
 
 </html>

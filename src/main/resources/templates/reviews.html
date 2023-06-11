@@ -53,7 +53,7 @@
 
 
 <!---pop up for deleting review---->
-<div id="deleted-warn" th:if="${reviewDeleted}">
+<div id="event-warn" th:if="${reviewDeleted}">
   The review has been successfully removed
 </div>
 <!-------->
@@ -63,7 +63,7 @@
   try{
 
 
-    var deleted_war = document.getElementById('deleted-warn');
+    var deleted_war = document.getElementById('event-warn');
 
     setTimeout( function(){
       deleted_war.style.display = "none";},3000);

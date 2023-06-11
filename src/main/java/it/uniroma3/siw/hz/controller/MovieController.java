@@ -163,28 +163,7 @@ public class MovieController {
 		return "formSearchMovies.html";
 	}
 
-	@PostMapping("/searchMovies")
-	public String searchMovies(Model model, @RequestParam("movieTitle") String movieTitle) {
 
-
-		if(this.movieService.getMovie(movieTitle)==null){
-			return "errore.html";
-		}else {
- ;
-               model.addAttribute("movies",this.movieService.getMovie(movieTitle));
-
-			try {
-				User loggedUser = this.sessionData.getLoggedUser();
-				model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
-				return "movies.html";
-
-			} catch (Exception e) {
-
-				return "movies.html";
-			}
-		}
-
-	}
 	
 	@GetMapping("/admin/updateActors/{id}")
 	public String updateActors(@PathVariable("id") Long id, Model model) {
@@ -282,15 +261,43 @@ public class MovieController {
 
 	}
 
+/*****************************************/
+	@PostMapping("/searchMovies")
+	public String searchMovies(Model model, @RequestParam("movieTitle") String movieTitle,RedirectAttributes redirectAttributes) {
+
+
+		if (this.movieService.getMovie(movieTitle) == null) {
+
+			redirectAttributes.addFlashAttribute("moviesNotFound",true);
+
+			return "redirect:/";
+
+		} else {
+
+			model.addAttribute("movies", this.movieService.getMovie(movieTitle));
+
+			try {
+				User loggedUser = this.sessionData.getLoggedUser();
+				model.addAttribute("reviewedMovies", this.movieService.getMoviesReviewdByUser(loggedUser));
+				return "movies.html";
+
+			} catch (Exception e) {
+
+				return "movies.html";
+			}
+		}
+
+	}
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> search(HttpServletRequest request) {
+
 		return this.movieService.search(request.getParameter("term"));
 	}
 
 
 
-
+/*********************************/
 
 	@RequestMapping(value="/updateMovieFields/{id}", method = RequestMethod.GET)
 	public String updateAllMovieField(Model model, @PathVariable("id") Long idMovie){

@@ -53,7 +53,7 @@
 	<a href="/logout"> Log out</a>
 </div>
 
-
+<script th:src="@{/javascript/sideNav.js}"></script>
 <script>
 
 	document.getElementById('operations').style.animation= "slide-in-from-left  1s ease-out forwards";
@@ -61,34 +61,7 @@
 	document.getElementById('greeting').style.animation = "slide-in-down  0.5s ease forwards";
 
 </script>
-<script>
 
-	var side_nav = document.getElementById('side_nav');
-
-	function openSideNav(role){
-
-
-		var admin_image = document.getElementById('image-' + role);
-
-		side_nav.style.width="14%";
-		side_nav.style.height="100%";
-		side_nav.style.top="0";
-		admin_image.style.visibility = "hidden";
-
-	}
-
-	function closeSideNav(role){
-		var admin_image = document.getElementById('image-' + role);
-
-
-		side_nav.style.width="0";
-		side_nav.style.height="0";
-		side_nav.style.top="-10%";
-		admin_image.style.visibility = "visible";
-
-
-	}
-</script>
 </body>
 
 </html>

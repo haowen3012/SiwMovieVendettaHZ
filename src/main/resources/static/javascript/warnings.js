@@ -1,12 +1,15 @@
 
-try{
 
+var deleted_war = document.getElementById('event-warn');
 
-    var deleted_war = document.getElementById('deleted-warn');
+deleted_war.addEventListener('animationend', () => {
 
     setTimeout( function(){
-        deleted_war.style.display = "none";},3000);
+        error_element.style.animation="slide-out-up 1s ease-out forwards";
+    },2000);
 
-}catch(error){
 
-}
+    setTimeout( function(){
+        error_element.innerHTML="";
+    },2600);
+});
