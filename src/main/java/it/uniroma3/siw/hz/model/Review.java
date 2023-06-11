@@ -4,6 +4,8 @@ package it.uniroma3.siw.hz.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Collection;
 
@@ -15,7 +17,7 @@ public class Review {
     private Long id;
 
 
-
+    @NotBlank
     private String title;
 
     @Min(1)
@@ -23,7 +25,9 @@ public class Review {
     private int rating;
 
 
-    @Column(length = 500)
+    @Column(length =100)
+    @Length(max=100)
+    @NotBlank
     private String comment;
 
     @ManyToOne
@@ -39,6 +43,14 @@ public class Review {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getRating() {

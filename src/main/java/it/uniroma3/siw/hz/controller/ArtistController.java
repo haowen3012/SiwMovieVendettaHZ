@@ -111,13 +111,14 @@ public class ArtistController {
 
 
 	@RequestMapping(value={"/update/artist/{idA}"}, method = RequestMethod.POST)
-	public String updateArtist(@ModelAttribute Artist newArtist, @PathVariable("idA") Long idArtist,
+	public String updateArtist(@Valid @ModelAttribute Artist newArtist,BindingResult artistBindingResult, @PathVariable("idA") Long idArtist,
 							   @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper, BindingResult fileUploadBindingResult, Model model,
 							   RedirectAttributes redirectAttributes){
 
 
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
-		if(!fileUploadBindingResult.hasErrors()) {
+		this.artistValidator.validate(newArtist,artistBindingResult);
+		if(!fileUploadBindingResult.hasErrors() && !artistBindingResult.hasErrors()) {
 
 			try {
 				model.addAttribute("artist", this.artistService.updateArtist(idArtist, newArtist, fileUploadWrapper.getImage()));

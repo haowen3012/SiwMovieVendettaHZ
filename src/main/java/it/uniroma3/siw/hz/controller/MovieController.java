@@ -107,7 +107,9 @@ public class MovieController {
 
 		} else {
 
-
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.movie",movieBindingResult);
+            redirectAttributes.addFlashAttribute("movie",movie);
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.fileUploadWrapper",fileUploadWrapperBindingResult);
 			redirectAttributes.addFlashAttribute("fileUploadWrapper", fileUploadWrapper);
 
 			return "redirect:/admin/formNewMovie";
@@ -169,10 +171,22 @@ public class MovieController {
 	 }
 
 	 @RequestMapping(value={"/addReview/{idM}"}, method = RequestMethod.POST)
-	public String addReviewToMovie(@ModelAttribute Review review,@PathVariable("idM") Long idMovie,Model model){
-		Movie movie = this.movieService.addReviewToMovie(review,idMovie);
+	public String addReviewToMovie(@Valid@ModelAttribute Review review,BindingResult bindingResult,@PathVariable("idM") Long idMovie,Model model,
+								   RedirectAttributes redirectAttributes){
 
-		return "redirect:/movie/" + movie.getId();
+		 if(!bindingResult.hasErrors()) {
+
+			 Movie movie = this.movieService.addReviewToMovie(review, idMovie);
+
+			 return "redirect:/movie/" + movie.getId();
+		 }else{
+
+
+			 redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.review", bindingResult);
+			 redirectAttributes.addFlashAttribute("review", review);
+
+			 return "redirect:/addReview/" +idMovie;
+		 }
 	 }
 
 
@@ -234,8 +248,7 @@ public class MovieController {
 			}
 		}
 
-		model.addAttribute("fileUploadWrapper",fileUploadWrapper);
-		model.addAttribute("artist",newMovie);
+
 
 		return "admin/formUpdateMovie.html";
 

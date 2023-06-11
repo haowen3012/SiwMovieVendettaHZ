@@ -5,29 +5,44 @@
   <link rel="stylesheet" th:href="@{/css/formReview.css}" />
   <link rel="stylesheet" th:href="@{/css/home.css}" />
   <link rel="stylesheet" th:href="@{/css/button.css}" />
+  <link rel="stylesheet" th:href="@{/css/error.css}" />
+  <link rel="stylesheet" th:href="@{/css/animation.css}" />
   <title>SivMovieVendettaHZ</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+<!-----error logs------->
+<div id="errors" >
+
+  <div class="error" th:if="${ review!=null and #fields.hasErrors('review.comment')}"
+       th:errors="${review.comment}" >Campo Obbligatorio</div>
+
+  <div class="error" th:if="${ review!=null and #fields.hasErrors('review.rating')}"
+       th:errors="${review.comment}" >Campo Obbligatorio</div>
+</div>
+
+
+<script th:src="@{/javascript/errorLogs.js}"></script>
+<!-------------------------------------------------------------------->
 
 <div th:replace="artist.html :: homeButton"></div>
 
 <form id="rating-container" th:action="'/addReview' + '/' + ${movie.id}"  method="post">
   <h1>How is the movie?</h1>
-  <div class="rate">
-    <input type="radio" id="star5" name="rating" value="5" />
+  <div  class="rate">
+    <input type="radio" id="star5" name="rating" value="5" required/>
     <label for="star5" title="text"></label>
-    <input type="radio" id="star4" name="rating" value="4" />
+    <input type="radio" id="star4" name="rating" value="4" required />
     <label for="star4" title="text"></label>
-    <input type="radio" id="star3" name="rating" value="3" />
+    <input type="radio" id="star3" name="rating" value="3" required/>
     <label for="star3" title="text"></label>
-    <input type="radio" id="star2" name="rating" value="2" />
+    <input type="radio" id="star2" name="rating" value="2" required/>
     <label for="star2" title="text"></label>
-    <input type="radio" id="star1" name="rating" value="1" />
+    <input type="radio" id="star1" name="rating" value="1" required/>
     <label for="star1" title="text"></label>
   </div>
-  <input type="text"  name="title" class="review-title"/>
+  <input type="text"  name="title" required class="review-title"/>
   <textarea  name="comment">
    Leave a review!
     </textarea>

@@ -37,7 +37,7 @@ public class UserController {
     private MultipartFileValidator multipartFileValidator;
 
     @Transactional
-    @RequestMapping(value = {"/addUserPhoto/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/addUserPicture/{id}"}, method = RequestMethod.POST)
     public String addUserPhoto(@Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,
                                BindingResult fileUploadWrapperBindingResult, @PathVariable("id")
                                Long id) {

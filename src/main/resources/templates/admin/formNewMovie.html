@@ -17,12 +17,19 @@
 	<div class="error" th:if="${#fields.hasErrors('movie')}"
 		 th:errors="${movie}" >Campo Obbligatorio</div>
 
+	<div class="error" th:if="${#fields.hasErrors('movie.plot')}"
+		 th:errors="${movie.plot}" ></div>
+
 
 	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
 		 th:errors="${fileUploadWrapper.image}" ></div>
 
 	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.movieScenes')}"
 		 th:errors="${fileUploadWrapper.movieScenes}" ></div>
+
+	<div class="error" th:if="${ fileUploadError}"
+		 th:text="${fileUploadError}"></div>
+
 
 	<script th:src="@{/javascript/errorLogs.js}"></script>
 </div>
