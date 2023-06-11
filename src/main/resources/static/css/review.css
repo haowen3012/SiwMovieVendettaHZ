@@ -64,7 +64,7 @@ img{
 
 #review{
     width: 70%;
-    height: 12em;
+    height: 15em;
 
     display:inline-flex;
     justify-content: flex-start;
@@ -125,9 +125,22 @@ img{
 }
 
 .comment{
+    width:90%;
     padding: 2%;
-    min-height: 10%;
+    overflow: auto;
     font-size: 1.3em;
+
+    overflow-wrap: break-word;
+
+    box-shadow:inset  0px 2px;
+    border-radius: 15px;
+
+
+}
+
+.comment::-webkit-scrollbar {
+    width: 0em;
+    background-color: #f1f1f1;
 }
 
 
@@ -171,6 +184,15 @@ img{
 
 }
 
+
+.review-title{
+    margin-top:1%;
+    font-size:1.5em;
+    width:80%;
+
+    margin-left: 3%;
+    text-shadow: 1px 2px 20px;
+}
 
 
 
