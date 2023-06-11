@@ -118,17 +118,14 @@ public class MovieService {
     }
 
     @Transactional
-    public void createMovie(Movie movie, Long directorToAddId, Collection<Long> actorsToaddId,
-                            MultipartFile multipartFile, Collection<MultipartFile> scenes) {
+    public Movie createMovie(Movie movie, Long directorToAddId, Collection<Long> actorsToaddId,
+                            MultipartFile multipartFile, Collection<MultipartFile> scenes)  throws IOException {
 
         movie.setDirector(this.artistService.getArtist(directorToAddId));
 
-        try {
             this.addMoviePhoto(multipartFile, movie);
             this.addMovieScenes(scenes, movie);
-        } catch (IOException e) {
 
-        }
 
         Set<Artist> actors = new HashSet<>();
 
@@ -138,7 +135,7 @@ public class MovieService {
             movie.setActors(actors);
         }
 
-        this.movieRepository.save(movie);
+       return  this.movieRepository.save(movie);
     }
 
     @Transactional
@@ -263,7 +260,7 @@ public class MovieService {
         return movieRepository.search(keyword);
     }
 
-    public Movie updateMovie(Long idOldMovie, Movie newMovie, MultipartFile pst) {
+    public Movie updateMovie(Long idOldMovie, Movie newMovie, MultipartFile pst) throws  IOException{
 
 
         Movie oldMovie = this.getMovie(idOldMovie);
@@ -276,26 +273,19 @@ public class MovieService {
 
             if (poster == null) {
 
-                try {
+
                     oldMovie.setPoster(new Image(pst.getOriginalFilename(), pst.getBytes()));
 
 
-                } catch (IOException e) {
-
-
-                }
             } else {
 
                 Image oldPoster = oldMovie.getPoster();
 
 
-                try {
+
                     oldPoster.setName(pst.getOriginalFilename());
                     oldPoster.setBytes(pst.getBytes());
 
-                } catch (IOException e) {
-
-                }
 
             }
 

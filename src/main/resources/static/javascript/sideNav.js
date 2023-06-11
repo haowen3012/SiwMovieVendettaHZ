@@ -16,6 +16,7 @@
 
     function closeSideNav(role){
 
+        var user = document.getElementById('image-'+ role);
 
     side_nav.style.width="0";
     side_nav.style.height="0";

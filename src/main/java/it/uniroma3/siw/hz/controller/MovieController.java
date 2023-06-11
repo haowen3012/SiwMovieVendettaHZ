@@ -1,5 +1,6 @@
 package it.uniroma3.siw.hz.controller;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -109,11 +110,16 @@ public class MovieController {
 
 		if (!movieBindingResult.hasErrors() && !fileUploadWrapperBindingResult.hasErrors()) {
 
-			this.movieService.createMovie(movie,directorToAddId,actorsToaddId,fileUploadWrapper.getImage(),fileUploadWrapper.getMovieScenes());
+			try {
+				model.addAttribute("movie",this.movieService.createMovie(movie, directorToAddId, actorsToaddId, fileUploadWrapper.getImage(), fileUploadWrapper.getMovieScenes()));
 
-			model.addAttribute("movie", movie);
+				return "movie.html";
+			}catch (IOException e){
 
-			return "movie.html";
+				redirectAttributes.addFlashAttribute("fileUploadError","An error occured while uploading the input files");
+				return "redirect:/admin/formNewMovie";
+			}
+
 		} else {
 
 
@@ -309,13 +315,21 @@ public class MovieController {
 
 	@RequestMapping(value="/updateMovieFields/{id}", method = RequestMethod.POST)
 	public String updateAllMovieField(Model model, @PathVariable("id") Long idMovie, @Valid @ModelAttribute Movie newMovie
-			,BindingResult movieBindingResult, @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadBindingResult){
+			,BindingResult movieBindingResult, @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadBindingResult,
+									  RedirectAttributes redirectAttributes){
 
 		this.movieValidator.validate(newMovie,movieBindingResult);
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
 		if(!fileUploadBindingResult.hasErrors() && !movieBindingResult.hasErrors()) {
-			model.addAttribute("movie", this.movieService.updateMovie(idMovie, newMovie, fileUploadWrapper.getImage()));
-			return "redirect:/movie/" + idMovie;
+
+			try {
+				model.addAttribute("movie", this.movieService.updateMovie(idMovie, newMovie, fileUploadWrapper.getImage()));
+				return "redirect:/movie/" + idMovie;
+			}catch(IOException e){
+
+				redirectAttributes.addFlashAttribute("fileUploadError","An error occured while uploading the input files");
+				return "redirect/updateMovieFields/" + idMovie;
+			}
 		}
 
 		model.addAttribute("fileUploadWrapper",fileUploadWrapper);
