@@ -52,7 +52,7 @@
 
 	<div id="movie-plot" th:fragment="moviePlot">
 		<h1>Movie Plot </h1>
-		<textarea    th:field="${movie.plot}" required/></textarea>
+		<textarea    th:field="${movie.plot}" minlength="200" required/></textarea>
 	</div>
 
 	<div id="movie-image" th:fragment="moviePoster">

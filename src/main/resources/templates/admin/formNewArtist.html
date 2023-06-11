@@ -53,7 +53,7 @@
 
 	<div class="artist-date"  th:fragment="artistDateBirth">
 		<h1> Date of Birth</h1>
-		<input   type="date"   th:field="${artist.dateOfBirth}" required  />
+		<input   type="date"  min="1940-01-01"  max="2000-01-01" th:field="${artist.dateOfBirth}" required  />
 	</div>
 	<div class="artist-date"  th:fragment="artistDateDeath">
 		<h1> Date of Death</h1>
