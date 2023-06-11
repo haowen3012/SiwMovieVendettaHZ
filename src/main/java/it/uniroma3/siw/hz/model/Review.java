@@ -2,6 +2,8 @@ package it.uniroma3.siw.hz.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 import java.util.Collection;
 
@@ -14,6 +16,10 @@ public class Review {
 
 
 
+    private String title;
+
+    @Min(1)
+    @Max(5)
     private int rating;
 
 
