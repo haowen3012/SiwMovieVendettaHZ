@@ -4,6 +4,8 @@ repository per il progetto d'esame SiwMovieVendettaHZ.
 
 # DCD
 
+<img width="691" alt="DCD siwMovieVendettaHZ" src="https://github.com/haowen3012/SiwMovieVendettaHZ/assets/113709699/444b267e-66c0-4338-b44e-253d2531bf37">
+
 # Casi d'uso
 il progetto presenta una serie di casi d'uso distinti per tre categorie:
 - Amministratore (Admin)
