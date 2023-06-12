@@ -1,5 +1,5 @@
 # SiwMovieVendettaHZ
-repository per il progetto d'esame SiwMovieVendettaHZ.
+Repository per il progetto d'esame SiwMovieVendettaHZ.
 
 
 # DCD
