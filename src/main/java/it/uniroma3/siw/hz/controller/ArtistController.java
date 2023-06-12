@@ -135,10 +135,10 @@ public class ArtistController {
 
 
 	@RequestMapping(value="/deleteArtist/{idA}", method = RequestMethod.GET)
-	public String deleteArtist(@PathVariable("idA") Long idA,Model model){
+	public String deleteArtist(@PathVariable("idA") Long idA,Model model,RedirectAttributes redirectAttributes){
 
           this.artistService.deleteArtist(idA);
-		  model.addAttribute("artistDeleted",true);
+		  redirectAttributes.addFlashAttribute("artistDeleted",true);
 
 		  return "redirect:/artist";
 	}

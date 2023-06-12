@@ -1,8 +1,7 @@
 
-
     var event_war = document.getElementById('event-warn');
 
-    deleted_war.addEventListener('animationend', () => {
+    event_war.addEventListener('animationend', () => {
 
         setTimeout(function () {
             event_war.style.animation = "slide-out-up 1s ease-out forwards";
