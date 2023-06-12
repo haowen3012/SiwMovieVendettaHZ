@@ -33,4 +33,4 @@ Per visualizzazione delle informazioni si intende:
 - elenchi di Film ordinati secondo un qualche criterio di ordinamento.
 
 # App Deploy
-Il sito è raggiungibile al seguente url : app-siwmovievendettahz.azurewebsites.net
+Il sito è raggiungibile al seguente url : http://app-siwmovievendettahz.azurewebsites.net
