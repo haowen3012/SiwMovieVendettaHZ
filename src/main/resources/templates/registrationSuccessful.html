@@ -10,6 +10,16 @@
 	<link rel="stylesheet" th:href="@{/css/button.css}" />
 </head>
 <body>
+
+<div id="errors" >
+
+	<div th:replace="admin/formNewMovie.html :: imageError"></div>
+
+
+	<script th:src="@{/javascript/errorLogs.js}"></script>
+</div>
+
+
 <i class="fa fa-check" id="check"></i>
 <form id="successful"  th:action="@{'/addUserPicture' + '/' + ${user.id}}"
 	    method="post"

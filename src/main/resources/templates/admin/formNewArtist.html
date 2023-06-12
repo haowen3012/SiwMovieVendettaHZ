@@ -28,8 +28,8 @@
 		 th:errors="${artist.dateOfBirth}" ></div>
 
 
-	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
-		 th:errors="${fileUploadWrapper.image}" ></div>
+
+	<div th:replace="admin/formNewMovie.html :: imageError"></div>
 
 	<div class="error" th:if="${ fileUploadError}"
 		 th:text="${fileUploadError}"></div>

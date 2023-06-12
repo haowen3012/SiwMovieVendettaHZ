@@ -25,7 +25,7 @@
 	<div class="error" th:if="${#fields.hasErrors('movie.plot')}"
 		 th:errors="${movie.plot}" ></div>
 
-	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
+	<div class="error" th:fragment="imageError" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
 		 th:errors="${fileUploadWrapper.image}" ></div>
 
 	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.movieScenes')}"

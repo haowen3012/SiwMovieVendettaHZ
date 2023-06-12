@@ -101,11 +101,10 @@ public class UserService {
     public void registerNewCustomerAfterOAuthLoginSuccess(String loginName, String fullName, AuthenticationProvider provider) {
         User user = new User();
         if(loginName != null) {
-            user.setUserName(loginName);
-            user.setName(fullName);
+            user.setName(loginName);
         }
         else{
-            user.setUserName(fullName);
+            user.setName(fullName);
         }
 
         user.setCreationTimestamp(LocalDateTime.now());

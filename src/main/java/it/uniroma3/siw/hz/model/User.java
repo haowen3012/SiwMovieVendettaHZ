@@ -18,7 +18,7 @@ public class User {
     private Long id;
 
 
-	private String userName;
+
 	private String name;
 	private String surname;
 	private String email;
@@ -46,14 +46,6 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getName() {

@@ -33,7 +33,7 @@ public class Review {
     @ManyToOne
     private User author;
 
-   @ManyToOne
+    @ManyToOne
     private Movie reviewedMovie;
 
 
