@@ -31,3 +31,6 @@ Per visualizzazione delle informazioni si intende:
 - dettagli dei Film memorizzati nel sistema
 - dettagli degli Artisti memorizzati nel sistema
 - elenchi di Film ordinati secondo un qualche criterio di ordinamento.
+
+# App Deploy
+Il sito è raggiungibile al seguente url : app-siwmovievendettahz.azurewebsites.net
