@@ -16,7 +16,7 @@ il progetto presenta una serie di casi d'uso distinti per tre categorie:
 - Inserimento nuovo Film
 - Modifica Artista già esistente
 - Modifica Film già  esistente
-- Cancellazione recenzione
+- Cancellazione recensione
 - Visualizzazione di tutte le informazioni predisposte dal sistema
 
 # Casi d'uso Utente registrato:
