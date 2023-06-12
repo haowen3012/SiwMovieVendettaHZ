@@ -20,7 +20,7 @@ il progetto presenta una serie di casi d'uso distinti per tre categorie:
 
 # Casi d'uso Utente non registrato:
 - Visualizzazione di tutte le informazioni predisposte dal sistema
-
+#
 Per visualizzazione delle informazioni si intende:
 - dettagli dei Film memorizzati nel sistema
 - dettagli degli Artisti memorizzati nel sistema
