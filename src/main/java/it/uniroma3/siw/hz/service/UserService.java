@@ -44,8 +44,8 @@ public class UserService {
 
 
     @jakarta.transaction.Transactional
-    public User getUser(String username){
-        Optional<User> result = this.userRepository.findByUserName(username);
+    public User getUser(String name){
+        Optional<User> result = this.userRepository.findByName(name);
         return result.orElse(null);
     }
 
@@ -76,16 +76,13 @@ public class UserService {
 
 
     @Transactional
-    public  void addUserPicture(Long idUser, MultipartFile picture){
+    public  void addUserPicture(Long idUser, MultipartFile picture) throws IOException{
 
         User user = this.getUser(idUser);
 
-        try {
-            user.setPicture(   this.imageRepository.save(new Image(picture.getOriginalFilename(), picture.getBytes())));
 
-        }catch(IOException e){
+        user.setPicture(   this.imageRepository.save(new Image(picture.getOriginalFilename(), picture.getBytes())));
 
-        }
 
         this.saveUser(user);
 

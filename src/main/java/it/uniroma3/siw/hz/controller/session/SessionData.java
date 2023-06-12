@@ -68,10 +68,10 @@ public class SessionData {
         CustomOAuth2User loggedOAuth2User = (CustomOAuth2User) object;
 
         try {
-            this.user = userRepository.findByUserName(loggedOAuth2User.getLogin()).get();
+            this.user = userRepository.findByName(loggedOAuth2User.getLogin()).get();
         }
         catch( NoSuchElementException e ){
-            this.user = userRepository.findByUserName(loggedOAuth2User.getFullName()).get();
+            this.user = userRepository.findByName(loggedOAuth2User.getFullName()).get();
         }
     }
 }

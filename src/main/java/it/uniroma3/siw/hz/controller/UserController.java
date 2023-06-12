@@ -11,10 +11,13 @@ import it.uniroma3.siw.hz.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.ReaderEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +43,7 @@ public class UserController {
     @RequestMapping(value = {"/addUserPicture/{id}"}, method = RequestMethod.POST)
     public String addUserPhoto(@Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,
                                BindingResult fileUploadWrapperBindingResult, @PathVariable("id")
-                               Long id) {
+                               Long id, RedirectAttributes  redirectAttributes) {
 
         this.multipartFileValidator.validate(fileUploadWrapper, fileUploadWrapperBindingResult);
 
@@ -48,9 +51,19 @@ public class UserController {
         if (!fileUploadWrapperBindingResult.hasErrors()) {
 
 
-            this.userService.addUserPicture(id, fileUploadWrapper.getImage());
+            try {
+                this.userService.addUserPicture(id, fileUploadWrapper.getImage());
 
-            return "redirect:/";
+                redirectAttributes.addFlashAttribute("registrated", true);
+
+                return "redirect:/";
+            }catch (IOException e){
+
+                redirectAttributes.addFlashAttribute("fileUploadError","An error occured while uploading the input files");
+                return "registrationSuccessfull.html";
+            }
+
+
         } else {
 
 

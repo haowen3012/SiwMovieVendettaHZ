@@ -50,8 +50,13 @@
 <!------------------------------------------------------->
 
 
-<script th:src="@{javascript/warnings.js}"></script>
-<!------------------------------------------------------>
+<!------->
+<div id="event-warn" th:if="${registrated}">
+	Thank you for registrating
+	<script th:src="@{/javascript/warnings.js}"></script>
+</div>
+<!-------->
+
 <div class="nav-container">
 
 	<div class="nav">
