@@ -56,22 +56,10 @@
 <!---pop up for deleting review---->
 <div id="event-warn" th:if="${reviewDeleted}">
   The review has been successfully deleted
+
+  <script th:src="@{/javascript/warnings.js}"></script>
 </div>
 <!-------->
 
-<script>
-
-  try{
-
-
-    var deleted_war = document.getElementById('event-warn');
-
-    setTimeout( function(){
-      deleted_war.style.display = "none";},3000);
-
-  }catch(error){
-
-  }
-</script>
 </body>
 </html>

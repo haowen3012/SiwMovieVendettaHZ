@@ -115,9 +115,12 @@ public class ArtistController {
 							   @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper, BindingResult fileUploadBindingResult, Model model,
 							   RedirectAttributes redirectAttributes){
 
+        this.artistValidator.setUpdating(true);
 
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
 		this.artistValidator.validate(newArtist,artistBindingResult);
+
+		this.artistValidator.setUpdating(false);
 		if(!fileUploadBindingResult.hasErrors() && !artistBindingResult.hasErrors()) {
 
 			try {

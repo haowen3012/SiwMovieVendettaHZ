@@ -14,8 +14,16 @@ public class ArtistValidator implements Validator {
 
     private final  Integer MIN_YEAR = 1940;
     private final  Integer MAX_YEAR = 2000;
+
+    private boolean updating = false;
+
     @Autowired
     private ArtistRepository artistRepository;
+
+
+    public void setUpdating(boolean updating){
+        this.updating = updating;
+    }
 
     @Override
     public void validate(Object o, Errors errors) {
@@ -23,7 +31,7 @@ public class ArtistValidator implements Validator {
         System.out.println(errors);
         if (artist.getName() !=null &&  artist.getSurname()!=null && artist.getDateOfBirth() != null
                 && artistRepository.existsByNameAndSurnameAndDateOfBirth(artist.getName(), artist.getSurname(),artist.getDateOfBirth())) {
-            errors.rejectValue("artist","artist.duplicate");
+            errors.reject("artist.duplicate");
 
         }
 
@@ -37,7 +45,7 @@ public class ArtistValidator implements Validator {
 
         if(artist.getDateOfDeath()!=null && artist.getDateOfBirth().isAfter(artist.getDateOfDeath())){
 
-            errors.rejectValue("artist","artist.invalidBirthAndDeath");
+            errors.reject("artist.invalidBirthAndDeath");
         }
     }
     @Override

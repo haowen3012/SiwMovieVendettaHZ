@@ -121,18 +121,22 @@ public class MovieService {
     public Movie createMovie(Movie movie, Long directorToAddId, Collection<Long> actorsToaddId,
                             MultipartFile multipartFile, Collection<MultipartFile> scenes)  throws IOException {
 
-        movie.setDirector(this.artistService.getArtist(directorToAddId));
+        if(directorToAddId!=null) {
+            movie.setDirector(this.artistService.getArtist(directorToAddId));
+        }
 
-            this.addMoviePhoto(multipartFile, movie);
+            this.addMoviePoster(multipartFile, movie);
             this.addMovieScenes(scenes, movie);
 
 
         Set<Artist> actors = new HashSet<>();
 
-        for (Long actorId : actorsToaddId) {
+        if(actorsToaddId!=null) {
+            for (Long actorId : actorsToaddId) {
 
-            actors.add(this.artistService.getArtist(actorId));
-            movie.setActors(actors);
+                actors.add(this.artistService.getArtist(actorId));
+                movie.setActors(actors);
+            }
         }
 
        return  this.movieRepository.save(movie);
@@ -165,7 +169,7 @@ public class MovieService {
 
 
     @Transactional
-    public Movie addMoviePhoto(MultipartFile multipartFile, Movie movie) throws IOException {
+    public Movie addMoviePoster(MultipartFile multipartFile, Movie movie) throws IOException {
 
 
         movie.setPoster(imageRepository.save(new Image(multipartFile.getName(), multipartFile.getBytes())));
@@ -292,7 +296,7 @@ public class MovieService {
         }
 
 
-        BeanUtils.copyProperties(oldMovie, newMovie, new String[]{"id", "reviewes","", "picture", "scenes"});
+        BeanUtils.copyProperties(newMovie, oldMovie, new String[]{"id", "poster","reviewes", "scenes"});
 
         this.saveMovie(oldMovie);
 
@@ -307,7 +311,11 @@ public class MovieService {
 
         Movie movie = this.getMovie(idMovie);
 
-        movie.getDirector().getDirectedMovies().remove(movie);
+        Artist director = movie.getDirector();
+
+        if(director!=null) {
+            director.getDirectedMovies().remove(movie);
+        }
 
 
         movie.getActors().forEach(artist -> artist.getStarredMovies().remove(movie));

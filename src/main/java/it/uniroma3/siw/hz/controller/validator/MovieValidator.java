@@ -18,15 +18,21 @@ public class MovieValidator implements Validator {
 	@Autowired
 	private MovieRepository movieRepository;
 
+	private boolean updating = false;
+
+
+	public  void setUpdating(boolean updating){
+		this.updating = updating;
+	}
 
 
 	@Override
 	public void validate(Object o, Errors errors) {
 		Movie movie = (Movie)o;
 		System.out.println(errors);
-		if (movie.getTitle() !=null &&  movie.getReleaseDate() != null
+		if (!updating && movie.getTitle() !=null &&  movie.getReleaseDate() != null
 				&& movieRepository.existsByTitleAndReleaseDate(movie.getTitle(), movie.getReleaseDate())) {
-			errors.rejectValue("movie", "movie.duplicate");
+			errors.reject("movie.duplicate");
 
 		}
 
@@ -40,6 +46,8 @@ public class MovieValidator implements Validator {
 
 			errors.rejectValue("releaseDate","maxInvalidDate.movie.releaseDate");
 		}
+
+
 
 
 	}

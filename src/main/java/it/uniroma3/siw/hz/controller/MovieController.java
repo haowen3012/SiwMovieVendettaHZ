@@ -107,12 +107,14 @@ public class MovieController {
 
 		} else {
 
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.movie",movieBindingResult);
+      /*      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.movie",movieBindingResult);
             redirectAttributes.addFlashAttribute("movie",movie);
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.fileUploadWrapper",fileUploadWrapperBindingResult);
-			redirectAttributes.addFlashAttribute("fileUploadWrapper", fileUploadWrapper);
+			redirectAttributes.addFlashAttribute("fileUploadWrapper", fileUploadWrapper);*/
 
-			return "redirect:/admin/formNewMovie";
+			model.addAttribute("artists", this.artistService.getAllArtists());
+
+			return "/admin/formNewMovie.html";
 
 		}
 	}
@@ -234,8 +236,12 @@ public class MovieController {
 			,BindingResult movieBindingResult, @Valid @ModelAttribute FileUploadWrapper fileUploadWrapper,BindingResult fileUploadBindingResult,
 									  RedirectAttributes redirectAttributes){
 
+		this.movieValidator.setUpdating(true);
+
 		this.movieValidator.validate(newMovie,movieBindingResult);
 		this.multipartFileValidator.validate(fileUploadWrapper, fileUploadBindingResult);
+
+		this.movieValidator.setUpdating(false);
 		if(!fileUploadBindingResult.hasErrors() && !movieBindingResult.hasErrors()) {
 
 			try {
@@ -244,7 +250,7 @@ public class MovieController {
 			}catch(IOException e){
 
 				redirectAttributes.addFlashAttribute("fileUploadError","An error occured while uploading the input files");
-				return "redirect/updateMovieFields/" + idMovie;
+				return "redirect:/updateMovieFields/" + idMovie;
 			}
 		}
 
