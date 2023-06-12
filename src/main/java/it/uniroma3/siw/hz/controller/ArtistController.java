@@ -67,7 +67,7 @@ public class ArtistController {
 			return "artist.html";
 
 		} else {
-			model.addAttribute("fileUploadWrapper",fileUploadWrapper);
+
 			return "admin/formNewArtist.html"; 
 		}
 	}
@@ -130,8 +130,6 @@ public class ArtistController {
 			}
 		}
 
-		model.addAttribute("fileUploadWrapper",fileUploadWrapper);
-		model.addAttribute("artist",newArtist);
           return "admin/formUpdateArtist.html";
 	}
 

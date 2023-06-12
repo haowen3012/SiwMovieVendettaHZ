@@ -37,6 +37,11 @@ public class MultipartFileValidator implements Validator {
 
             for(MultipartFile scene : fileUploadWrapper.getMovieScenes()) {
 
+                if(scene!=null && scene.isEmpty()){
+
+                    errors.rejectValue("mvoieScenes","required.fileUploadWrapper.movieScenes");
+                }
+
                 if (scene!= null && !scene.isEmpty() && !scene.getOriginalFilename().endsWith(".png") &&
                         !scene.getOriginalFilename().endsWith(".jpeg") && !scene.getOriginalFilename().endsWith(".jpg") ) {
 

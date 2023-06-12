@@ -39,6 +39,11 @@
 	<div class="error" th:if="${moviesNotFound}"  >
 		Movies not found
 	</div>
+
+<!------>
+	<div class="error" th:if="${param.error}">
+		Invalid username and password.</div>
+	<!----->
 </div>
 
 <script th:src="@{javascript/errorLogs.js}"></script>

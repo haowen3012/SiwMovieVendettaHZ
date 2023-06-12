@@ -31,6 +31,9 @@
 	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
 		 th:errors="${fileUploadWrapper.image}" ></div>
 
+	<div class="error" th:if="${ fileUploadError}"
+		 th:text="${fileUploadError}"></div>
+
 </div>
 
 <script th:src="@{/javascript/errorLogs.js}"></script>
@@ -53,7 +56,7 @@
 
 	<div class="artist-date"  th:fragment="artistDateBirth">
 		<h1> Date of Birth</h1>
-		<input   type="date"  min="1940-01-01"  max="2000-01-01" th:field="${artist.dateOfBirth}" required  />
+		<input   type="date"  min="1940-01-01"  max="2000-12-31" th:field="${artist.dateOfBirth}" required  />
 	</div>
 	<div class="artist-date"  th:fragment="artistDateDeath">
 		<h1> Date of Death</h1>

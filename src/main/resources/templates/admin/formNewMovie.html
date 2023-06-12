@@ -15,11 +15,13 @@
 <div id="errors" th:fragment="movieErrors">
 
 	<div class="error" th:if="${#fields.hasErrors('movie')}"
-		 th:errors="${movie}" >Campo Obbligatorio</div>
+		 th:errors="${movie}" ></div>
+
+	<div class="error" th:if="${#fields.hasErrors('movie.releaseDate')}"
+		 th:errors="${movie.releaseDate}" ></div>
 
 	<div class="error" th:if="${#fields.hasErrors('movie.plot')}"
 		 th:errors="${movie.plot}" ></div>
-
 
 	<div class="error" th:if="${fileUploadWrapper!=null and #fields.hasErrors('fileUploadWrapper.image')}"
 		 th:errors="${fileUploadWrapper.image}" ></div>
@@ -47,12 +49,12 @@
 
 	<div id="movie-releasedate" th:fragment="moiveReleaseDate">
 		<h1>Release Date </h1>
-		<input   type="date" required  th:field="${movie.releaseDate}"/>
+		<input   type="date" required  th:field="${movie.releaseDate}" min="1900-01-01" th:max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"/>
 	</div>
 
 	<div id="movie-plot" th:fragment="moviePlot">
 		<h1>Movie Plot </h1>
-		<textarea    th:field="${movie.plot}" minlength="200" required/></textarea>
+		<textarea    th:field="${movie.plot}" maxlength="200" required/></textarea>
 	</div>
 
 	<div id="movie-image" th:fragment="moviePoster">
@@ -68,19 +70,19 @@
 	<div id="movie-scenes" th:fragment="movieScenes">
 		<h1>Movie Scenes</h1>
 		<div class="scene" >
-			<input class="sceneFile" type="file" id="scene1" name="movieScenes" accept="image/png, image/jpeg" />
+			<input class="sceneFile" type="file" id="scene1" name="movieScenes" required accept="image/png, image/jpeg" />
 			<img id="thumbnail-scene1" />
 			<i class="fa fa-plus" id="plus-1" ></i>
 		</div>
 		<div class="scene">
-			<input class="sceneFile" type="file" id="scene2" name="movieScenes" accept="image/png, image/jpeg" />
+			<input class="sceneFile" type="file" id="scene2" name="movieScenes"  required accept="image/png, image/jpeg" />
 			<img id="thumbnail-scene2" />
 			<i class="fa fa-plus" id="plus-2" ></i>
 
 		</div>
 
 		<div class="scene">
-			<input class="sceneFile" type="file" id="scene3" name="movieScenes" accept="image/png, image/jpeg" />
+			<input class="sceneFile" type="file" id="scene3" name="movieScenes"  required accept="image/png, image/jpeg" />
 			<img id="thumbnail-scene3" />
 			<i class="fa fa-plus" id="plus-3" ></i>
 		</div>
