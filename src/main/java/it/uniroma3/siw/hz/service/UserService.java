@@ -111,8 +111,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateExistingUser(User user, String fullName, AuthenticationProvider provider){
-        user.setName(fullName);
+    public void updateExistingUser(User user, String loginName ,String fullName, AuthenticationProvider provider){
+        if(loginName != null) {
+            user.setName(loginName);
+        }
+        else{
+            user.setName(fullName);
+        }
+
         user.setoAuthProvider(provider);   // probabilmente da modificare
 
         userRepository.save(user);

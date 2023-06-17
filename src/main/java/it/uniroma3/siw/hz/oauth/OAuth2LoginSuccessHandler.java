@@ -40,14 +40,16 @@ public class OAuth2LoginSuccessHandler  implements AuthenticationSuccessHandler 
         System.out.println("fullname: " + fullName );
 
 
+
         User user= userService.getUser(loginName);
+
 
 
 
         if(user == null){
             userService.registerNewCustomerAfterOAuthLoginSuccess(loginName,fullName,AuthenticationProvider.OAUTH);
         }else{
-            userService.updateExistingUser(user, fullName, AuthenticationProvider.OAUTH);
+            userService.updateExistingUser(user,loginName, fullName, AuthenticationProvider.OAUTH);
         }
 
         response.sendRedirect("/login/oauth2/user");
